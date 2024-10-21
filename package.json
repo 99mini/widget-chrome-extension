@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension-boilerplate",
+  "name": "widget-chrome-extension",
   "version": "1.0.0",
-  "description": "A Chrome extension for a custom new tab.",
+  "description": "new tab widget chrome extension",
   "main": "index.html",
   "type": "module",
   "scripts": {

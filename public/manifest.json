@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "My Chrome Extension",
+  "name": "widget chrome extension",
   "description": "A Chrome extension for a custom new tab.",
   "version": "1.0.0",
   "action": {
