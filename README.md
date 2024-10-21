@@ -1,11 +1,6 @@
-# Chrome Extension Boilerplate
+# Widget Chrome Extension
 
-Chrome Extension Boilerplate with `Manifest-v3`, `React`, `Typescript` and `Vite`.
-
-https://github.com/user-attachments/assets/f3cd9983-3004-4c5b-9c8a-8b15d3597f18
-
-- `Todo`: `chrome.storage.sync.get`, `chrome.storage.sync.set`을 이용하여 투두 리스트 저장.
-- `Clock`: 현재 시간 반환(`new Date().toLocaleTimeString()`)
+custom new tab!
 
 # Stack
 
