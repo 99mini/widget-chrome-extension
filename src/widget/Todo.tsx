@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
-import { syncGet, syncSet } from '../chrome/storage';
+import { syncGet, syncSet } from '@/chrome/storage';
 
 const Container = styled.div`
   padding: 20px;

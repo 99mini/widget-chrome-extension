@@ -4,6 +4,7 @@
   "description": "new tab widget chrome extension",
   "main": "index.html",
   "type": "module",
+  "homepage": "https://github.com/99mini/widget-chrome-extension",
   "scripts": {
     "dev": "vite",
     "lint": "eslint src/**/*.ts?(x)",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/chrome": "^0.0.279",
+    "@types/node": "^22.7.7",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^8.11.0",

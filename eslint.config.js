@@ -18,7 +18,7 @@ export default [
           jsx: true,
         },
       },
-      globals: { ...globals.browser, chrome: 'readonly', MOCK_CHROME: 'readonly' },
+      globals: { ...globals.browser, ...globals.node, chrome: 'readonly', MOCK_CHROME: 'readonly' },
     },
     plugins: {
       react: react,

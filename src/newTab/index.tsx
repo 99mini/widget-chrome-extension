@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Clock from './Clock';
-import Todo from './Todo';
+import Clock from '@/widget/Clock';
+import Todo from '@/widget/Todo';
 
 const NewTab: React.FC = () => {
   return (
