@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
+import { syncGet, syncSet } from '../chrome/storage';
+
 const Container = styled.div`
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -44,10 +46,9 @@ const Todo: React.FC = () => {
   const [tasks, setTasks] = useState<string[]>([]);
 
   useEffect(() => {
-    // Chrome storage에서 기존 저장된 할 일 목록 불러오기
-    chrome.storage.sync.get(['tasks'], (result) => {
-      if (result.tasks) {
-        setTasks(result.tasks);
+    syncGet<string[]>('tasks').then((tasks) => {
+      if (tasks) {
+        setTasks(tasks);
       }
     });
   }, []);
@@ -58,8 +59,7 @@ const Todo: React.FC = () => {
       setTasks(newTasks);
       setTask('');
 
-      // Chrome storage에 저장
-      chrome.storage.sync.set({ tasks: newTasks });
+      syncSet('tasks', newTasks);
     }
   };
 
@@ -67,8 +67,7 @@ const Todo: React.FC = () => {
     const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
 
-    // Chrome storage에 저장
-    chrome.storage.sync.set({ tasks: newTasks });
+    syncSet('tasks', newTasks);
   };
 
   return (
