@@ -14,7 +14,9 @@
     "check": "yarn lint && yarn format && yarn tsc",
     "build": "vite build",
     "build:prod": "yarn check && yarn build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest --watch",
+    "test:ci": "vitest --ci",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -25,6 +27,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@testing-library/jest-dom": "^6.6.2",
+    "@testing-library/react": "^16.0.1",
     "@types/chrome": "^0.0.279",
     "@types/node": "^22.7.7",
     "@types/react": "^18",
@@ -38,9 +42,11 @@
     "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^5.0.0",
     "globals": "^15.11.0",
+    "jsdom": "^25.0.1",
     "prettier": "^3.3.3",
     "typescript-eslint": "^8.11.0",
-    "vite": "^5.4.9"
+    "vite": "^5.4.9",
+    "vitest": "^2.1.3"
   },
   "packageManager": "yarn@4.2.2"
 }
