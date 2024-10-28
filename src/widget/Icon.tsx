@@ -8,19 +8,19 @@ type IconWidgetProps = {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
   width: 80px;
 `;
 
 const Link = styled.a`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  gap: 8px;
+
   text-decoration: none;
   color: inherit;
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
 `;
 
 const Image = styled.img`

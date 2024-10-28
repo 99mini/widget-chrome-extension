@@ -2,14 +2,8 @@
 
 const storage = {
   sync: {
-    get: (keys: string[], callback: (result: { [key: string]: any }) => void) => {
-      const mockData = keys.reduce(
-        (acc, key) => {
-          acc[key] = localStorage.getItem(key) || null;
-          return acc;
-        },
-        {} as { [key: string]: any }
-      );
+    get: (key: string, callback: (result: { [key: string]: any }) => void) => {
+      const mockData = { [key]: localStorage.getItem(key) };
 
       callback(mockData);
     },
