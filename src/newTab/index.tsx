@@ -8,15 +8,20 @@ import Layout from '@/widget/Layout';
 import Todo from '@/widget/Todo';
 
 import bookmarksMockData from '@/mock/bookmarks.mock';
+import Folder from '@/widget/Folder';
 const NewTab: React.FC = () => {
   const [bookmarks, setBookmarks] = React.useState<chrome.bookmarks.BookmarkTreeNode[]>([]);
 
   useEffect(() => {
     const fetch = async () => {
+      // TODO: 주석 해제
       // const res = await getTree();
+      // const parsed = flat(res);
+
       console.log(bookmarksMockData);
       const parsed = flat(bookmarksMockData);
       console.log(parsed);
+
       setBookmarks(parsed);
     };
 
@@ -28,14 +33,30 @@ const NewTab: React.FC = () => {
       <Todo />
       <Clock />
       <Layout>
-        {bookmarks.map((bookmark) => (
-          <IconWidget
-            key={bookmark.id}
-            name={bookmark.title}
-            url={bookmark.url ?? 'empty'}
-            image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
-          />
-        ))}
+        {bookmarks.map((bookmark) => {
+          if (!bookmark.url && bookmark.children) {
+            return (
+              <Folder key={bookmark.id}>
+                {bookmark.children.map((folderClild) => (
+                  <IconWidget
+                    key={folderClild.id}
+                    name={folderClild.title}
+                    url={folderClild.url ?? 'empty'}
+                    image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
+                  />
+                ))}
+              </Folder>
+            );
+          }
+          return (
+            <IconWidget
+              key={bookmark.id}
+              name={bookmark.title}
+              url={bookmark.url ?? 'empty'}
+              image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
+            />
+          );
+        })}
       </Layout>
     </div>
   );
