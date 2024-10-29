@@ -5,10 +5,11 @@ type IconWidgetProps = {
   name: string;
   url: string;
   image: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
 const Container = styled.div`
-  width: 80px;
+  width: 122px;
 `;
 
 const Link = styled.a`
@@ -24,8 +25,8 @@ const Link = styled.a`
 `;
 
 const Image = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   object-fit: cover;
 `;
@@ -35,10 +36,10 @@ const Name = styled.span`
   font-weight: 500;
 `;
 
-const IconWidget = ({ name, url, image }: IconWidgetProps) => {
+const IconWidget: React.FC<IconWidgetProps> = ({ name, url, image, onClick }) => {
   return (
     <Container>
-      <Link href={url}>
+      <Link href={url} onClick={onClick}>
         <Image src={image} alt={name} />
         <Name>{name}</Name>
       </Link>

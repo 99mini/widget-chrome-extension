@@ -36,7 +36,7 @@ const NewTab: React.FC = () => {
         {bookmarks.map((bookmark) => {
           if (!bookmark.url && bookmark.children) {
             return (
-              <Folder key={bookmark.id}>
+              <Folder key={bookmark.id} title={bookmark.title} id={bookmark.id}>
                 {bookmark.children.map((folderClild) => (
                   <IconWidget
                     key={folderClild.id}
