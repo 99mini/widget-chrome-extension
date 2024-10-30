@@ -1,7 +1,9 @@
-import styled from '@emotion/styled';
 import React, { useState } from 'react';
-
 import { createPortal } from 'react-dom';
+
+import styled from '@emotion/styled';
+
+import useClickAway from '@/hook/useClickAway';
 import IconWidget from './Icon';
 
 type FolderProps = {
@@ -43,6 +45,10 @@ const Modal = styled.div`
 const Folder: React.FC<FolderProps> = ({ id, title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleClose = () => setIsOpen(false);
+
+  const ref = useClickAway<HTMLDivElement>(handleClose, 300);
+
   return (
     <>
       <IconWidget
@@ -57,7 +63,7 @@ const Folder: React.FC<FolderProps> = ({ id, title, children }) => {
       {isOpen &&
         createPortal(
           <ModalBackground>
-            <ModalContainer>
+            <ModalContainer ref={ref}>
               <Modal>{children}</Modal>
             </ModalContainer>
           </ModalBackground>,
