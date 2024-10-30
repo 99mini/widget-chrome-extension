@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 
 import useClickAway from '@/hook/useClickAway';
 import IconWidget from './Icon';
+import EditableText from '@/components/EditableText';
 
 type FolderProps = {
   children: React.ReactNode;
@@ -19,22 +20,34 @@ const ModalBackground = styled.div`
   right: 0;
   bottom: 0;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 `;
 
 const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;
 
+const ModalTitle = styled.div`
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: 500;
+`;
+
 const Modal = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-
-  aspect-ratio: 1;
 
   padding: 24px;
 
@@ -64,6 +77,9 @@ const Folder: React.FC<FolderProps> = ({ id, title, children }) => {
         createPortal(
           <ModalBackground>
             <ModalContainer ref={ref}>
+              <ModalTitle>
+                <EditableText text={title} onChange={console.log} />
+              </ModalTitle>
               <Modal>{children}</Modal>
             </ModalContainer>
           </ModalBackground>,
