@@ -3,15 +3,18 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import useClickAway from '@/hook/useClickAway';
-import IconWidget from './Icon';
 import EditableText from '@/components/EditableText';
+import useClickAway from '@/hook/useClickAway';
+import FolderIcon from './FolderIcon';
 
 type FolderProps = {
   children: React.ReactNode;
-  id: string;
+
   title: string;
+  imageUrls: string[];
 };
+
+const Clickable = styled.div``;
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -55,30 +58,33 @@ const Modal = styled.div`
   border-radius: 8px;
 `;
 
-const Folder: React.FC<FolderProps> = ({ id, title, children }) => {
+const Folder: React.FC<FolderProps> = ({ title, children, imageUrls }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => setIsOpen(false);
+
+  const onChangeTitle = (newTitle: string) => {
+    console.log(newTitle);
+  };
 
   const ref = useClickAway<HTMLDivElement>(handleClose, 300);
 
   return (
     <>
-      <IconWidget
-        name={title}
-        url={`#${id}`}
-        image=""
+      <Clickable
         onClick={(e) => {
           e.preventDefault();
           setIsOpen(true);
         }}
-      />
+      >
+        <FolderIcon title={title} imageUrls={imageUrls} />
+      </Clickable>
       {isOpen &&
         createPortal(
           <ModalBackground>
             <ModalContainer ref={ref}>
               <ModalTitle>
-                <EditableText text={title} onChange={console.log} />
+                <EditableText text={title} onChange={onChangeTitle} />
               </ModalTitle>
               <Modal>{children}</Modal>
             </ModalContainer>

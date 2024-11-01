@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 const Container = styled.button`
+  width: 100%;
+  height: 100%;
   padding: 8px;
 
   border: none;
   background-color: transparent;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
-  width: 100%;
+  padding: 0;
 
   text-align: center;
 
@@ -43,7 +46,6 @@ const EditableText: React.FC<EditableTextProps> = ({ text, onChange }) => {
   return (
     <Container
       onClick={() => {
-        console.log('click');
         setIsEditing(true);
       }}
     >

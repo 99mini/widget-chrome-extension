@@ -8,8 +8,9 @@ type IconWidgetProps = {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
+// TODO: IconWidget과 FolderIcon을 합쳐서 IconWidget으로 통합
 const Container = styled.div`
-  width: 122px;
+  width: 132px;
 `;
 
 const Link = styled.a`
@@ -24,9 +25,15 @@ const Link = styled.a`
   color: inherit;
 `;
 
+const ImageWrapper = styled.div`
+  width: calc(44px + 16px);
+  height: calc(44px + 16px);
+`;
+
 const Image = styled.img`
-  width: 44px;
-  height: 44px;
+  width: 100%;
+  height: 100%;
+
   border-radius: 12px;
   object-fit: cover;
 `;
@@ -40,7 +47,9 @@ const IconWidget: React.FC<IconWidgetProps> = ({ name, url, image, onClick }) =>
   return (
     <Container>
       <Link href={url} onClick={onClick}>
-        <Image src={image} alt={name} />
+        <ImageWrapper>
+          <Image src={image} alt={name} />
+        </ImageWrapper>
         <Name>{name}</Name>
       </Link>
     </Container>

@@ -36,7 +36,15 @@ const NewTab: React.FC = () => {
         {bookmarks.map((bookmark) => {
           if (!bookmark.url && bookmark.children) {
             return (
-              <Folder key={bookmark.id} title={bookmark.title} id={bookmark.id}>
+              <Folder
+                key={bookmark.id}
+                title={bookmark.title}
+                // TODO: 주석 해제
+                // imageUrls={bookmark.children.map((child) => child.url ?? '')}
+                imageUrls={bookmark.children.map(
+                  (_) => 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png'
+                )}
+              >
                 {bookmark.children.map((folderClild) => (
                   <IconWidget
                     key={folderClild.id}
