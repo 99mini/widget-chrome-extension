@@ -20,4 +20,9 @@ export default defineConfig(({ mode }) => ({
   define: {
     MOCK_CHROME: mode === 'development',
   },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './.config/vitest.ts',
+  },
 }));
