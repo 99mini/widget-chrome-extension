@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { getTree } from '@/chrome/bookmarks';
-import { flat } from '@/utils/bookmark-tree-node-parser';
+import { flatBookmark } from '@/utils/bookmark';
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
 import Layout from '@/widget/Layout';
@@ -19,7 +19,7 @@ const NewTab: React.FC = () => {
       // const parsed = flat(res);
 
       console.log(bookmarksMockData);
-      const parsed = flat(bookmarksMockData);
+      const parsed = flatBookmark(bookmarksMockData);
       console.log(parsed);
 
       setBookmarks(parsed);
