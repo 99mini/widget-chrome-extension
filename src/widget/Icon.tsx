@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { useDrag } from 'react-dnd';
 
 type IconWidgetProps = {
   name: string;
@@ -44,8 +45,16 @@ const Name = styled.span`
 `;
 
 const IconWidget: React.FC<IconWidgetProps> = ({ name, url, image, onClick }) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'BOOKMARK',
+    item: { id: name, url },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <Container>
+    <Container ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <Link href={url} onClick={onClick}>
         <ImageWrapper>
           <Image src={image} alt={name} />
