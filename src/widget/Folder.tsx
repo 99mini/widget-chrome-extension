@@ -14,7 +14,9 @@ type FolderProps = {
   imageUrls: string[];
 };
 
-const Clickable = styled.div``;
+const Clickable = styled.div`
+  cursor: pointer;
+`;
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -55,7 +57,7 @@ const Modal = styled.div`
   padding: 24px;
 
   background-color: #f0f0f0;
-  border-radius: 8px;
+  border-radius: 16px;
 `;
 
 const Folder: React.FC<FolderProps> = ({ title, children, imageUrls }) => {

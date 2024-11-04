@@ -27,7 +27,7 @@ const IconContainer = styled.div`
   gap: 4px;
 
   background-color: #f0f0f0;
-  border-radius: 12px;
+  border-radius: 16px;
 
   padding: 8px;
 `;
