@@ -38,6 +38,7 @@ const NewTab: React.FC = () => {
             return (
               <Folder
                 key={bookmark.id}
+                id={bookmark.id}
                 title={bookmark.title}
                 // TODO: 주석 해제
                 // imageUrls={bookmark.children.map((child) => child.url ?? '')}
@@ -48,7 +49,8 @@ const NewTab: React.FC = () => {
                 {bookmark.children.map((folderClild) => (
                   <IconWidget
                     key={folderClild.id}
-                    name={folderClild.title}
+                    id={folderClild.id}
+                    title={folderClild.title}
                     url={folderClild.url ?? 'empty'}
                     image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
                   />
@@ -59,7 +61,8 @@ const NewTab: React.FC = () => {
           return (
             <IconWidget
               key={bookmark.id}
-              name={bookmark.title}
+              id={bookmark.id}
+              title={bookmark.title}
               url={bookmark.url ?? 'empty'}
               image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
             />

@@ -6,12 +6,15 @@ import styled from '@emotion/styled';
 import EditableText from '@/components/EditableText';
 import useClickAway from '@/hook/useClickAway';
 import FolderIcon from './FolderIcon';
+import { useDrop } from 'react-dnd';
+import { move } from '@/chrome/bookmarks';
 
 type FolderProps = {
-  children: React.ReactNode;
-
+  id: string;
   title: string;
   imageUrls: string[];
+
+  children: React.ReactNode;
 };
 
 const Clickable = styled.div`
@@ -60,8 +63,22 @@ const Modal = styled.div`
   border-radius: 16px;
 `;
 
-const Folder: React.FC<FolderProps> = ({ title, children, imageUrls }) => {
+const Folder: React.FC<FolderProps> = ({ id: folderId, title, imageUrls, children }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [{ isOver }, drop] = useDrop({
+    accept: 'BOOKMARK', // 드롭할 수 있는 아이템 타입 지정
+    drop: async (item: { id: string }) => {
+      try {
+        await move(item.id, folderId);
+      } catch (error) {
+        console.error('Failed to move bookmark:', error);
+      }
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  });
 
   const handleClose = () => setIsOpen(false);
 
@@ -79,7 +96,9 @@ const Folder: React.FC<FolderProps> = ({ title, children, imageUrls }) => {
           setIsOpen(true);
         }}
       >
-        <FolderIcon title={title} imageUrls={imageUrls} />
+        <div ref={drop} style={{ backgroundColor: isOver ? '#e0e0e0' : 'transparent' }}>
+          <FolderIcon title={title} imageUrls={imageUrls} />
+        </div>
       </Clickable>
       {isOpen &&
         createPortal(

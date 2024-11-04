@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
 type IconWidgetProps = {
-  name: string;
+  id: string;
+  title: string;
   url: string;
   image: string;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
@@ -44,10 +45,10 @@ const Name = styled.span`
   font-weight: 500;
 `;
 
-const IconWidget: React.FC<IconWidgetProps> = ({ name, url, image, onClick }) => {
+const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'BOOKMARK',
-    item: { id: name, url },
+    item: { id, url },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -57,9 +58,9 @@ const IconWidget: React.FC<IconWidgetProps> = ({ name, url, image, onClick }) =>
     <Container ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <Link href={url} onClick={onClick}>
         <ImageWrapper>
-          <Image src={image} alt={name} />
+          <Image src={image} alt={title} />
         </ImageWrapper>
-        <Name>{name}</Name>
+        <Name>{title}</Name>
       </Link>
     </Container>
   );
