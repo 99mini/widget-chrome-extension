@@ -18,7 +18,7 @@ const Input = styled.input`
   &[type='checkbox'] {
     appearance: none;
     position: relative;
-    border: max(2px, 0.1em) solid ${({ theme }) => theme.colors.background};
+    border: max(2px, 0.1em) solid ${({ theme }) => theme.colors.text};
     border-radius: 16px;
     width: 36px;
     height: 20px;
@@ -31,7 +31,7 @@ const Input = styled.input`
       height: 16px;
       border-radius: 50%;
       transform: scale(0.8);
-      background-color: ${({ theme }) => theme.colors.background};
+      background-color: ${({ theme }) => theme.colors.text};
       transition: left 250ms linear;
 
       box-sizing: border-box;
@@ -39,24 +39,20 @@ const Input = styled.input`
 
     &:checked {
       background-color: ${({ theme }) => theme.colors.background};
-      border-color: ${({ theme }) => theme.colors.background};
+      border-color: ${({ theme }) => theme.colors.text};
 
       &::before {
         left: 16px;
-        background-color: white;
 
         box-sizing: border-box;
       }
     }
 
     &:disabled {
-      border-color: lightgray;
       opacity: 0.7;
       cursor: not-allowed;
 
       &:before {
-        background-color: lightgray;
-
         box-sizing: border-box;
 
         & + span {

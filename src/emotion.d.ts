@@ -1,8 +1,6 @@
 import '@emotion/react';
 
-import { DefaultTheme } from './context/theme';
-
-type Colors = (typeof DefaultTheme)['colors'];
+import { type Colors } from './context/theme';
 
 declare module '@emotion/react' {
   export interface Theme {
