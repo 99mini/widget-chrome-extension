@@ -30,11 +30,21 @@ const Link = styled.a`
 const ImageWrapper = styled.div`
   width: calc(44px + 16px);
   height: calc(44px + 16px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f5f5f5;
+  border-radius: 16px;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  width: max-content;
+  height: max-content;
+
+  max-width: 44px;
+  max-height: 44px;
 
   border-radius: 16px;
   object-fit: cover;
