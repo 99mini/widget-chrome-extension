@@ -90,11 +90,11 @@ const Name = styled.span`
   font-weight: 500;
   line-height: 16px;
 
-  width: 84px;
+  width: inherit;
+  min-width: ${({ theme }) => theme.sizes.widget.icon + theme.sizes.widget.rowGap / 2 - 2}px;
   height: 16px;
 
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
 `;
 

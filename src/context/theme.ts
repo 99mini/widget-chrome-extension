@@ -19,7 +19,7 @@ type Sizes = {
   widget: {
     icon: 60;
     rowGap: 36;
-    columnGap: 36;
+    columnGap: 12;
 
     textHeight: 16;
     textGap: 8;
@@ -43,7 +43,7 @@ const sizes: Sizes = {
   widget: {
     icon: 60,
     rowGap: 36,
-    columnGap: 36,
+    columnGap: 12,
 
     textHeight: 16,
     textGap: 8,
