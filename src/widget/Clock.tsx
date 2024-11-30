@@ -26,11 +26,11 @@ const Container = styled.div`
 `;
 
 const TimeContainer = styled.div`
-  font-size: 24px;
+  font-size: 18px;
 `;
 
 const DateContainer = styled.div`
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const ID = 'clock' as const;
