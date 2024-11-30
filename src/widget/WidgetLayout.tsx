@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-type LayoutProps = {
+type WidgetLayoutProps = {
   children: React.ReactNode;
 };
 
@@ -12,8 +12,8 @@ const Container = styled.div`
   gap: 24px 0;
 `;
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children }) => {
   return <Container>{children}</Container>;
 };
 
-export default Layout;
+export default WidgetLayout;

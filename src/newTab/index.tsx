@@ -3,8 +3,7 @@ import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Folder from '@/widget/Folder';
 import IconWidget from '@/widget/Icon';
-import Layout from '@/widget/Layout';
-import Todo from '@/widget/Todo';
+import WidgetLayout from '@/widget/WidgetLayout';
 
 import useBookmarkStore from '@/hook/useBookmark';
 
@@ -21,8 +20,7 @@ const NewTab: React.FC = () => {
   return (
     <div>
       <Header />
-      <Todo />
-      <Layout>
+      <WidgetLayout>
         {bookmarks.map((bookmark) => {
           if (!bookmark.url && bookmark.children) {
             return (
@@ -57,7 +55,7 @@ const NewTab: React.FC = () => {
             />
           );
         })}
-      </Layout>
+      </WidgetLayout>
     </div>
   );
 };

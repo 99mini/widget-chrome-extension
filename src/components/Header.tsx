@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
-import Clock from '@/widget/Clock';
 import Switch from './Switch';
 
 import { mode, actions } from '@/hook/useTheme';
@@ -18,9 +17,10 @@ const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(mode === 'dark');
 
   return (
+    // 3 children
     <Container>
       <div></div>
-      <Clock />
+      <div></div>
       <Switch
         InputProps={{
           checked: isDarkMode,

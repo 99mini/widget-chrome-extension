@@ -2,6 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
+import Widget from './Widget';
+
 type IconWidgetProps = {
   id: string;
   title: string;
@@ -9,10 +11,6 @@ type IconWidgetProps = {
   image?: string | undefined;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
-
-const Container = styled.div`
-  width: 132px;
-`;
 
 const Link = styled.a`
   display: flex;
@@ -49,19 +47,8 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
-const Name = styled.span`
-  font-size: 12px;
-  font-weight: 500;
-
-  width: 120px;
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
 const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{ isDragging }] = useDrag(() => ({
     type: 'BOOKMARK',
     item: { id, url },
     collect: (monitor) => ({
@@ -70,14 +57,13 @@ const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick 
   }));
 
   return (
-    <Container ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <Widget style={{ opacity: isDragging ? 0.5 : 1 }} title={title}>
       <Link href={url} onClick={onClick} title={title}>
         <ImageWrapper>
           <Image src={image} alt={title} />
         </ImageWrapper>
-        <Name>{title}</Name>
       </Link>
-    </Container>
+    </Widget>
   );
 };
 

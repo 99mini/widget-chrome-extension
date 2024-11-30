@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
+import Widget from './Widget';
+
 type FolderIconProps = {
   title: string;
   bookmarks: {
@@ -9,17 +11,6 @@ type FolderIconProps = {
   }[];
   isOver?: boolean;
 };
-
-const Container = styled.div`
-  width: 132px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-  gap: 8px;
-`;
 
 const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;
@@ -52,28 +43,20 @@ const IconImage = styled.img`
   object-fit: cover;
 `;
 
-const Name = styled.span<{ isOver?: boolean }>`
-  font-size: 12px;
-  font-weight: 500;
-
-  ${({ isOver }) =>
-    isOver &&
-    `
-    opacity: 0;
-    transition: opacity 237ms;
-  `}
-`;
-
 const FolderIcon: React.FC<FolderIconProps> = ({ title, bookmarks, isOver }) => {
   return (
-    <Container>
+    <Widget
+      title={title}
+      TitleProps={{
+        style: isOver ? { opacity: 0, transition: 'opacity 237ms;' } : undefined,
+      }}
+    >
       <IconContainer isOver={isOver}>
         {bookmarks.slice(0, 9).map(({ id, imageUrl }) => (
           <IconImage key={id} src={imageUrl} alt={title} />
         ))}
       </IconContainer>
-      <Name isOver={isOver}>{title}</Name>
-    </Container>
+    </Widget>
   );
 };
 
