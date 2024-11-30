@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
-  width: ${({ span }) => `calc(132px * ${span.coloumn} + 12px * ${span.coloumn - 1})`};
-  height: ${({ span }) => `calc(96px * ${span.row} + 24px * ${span.row - 1})`};
+  width: ${({ span }) => `calc(132px * ${span?.column} + 12px * ${span?.column || 1 - 1})`};
+  height: ${({ span }) => `calc(96px * ${span?.row} + 24px * ${span?.row || 1 - 1})`};
 
   display: flex;
   flex-direction: column;
@@ -56,18 +56,18 @@ const Name = styled.span`
 `;
 
 type WidgetProps = {
-  span:
+  span?:
     | {
         row: 1;
-        coloumn: 1;
+        column: 1;
       }
     | {
         row: 1;
-        coloumn: 2;
+        column: 2;
       }
     | {
         row: 2;
-        coloumn: 2;
+        column: 2;
       };
   id: string;
   childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
@@ -78,7 +78,7 @@ type WidgetProps = {
 const Widget: React.FC<WidgetProps> = ({
   span = {
     row: 1,
-    coloumn: 1,
+    column: 1,
   },
   id,
   childrenProps,

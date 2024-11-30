@@ -52,7 +52,7 @@ const Clock: React.FC<ClockProps> = ({
     title: 'Clock',
     span: {
       row: 2,
-      coloumn: 2,
+      column: 2,
     },
   },
   format = 'yyyy년 MM월 dd일 a HH:mm:ss',
@@ -81,7 +81,7 @@ const Clock: React.FC<ClockProps> = ({
 
   return (
     <Widget
-      id={`${ID}-${WidgetProps.span?.row}-${WidgetProps.span?.coloumn}`}
+      id={`${ID}-${WidgetProps.span?.row}-${WidgetProps.span?.column}`}
       childrenProps={{
         border: true,
       }}
