@@ -24,6 +24,7 @@ const IconContainer = styled.div`
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 4px;
 
   background-color: #f0f0f0;
@@ -49,7 +50,7 @@ const FolderIcon: React.FC<FolderIconProps> = ({ title, imageUrls }) => {
   return (
     <Container>
       <IconContainer>
-        {imageUrls.map((imageUrl) => (
+        {imageUrls.slice(0, 9).map((imageUrl) => (
           <IconImage key={imageUrl} src={imageUrl} alt={title} />
         ))}
       </IconContainer>
