@@ -26,7 +26,7 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
   justify-content: center;
 
   width: 100%;
-  height: ${({ span }) => `calc(96px * ${span?.row})`};
+  height: ${({ span }) => `calc(96px * ${span?.row} + ${span?.row || 1 - 1} * 24px)`};
 
   box-sizing: border-box;
 
