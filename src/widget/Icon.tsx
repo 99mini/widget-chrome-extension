@@ -43,6 +43,12 @@ const Image = styled.img`
 const Name = styled.span`
   font-size: 12px;
   font-weight: 500;
+
+  width: 120px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick }) => {
