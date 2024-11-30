@@ -17,7 +17,7 @@ type FolderProps = {
   title: string;
   bookmarks: {
     id: string;
-    imageUrl: string;
+    imageUrl?: string | undefined;
   }[];
 
   children: React.ReactNode;
@@ -26,15 +26,15 @@ type FolderProps = {
 const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    actions: { moveBookmark, getBookmarks },
+    actions: { moveBookmark, refresh },
   } = useBookmarkStore();
 
   const [{ isOver }, drop] = useDrop({
-    accept: 'BOOKMARK', // 드롭할 수 있는 아이템 타입 지정
+    accept: 'BOOKMARK',
     drop: async (item: { id: string }) => {
       try {
         await moveBookmark(item.id, folderId);
-        await getBookmarks();
+        await refresh();
       } catch (error) {
         console.error('Failed to move bookmark:', error);
       }
@@ -55,7 +55,7 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         }}
       >
         <div ref={drop}>
-          <FolderIcon title={title} bookmarks={bookmarks} isOver={isOver} />
+          <FolderIcon id={folderId} title={title} bookmarks={bookmarks} isOver={isOver} />
         </div>
       </Clickable>
       {isOpen && (

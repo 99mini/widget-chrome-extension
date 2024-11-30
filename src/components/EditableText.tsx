@@ -22,6 +22,8 @@ const Input = styled.input`
   font-size: 16px;
   font-weight: 500;
 
+  color: ${({ theme }) => theme.colors.text};
+
   &:focus {
     outline: none;
   }
@@ -37,7 +39,6 @@ const EditableText: React.FC<EditableTextProps> = ({ text, onChange }) => {
   const [value, setValue] = useState(text);
 
   const handleEdit = () => {
-    console.log('edit');
     setIsEditing(false);
     onChange(value);
   };

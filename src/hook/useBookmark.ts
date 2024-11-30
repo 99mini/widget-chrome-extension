@@ -3,16 +3,12 @@ import { create } from 'zustand';
 import { getTree, search, create as createBookmark, update, remove, move } from '@/chrome/bookmarks';
 
 import { flatBookmark } from '@/utils/bookmark';
-
-type WidgetBookmarkType = Omit<chrome.bookmarks.BookmarkTreeNode, 'children'> & {
-  imageUrl?: string;
-  children?: WidgetBookmarkType[] | undefined;
-};
+import { WidgetBookmarkType } from '@/types/Bookmarks';
 
 type BookmarkStore = {
   bookmarks: WidgetBookmarkType[];
   actions: {
-    getBookmarks: typeof getTree;
+    getBookmarks: () => Promise<WidgetBookmarkType[]>;
     searchBookmarks: typeof search;
     createBookmark: typeof createBookmark;
     updateBookmark: typeof update;
