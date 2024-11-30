@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { flatBookmark } from '@/utils/bookmark';
+import { flatBookmark, _parseFavicon } from '@/utils/bookmark';
 
 describe('flatBookmark', () => {
   it('should flatten bookmark tree to a single level', () => {
@@ -193,5 +193,20 @@ describe('flatBookmark', () => {
         title: '모바일 북마크',
       },
     ]);
+  });
+});
+
+describe('_parseFavicon', () => {
+  it('should return favicon url', () => {
+    const url = 'https://www.google.com';
+    const result = _parseFavicon(url);
+
+    expect(result).toBe('https://www.google.com/favicon.ico');
+  });
+
+  it('should return undefined when url is not provided', () => {
+    const result = _parseFavicon();
+
+    expect(result).toBeUndefined();
   });
 });

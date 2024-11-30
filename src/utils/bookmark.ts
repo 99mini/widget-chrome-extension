@@ -2,7 +2,7 @@ import { partition } from 'es-toolkit';
 
 import { WidgetBookmarkType } from '@/types/Bookmarks';
 
-function parseFavicon(url?: string | undefined): string | undefined {
+export function _parseFavicon(url?: string | undefined): string | undefined {
   if (!url) {
     return undefined;
   }
@@ -26,14 +26,14 @@ export function flatBookmark(nodes: WidgetBookmarkType[]): WidgetBookmarkType[] 
         // 북마크들만 children에 포함하여 flatList에 추가
         flatList.push({
           ...node,
-          children: bookmarks.map((bookmark) => ({ ...bookmark, imageUrl: parseFavicon(bookmark.url) })),
+          children: bookmarks.map((bookmark) => ({ ...bookmark, imageUrl: _parseFavicon(bookmark.url) })),
         });
 
         // 폴더가 있는 경우 재귀 호출하여 평탄화
         flatten(folders);
       } else {
         // children이 없는 경우: 평탄화 리스트에 바로 추가
-        flatList.push({ ...node, imageUrl: parseFavicon(node.url) });
+        flatList.push({ ...node, imageUrl: _parseFavicon(node.url) });
       }
     });
   }
