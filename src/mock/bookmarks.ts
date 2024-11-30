@@ -1,8 +1,8 @@
 import bookmarskMockData from './bookmarks.mock';
 
 const bookmarks = {
-  getTree: async (): Promise<chrome.bookmarks.BookmarkTreeNode[]> => {
-    return bookmarskMockData;
+  getTree: async (callback: (results: chrome.bookmarks.BookmarkTreeNode[]) => void): Promise<void> => {
+    return callback(bookmarskMockData);
   },
   search: async (): Promise<chrome.bookmarks.BookmarkTreeNode[]> => {
     return [
@@ -29,6 +29,18 @@ const bookmarks = {
   },
   remove: async (): Promise<void> => {
     return;
+  },
+  move: async (
+    id: string,
+    destination: chrome.bookmarks.BookmarkDestinationArg
+  ): Promise<chrome.bookmarks.BookmarkTreeNode> => {
+    console.log(`Move bookmark: ${id} to ${destination.parentId}`);
+
+    return {
+      id: destination.parentId ?? '0',
+      title: 'Moved bookmark',
+      url: 'https://example.com',
+    };
   },
 };
 

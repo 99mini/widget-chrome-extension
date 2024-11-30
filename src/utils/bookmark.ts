@@ -1,6 +1,6 @@
 import { partition } from 'es-toolkit';
 
-export function flat(nodes: chrome.bookmarks.BookmarkTreeNode[]): chrome.bookmarks.BookmarkTreeNode[] {
+export function flatBookmark(nodes: chrome.bookmarks.BookmarkTreeNode[]): chrome.bookmarks.BookmarkTreeNode[] {
   const flatList: chrome.bookmarks.BookmarkTreeNode[] = [];
 
   function flatten(nodeList: chrome.bookmarks.BookmarkTreeNode[]) {

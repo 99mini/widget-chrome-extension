@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { flat } from '@/utils/bookmark-tree-node-parser';
+import { flatBookmark } from '@/utils/bookmark';
 
-describe('flat', () => {
+describe('flatBookmark', () => {
   it('should flatten bookmark tree to a single level', () => {
     const bookmarks = [
       {
@@ -106,7 +106,7 @@ describe('flat', () => {
       },
     ];
 
-    const result = flat(bookmarks);
+    const result = flatBookmark(bookmarks);
 
     expect(result).toMatchObject([
       {

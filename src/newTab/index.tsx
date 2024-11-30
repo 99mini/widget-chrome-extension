@@ -1,32 +1,22 @@
 import React, { useEffect } from 'react';
 
-import { getTree } from '@/chrome/bookmarks';
-import { flat } from '@/utils/bookmark-tree-node-parser';
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
 import Layout from '@/widget/Layout';
 import Todo from '@/widget/Todo';
-
-import bookmarksMockData from '@/mock/bookmarks.mock';
 import Folder from '@/widget/Folder';
+
+import useBookmarkStore from '@/hook/useBookmark';
+
 const NewTab: React.FC = () => {
-  const [bookmarks, setBookmarks] = React.useState<chrome.bookmarks.BookmarkTreeNode[]>([]);
+  const {
+    bookmarks,
+    actions: { getBookmarks },
+  } = useBookmarkStore();
 
   useEffect(() => {
-    const fetch = async () => {
-      // TODO: 주석 해제
-      // const res = await getTree();
-      // const parsed = flat(res);
-
-      console.log(bookmarksMockData);
-      const parsed = flat(bookmarksMockData);
-      console.log(parsed);
-
-      setBookmarks(parsed);
-    };
-
-    fetch();
-  }, []);
+    getBookmarks();
+  }, [getBookmarks]);
 
   return (
     <div>
@@ -38,17 +28,18 @@ const NewTab: React.FC = () => {
             return (
               <Folder
                 key={bookmark.id}
+                id={bookmark.id}
                 title={bookmark.title}
-                // TODO: 주석 해제
-                // imageUrls={bookmark.children.map((child) => child.url ?? '')}
-                imageUrls={bookmark.children.map(
-                  (_) => 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png'
-                )}
+                bookmarks={bookmark.children.map((child) => ({
+                  id: child.id,
+                  imageUrl: child.imageUrl ?? 'empty',
+                }))}
               >
                 {bookmark.children.map((folderClild) => (
                   <IconWidget
                     key={folderClild.id}
-                    name={folderClild.title}
+                    id={folderClild.id}
+                    title={folderClild.title}
                     url={folderClild.url ?? 'empty'}
                     image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
                   />
@@ -59,7 +50,8 @@ const NewTab: React.FC = () => {
           return (
             <IconWidget
               key={bookmark.id}
-              name={bookmark.title}
+              id={bookmark.id}
+              title={bookmark.title}
               url={bookmark.url ?? 'empty'}
               image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
             />
