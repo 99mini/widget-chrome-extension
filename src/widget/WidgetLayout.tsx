@@ -6,12 +6,14 @@ type WidgetLayoutProps = {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  justify-content: center;
 
-  gap: 36px;
+  gap: 12px 36px;
 
   padding: 36px;
+
+  grid-template-columns: repeat(auto-fill, 60px);
 `;
 
 const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children }) => {

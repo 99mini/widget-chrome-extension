@@ -90,5 +90,5 @@ const DarkTheme: Theme = {
   },
 };
 
-export { LightTheme, DarkTheme };
+export { DefaultTheme, LightTheme, DarkTheme };
 export type { Colros, Sizes };
