@@ -17,7 +17,7 @@ type FolderProps = {
   title: string;
   bookmarks: {
     id: string;
-    imageUrl: string;
+    imageUrl?: string | undefined;
   }[];
 
   children: React.ReactNode;

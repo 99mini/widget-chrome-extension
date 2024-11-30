@@ -5,7 +5,7 @@ type FolderIconProps = {
   title: string;
   bookmarks: {
     id: string;
-    imageUrl: string;
+    imageUrl?: string | undefined;
   }[];
   isOver?: boolean;
 };

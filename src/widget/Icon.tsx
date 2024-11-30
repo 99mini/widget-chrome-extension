@@ -6,7 +6,7 @@ type IconWidgetProps = {
   id: string;
   title: string;
   url: string;
-  image: string;
+  image?: string | undefined;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
