@@ -2,6 +2,7 @@ export async function getTree(): Promise<chrome.bookmarks.BookmarkTreeNode[]> {
   return new Promise((resolve, reject) => {
     chrome.bookmarks.getTree((bookmarkTreeNodes) => {
       resolve(bookmarkTreeNodes);
+
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       }

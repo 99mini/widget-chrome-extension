@@ -1,8 +1,8 @@
 import bookmarskMockData from './bookmarks.mock';
 
 const bookmarks = {
-  getTree: async (): Promise<chrome.bookmarks.BookmarkTreeNode[]> => {
-    return bookmarskMockData;
+  getTree: async (callback: (results: chrome.bookmarks.BookmarkTreeNode[]) => void): Promise<void> => {
+    return callback(bookmarskMockData);
   },
   search: async (): Promise<chrome.bookmarks.BookmarkTreeNode[]> => {
     return [

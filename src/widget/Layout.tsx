@@ -8,6 +8,8 @@ type LayoutProps = {
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  gap: 24px 0;
 `;
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
 
-import { move } from '@/chrome/bookmarks';
+import useBookmarkStore from '@/hook/useBookmark';
 
 import FolderModal from '@/components/FolderModal';
 import FolderIcon from './FolderIcon';
@@ -25,12 +25,16 @@ type FolderProps = {
 
 const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    actions: { moveBookmark, getBookmarks },
+  } = useBookmarkStore();
 
   const [{ isOver }, drop] = useDrop({
     accept: 'BOOKMARK', // 드롭할 수 있는 아이템 타입 지정
     drop: async (item: { id: string }) => {
       try {
-        await move(item.id, folderId);
+        await moveBookmark(item.id, folderId);
+        await getBookmarks();
       } catch (error) {
         console.error('Failed to move bookmark:', error);
       }

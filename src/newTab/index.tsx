@@ -1,27 +1,22 @@
 import React, { useEffect } from 'react';
 
-import { getTree } from '@/chrome/bookmarks';
-import { flatBookmark } from '@/utils/bookmark';
-
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
 import Layout from '@/widget/Layout';
 import Todo from '@/widget/Todo';
 import Folder from '@/widget/Folder';
 
+import useBookmarkStore from '@/hook/useBookmark';
+
 const NewTab: React.FC = () => {
-  const [bookmarks, setBookmarks] = React.useState<chrome.bookmarks.BookmarkTreeNode[]>([]);
+  const {
+    bookmarks,
+    actions: { getBookmarks },
+  } = useBookmarkStore();
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await getTree();
-      const parsed = flatBookmark(res);
-
-      setBookmarks(parsed);
-    };
-
-    fetch();
-  }, []);
+    getBookmarks();
+  }, [getBookmarks]);
 
   return (
     <div>
@@ -37,7 +32,7 @@ const NewTab: React.FC = () => {
                 title={bookmark.title}
                 bookmarks={bookmark.children.map((child) => ({
                   id: child.id,
-                  imageUrl: child.url ?? 'empty',
+                  imageUrl: child.imageUrl ?? 'empty',
                 }))}
               >
                 {bookmark.children.map((folderClild) => (
