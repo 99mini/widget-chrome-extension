@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatDate, i18n } from './day';
+import { formatDate, i18n } from '@/utils/day';
 
 describe('i18n', () => {
   it('should return localized string', () => {
