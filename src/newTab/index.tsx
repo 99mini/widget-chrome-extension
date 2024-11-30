@@ -5,6 +5,7 @@ import IconWidget from '@/widget/Icon';
 import Layout from '@/widget/Layout';
 import Todo from '@/widget/Todo';
 import Folder from '@/widget/Folder';
+import { getIconPath } from '@/assets/Icon';
 
 import useBookmarkStore from '@/hook/useBookmark';
 
@@ -32,7 +33,7 @@ const NewTab: React.FC = () => {
                 title={bookmark.title}
                 bookmarks={bookmark.children.map((child) => ({
                   id: child.id,
-                  imageUrl: child.imageUrl ?? 'empty',
+                  imageUrl: child.imageUrl ?? getIconPath('widgets_24'),
                 }))}
               >
                 {bookmark.children.map((folderClild) => (
@@ -40,8 +41,8 @@ const NewTab: React.FC = () => {
                     key={folderClild.id}
                     id={folderClild.id}
                     title={folderClild.title}
-                    url={folderClild.url ?? 'empty'}
-                    image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
+                    url={folderClild.url ?? getIconPath('widgets_64')}
+                    image={folderClild.imageUrl ?? getIconPath('widgets_64')}
                   />
                 ))}
               </Folder>
@@ -52,8 +53,8 @@ const NewTab: React.FC = () => {
               key={bookmark.id}
               id={bookmark.id}
               title={bookmark.title}
-              url={bookmark.url ?? 'empty'}
-              image={`https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png`}
+              url={bookmark.url ?? getIconPath('widgets_64')}
+              image={bookmark.imageUrl ?? getIconPath('widgets_64')}
             />
           );
         })}
