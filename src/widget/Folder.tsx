@@ -15,12 +15,15 @@ const Clickable = styled.div`
 type FolderProps = {
   id: string;
   title: string;
-  imageUrls: string[];
+  bookmarks: {
+    id: string;
+    imageUrl: string;
+  }[];
 
   children: React.ReactNode;
 };
 
-const Folder: React.FC<FolderProps> = ({ id: folderId, title, imageUrls, children }) => {
+const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [{ isOver }, drop] = useDrop({
@@ -47,8 +50,8 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, imageUrls, childre
           setIsOpen(true);
         }}
       >
-        <div ref={drop} style={{ backgroundColor: isOver ? '#e0e0e0' : 'transparent' }}>
-          <FolderIcon title={title} imageUrls={imageUrls} />
+        <div ref={drop}>
+          <FolderIcon title={title} bookmarks={bookmarks} isOver={isOver} />
         </div>
       </Clickable>
       {isOpen && (

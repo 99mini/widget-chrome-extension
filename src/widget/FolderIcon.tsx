@@ -3,7 +3,11 @@ import React from 'react';
 
 type FolderIconProps = {
   title: string;
-  imageUrls: string[];
+  bookmarks: {
+    id: string;
+    imageUrl: string;
+  }[];
+  isOver?: boolean;
 };
 
 const Container = styled.div`
@@ -17,7 +21,7 @@ const Container = styled.div`
   gap: 8px;
 `;
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;
   height: 44px;
 
@@ -31,6 +35,13 @@ const IconContainer = styled.div`
   border-radius: 16px;
 
   padding: 8px;
+
+  ${({ isOver }) =>
+    isOver &&
+    `
+  scale: 1.1;
+  transition: scale 237ms;
+  `}
 `;
 
 const IconImage = styled.img`
@@ -41,20 +52,27 @@ const IconImage = styled.img`
   object-fit: cover;
 `;
 
-const Name = styled.span`
+const Name = styled.span<{ isOver?: boolean }>`
   font-size: 12px;
   font-weight: 500;
+
+  ${({ isOver }) =>
+    isOver &&
+    `
+    opacity: 0;
+    transition: opacity 237ms;
+  `}
 `;
 
-const FolderIcon: React.FC<FolderIconProps> = ({ title, imageUrls }) => {
+const FolderIcon: React.FC<FolderIconProps> = ({ title, bookmarks, isOver }) => {
   return (
     <Container>
-      <IconContainer>
-        {imageUrls.slice(0, 9).map((imageUrl) => (
-          <IconImage key={imageUrl} src={imageUrl} alt={title} />
+      <IconContainer isOver={isOver}>
+        {bookmarks.slice(0, 9).map(({ id, imageUrl }) => (
+          <IconImage key={id} src={imageUrl} alt={title} />
         ))}
       </IconContainer>
-      <Name>{title}</Name>
+      <Name isOver={isOver}>{title}</Name>
     </Container>
   );
 };
