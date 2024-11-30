@@ -50,14 +50,13 @@ const Image = styled.img`
 const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick }) => {
   const [{ isDragging }] = useDrag(() => ({
     type: 'BOOKMARK',
-    item: { id, url },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   }));
 
   return (
-    <Widget style={{ opacity: isDragging ? 0.5 : 1 }} title={title}>
+    <Widget id={id} style={{ opacity: isDragging ? 0.5 : 1 }} title={title}>
       <Link href={url} onClick={onClick} title={title}>
         <ImageWrapper>
           <Image src={image} alt={title} />

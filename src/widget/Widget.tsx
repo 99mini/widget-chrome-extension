@@ -41,6 +41,7 @@ type WidgetProps = {
         row: 2;
         coloumn: 2;
       };
+  id: string;
   title: string;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
@@ -50,6 +51,7 @@ const Widget: React.FC<WidgetProps> = ({
     row: 1,
     coloumn: 1,
   },
+  id,
   title,
   TitleProps,
   children,
@@ -57,6 +59,7 @@ const Widget: React.FC<WidgetProps> = ({
 }) => {
   const [, drag] = useDrag(() => ({
     type: 'BOOKMARK',
+    item: { id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

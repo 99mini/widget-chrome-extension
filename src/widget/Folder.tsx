@@ -55,7 +55,7 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         }}
       >
         <div ref={drop}>
-          <FolderIcon title={title} bookmarks={bookmarks} isOver={isOver} />
+          <FolderIcon id={folderId} title={title} bookmarks={bookmarks} isOver={isOver} />
         </div>
       </Clickable>
       {isOpen && (

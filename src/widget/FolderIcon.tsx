@@ -3,15 +3,6 @@ import React from 'react';
 
 import Widget from './Widget';
 
-type FolderIconProps = {
-  title: string;
-  bookmarks: {
-    id: string;
-    imageUrl?: string | undefined;
-  }[];
-  isOver?: boolean;
-};
-
 const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;
   height: 44px;
@@ -43,12 +34,23 @@ const IconImage = styled.img`
   object-fit: cover;
 `;
 
-const FolderIcon: React.FC<FolderIconProps> = ({ title, bookmarks, isOver }) => {
+type FolderIconProps = {
+  id: string;
+  title: string;
+  bookmarks: {
+    id: string;
+    imageUrl?: string | undefined;
+  }[];
+  isOver?: boolean;
+};
+
+const FolderIcon: React.FC<FolderIconProps> = ({ id, title, bookmarks, isOver }) => {
   return (
     <Widget
+      id={id}
       title={title}
       TitleProps={{
-        style: isOver ? { opacity: 0, transition: 'opacity 237ms;' } : undefined,
+        style: isOver ? { opacity: 0, transition: 'opacity 237ms' } : undefined,
       }}
     >
       <IconContainer isOver={isOver}>
