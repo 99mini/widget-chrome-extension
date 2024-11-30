@@ -44,7 +44,7 @@ const Modal = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
 
-  gap: 8px;
+  gap: 16px;
 
   padding: 24px;
 
