@@ -2,10 +2,14 @@ import React from 'react';
 import NewTab from './newTab';
 import RootProvider from './context';
 
+import GlobalStyle from './GlobalStyle';
+
 function App() {
   return (
     <RootProvider>
-      <NewTab />
+      <GlobalStyle>
+        <NewTab />
+      </GlobalStyle>
     </RootProvider>
   );
 }
