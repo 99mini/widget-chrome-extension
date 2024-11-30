@@ -72,7 +72,7 @@ const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick 
 
   return (
     <Container ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      <Link href={url} onClick={onClick}>
+      <Link href={url} onClick={onClick} title={title}>
         <ImageWrapper>
           <Image src={image} alt={title} />
         </ImageWrapper>
