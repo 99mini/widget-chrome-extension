@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Folder from '@/widget/Folder';
 import IconWidget from '@/widget/Icon';
 import WidgetLayout from '@/widget/WidgetLayout';
+import Clock from '@/widget/Clock';
 
 import useBookmarkStore from '@/hook/useBookmark';
 
@@ -21,6 +22,8 @@ const NewTab: React.FC = () => {
     <div>
       <Header />
       <WidgetLayout>
+        {/* TODO: 북마크와 커스텀 위젯 위치 조정 */}
+        {/* 북마크 랜더링 */}
         {bookmarks.map((bookmark) => {
           if (!bookmark.url && bookmark.children) {
             return (
@@ -55,6 +58,7 @@ const NewTab: React.FC = () => {
             />
           );
         })}
+        <Clock />
       </WidgetLayout>
     </div>
   );

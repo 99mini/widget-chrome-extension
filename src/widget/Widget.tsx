@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
 const Container = styled.div<{ span: WidgetProps['span'] }>`
-  width: ${({ span }) => `calc(132 * ${span?.coloumn})px`};
+  width: ${({ span }) => `calc(132px * ${span?.coloumn})`};
+  height: ${({ span }) => `calc(96px * ${span?.row})`};
 
   display: flex;
   flex-direction: column;
@@ -14,13 +15,40 @@ const Container = styled.div<{ span: WidgetProps['span'] }>`
 
   text-decoration: none;
   color: inherit;
+
+  box-sizing: border-box;
+`;
+
+const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boolean }>`
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: ${({ span }) => `calc(96px * ${span?.row} - 24px)`};
+
+  box-sizing: border-box;
+
+  ${({ border, theme }) =>
+    border
+      ? `
+    border-radius: 16px;
+    padding: 8px;
+    border: 1px solid ${theme.colors.background};
+    background-color: ${theme.colors.primary};
+    color: ${theme.colors.text};
+  `
+      : ''}
 `;
 
 const Name = styled.span`
   font-size: 12px;
   font-weight: 500;
+  line-height: 16px;
 
   width: 120px;
+  height: 16px;
 
   overflow: hidden;
   white-space: nowrap;
@@ -42,6 +70,7 @@ type WidgetProps = {
         coloumn: 2;
       };
   id: string;
+  childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   title: string;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
@@ -52,6 +81,7 @@ const Widget: React.FC<WidgetProps> = ({
     coloumn: 1,
   },
   id,
+  childrenProps,
   title,
   TitleProps,
   children,
@@ -67,7 +97,9 @@ const Widget: React.FC<WidgetProps> = ({
 
   return (
     <Container ref={drag} span={span} {...rest}>
-      {children}
+      <ChlidrenContainer span={span} {...childrenProps}>
+        {children}
+      </ChlidrenContainer>
       <Name {...TitleProps}>{title}</Name>
     </Container>
   );
