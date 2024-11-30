@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import Switch from './Switch';
 
-import { mode, actions } from '@/hook/useTheme';
+import useThemeStore from '@/hook/useTheme';
 
 const Container = styled.header`
   display: flex;
@@ -14,6 +14,10 @@ const Container = styled.header`
 `;
 
 const Header: React.FC = () => {
+  const {
+    mode,
+    actions: { setMode },
+  } = useThemeStore();
   const [isDarkMode, setIsDarkMode] = useState(mode === 'dark');
 
   return (
@@ -26,7 +30,7 @@ const Header: React.FC = () => {
           checked: isDarkMode,
           onChange: async () => {
             setIsDarkMode((prev) => {
-              actions.setMode(prev ? 'light' : 'dark');
+              setMode(prev ? 'light' : 'dark');
               return !prev;
             });
           },

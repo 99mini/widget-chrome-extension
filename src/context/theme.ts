@@ -1,13 +1,22 @@
 import { Theme } from '@emotion/react';
 
-import { mode, primaryColor } from '@/hook/useTheme';
+const lightPrimaryColor = 'rgb(233,235,240)' as const;
+const darkPrimaryColor = 'rgb(20,20,20)' as const;
 
-const theme: Theme = {
+const LightTheme: Theme = {
   colors: {
-    primary: primaryColor ?? '#141414',
-    background: mode === 'dark' ? '#141414' : mode === 'light' ? '#f0f2f5' : primaryColor,
-    text: mode === 'dark' ? '#f0f2f5' : mode === 'light' ? '#141414' : '#f0f2f5',
+    primary: lightPrimaryColor,
+    background: lightPrimaryColor,
+    text: darkPrimaryColor,
   },
 };
 
-export default theme;
+const DarkTheme: Theme = {
+  colors: {
+    primary: darkPrimaryColor,
+    background: darkPrimaryColor,
+    text: lightPrimaryColor,
+  },
+};
+
+export { LightTheme, DarkTheme };

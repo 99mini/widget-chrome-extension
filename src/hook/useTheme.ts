@@ -1,5 +1,5 @@
 import { syncGet, syncSet } from '@/chrome/storage';
-import { createStore, StateCreator } from 'zustand';
+import { create, StateCreator } from 'zustand';
 
 type ThemeModeType = 'light' | 'dark' | 'custom';
 
@@ -38,10 +38,6 @@ const initialTheme: StateCreator<ThemeStoreType, [], [], ThemeStoreType> = (set)
   };
 };
 
-const useThemeStore = createStore<ThemeStoreType>(initialTheme);
+const useThemeStore = create<ThemeStoreType>(initialTheme);
 
-const mode = useThemeStore.getState().mode;
-const primaryColor = useThemeStore.getState().primaryColor;
-const actions = useThemeStore.getState().actions;
-
-export { mode, primaryColor, actions };
+export default useThemeStore;
