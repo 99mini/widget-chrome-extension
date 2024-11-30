@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
-  width: ${({ span }) => `calc(132px * ${span?.column} + 12px * ${span?.column || 1 - 1})`};
-  height: ${({ span }) => `calc(96px * ${span?.row} + 24px * ${span?.row || 1 - 1})`};
+  width: ${({ span }) => `calc(132px * ${span?.column ?? 1} + 12px * ${(span?.column ?? 1) - 1})`};
+  height: ${({ span }) => `calc(60px * ${span?.row ?? 1} + 24px * ${span?.row ? span.row * 2 - 1 : 1})`};
 
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
   justify-content: center;
 
   width: 100%;
-  height: ${({ span }) => `calc(96px * ${span?.row} + ${(span?.row || 1) - 1} * 24px)`};
+  height: ${({ span }) => `calc(60px * ${span?.row ?? 1} + 24px * ${span?.row ? (span.row - 1) * 2 : 0})`};
 
   box-sizing: border-box;
 
