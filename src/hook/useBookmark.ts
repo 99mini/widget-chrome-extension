@@ -72,9 +72,4 @@ const useBookmarkStore = create<BookmarkStore>((set) => ({
   },
 }));
 
-const bookmarks = useBookmarkStore.getState().bookmarks;
-const actions = useBookmarkStore.getState().actions;
-
-export { bookmarks, actions };
-
 export default useBookmarkStore;
