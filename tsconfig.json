@@ -15,12 +15,5 @@
       "@/*": ["*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/env.d.ts",
-    "__test__/utils/day.test.ts",
-    "__test__/utils/bookmark.test.ts",
-    "__test__/utils/icon.test.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/env.d.ts", "__test__/**/*.ts", "__test__/**/*.tsx"]
 }
