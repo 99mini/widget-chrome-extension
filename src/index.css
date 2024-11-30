@@ -2,9 +2,15 @@ html {
   height: 100vh;
 }
 
-body {
+body,
+main {
   height: 100%;
   margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
 }
 
 #root {

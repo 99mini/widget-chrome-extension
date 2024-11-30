@@ -7,6 +7,7 @@ import WidgetLayout from '@/widget/WidgetLayout';
 import Clock from '@/widget/Clock';
 
 import useBookmarkStore from '@/hook/useBookmark';
+import Footer from '@/components/Footer';
 
 const NewTab: React.FC = () => {
   const {
@@ -19,7 +20,7 @@ const NewTab: React.FC = () => {
   }, [getBookmarks]);
 
   return (
-    <div>
+    <main>
       <Header />
       <WidgetLayout>
         <Clock WidgetProps={{ span: { row: 1, column: 2 } }} />
@@ -62,7 +63,8 @@ const NewTab: React.FC = () => {
         <Clock />
         <Clock WidgetProps={{ span: { row: 1, column: 1 } }} format="HH:mm" />
       </WidgetLayout>
-    </div>
+      <Footer />
+    </main>
   );
 };
 

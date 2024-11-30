@@ -4,20 +4,9 @@ import { createPortal } from 'react-dom';
 import useClickAway from '@/hook/useClickAway';
 
 import EditableText from './EditableText';
+import { ModalBackground, ModalContainerCSS } from './Modal';
 
 import styled from '@emotion/styled';
-
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-`;
 
 const ModalContainer = styled.div`
   display: flex;
@@ -28,10 +17,7 @@ const ModalContainer = styled.div`
   width: 50%;
   height: 50%;
 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  ${ModalContainerCSS}
 `;
 
 const ModalTitle = styled.div`

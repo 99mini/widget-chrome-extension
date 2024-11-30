@@ -10,7 +10,7 @@ const Container = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: 16px;
+  ${({ theme }) => theme.sizes.header}
 `;
 
 const Header: React.FC = () => {

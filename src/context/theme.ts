@@ -15,17 +15,6 @@ type Colros = {
   root: string;
 };
 
-type Sizes = {
-  widget: {
-    icon: 60;
-    rowGap: 36;
-    columnGap: 12;
-
-    textHeight: 16;
-    textGap: 8;
-  };
-};
-
 const lightPrimaryColor = 'rgba(233, 235, 240, 1)' as const;
 const lightPrimaryHoverColor = 'rgba(233, 235, 240, 0.8)' as const;
 const lightPrimaryActiveColor = 'rgba(233, 235, 240, 0.5)' as const;
@@ -39,7 +28,7 @@ const darkPrimaryDisabledColor = 'rgba(20, 20, 20, 0.3)' as const;
 const rootDarkColor = 'rgba(33, 33, 33, 1)' as const;
 const rootLightColor = 'rgba(255, 255, 255, 1)' as const;
 
-const sizes: Sizes = {
+const sizes = {
   widget: {
     icon: 60,
     rowGap: 36,
@@ -48,6 +37,8 @@ const sizes: Sizes = {
     textHeight: 16,
     textGap: 8,
   },
+  header: `height: 80px; padding: 16px; box-sizing: border-box;`,
+  footer: `height: 80px; padding: 16px; box-sizing: border-box;`,
 } as const;
 
 const DefaultTheme: Pick<Theme, 'sizes'> = {
@@ -89,6 +80,8 @@ const DarkTheme: Theme = {
     root: rootDarkColor,
   },
 };
+
+type Sizes = typeof sizes;
 
 export { DefaultTheme, LightTheme, DarkTheme };
 export type { Colros, Sizes };
