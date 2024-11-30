@@ -37,7 +37,6 @@ const EditableText: React.FC<EditableTextProps> = ({ text, onChange }) => {
   const [value, setValue] = useState(text);
 
   const handleEdit = () => {
-    console.log('edit');
     setIsEditing(false);
     onChange(value);
   };

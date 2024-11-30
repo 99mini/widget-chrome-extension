@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
 import Layout from '@/widget/Layout';
 import Todo from '@/widget/Todo';
 import Folder from '@/widget/Folder';
+import Switch from '@/components/Switch';
 
 import useBookmarkStore from '@/hook/useBookmark';
+import { mode, actions } from '@/hook/useTheme';
 
 const NewTab: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState(mode === 'dark');
+
   const {
     bookmarks,
     actions: { getBookmarks },
@@ -22,6 +26,19 @@ const NewTab: React.FC = () => {
     <div>
       <Todo />
       <Clock />
+      <Switch
+        InputProps={{
+          checked: isDarkMode,
+          onChange: async () => {
+            setIsDarkMode((prev) => {
+              actions.setMode(prev ? 'light' : 'dark');
+              return !prev;
+            });
+          },
+        }}
+      >
+        {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+      </Switch>
       <Layout>
         {bookmarks.map((bookmark) => {
           if (!bookmark.url && bookmark.children) {
