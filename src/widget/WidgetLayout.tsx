@@ -9,7 +9,9 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
 
-  gap: 24px 12px;
+  gap: 36px;
+
+  padding: 36px;
 `;
 
 const WidgetLayout: React.FC<WidgetLayoutProps> = ({ children }) => {

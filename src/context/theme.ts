@@ -15,6 +15,17 @@ type Colros = {
   root: string;
 };
 
+type Sizes = {
+  widget: {
+    icon: 60;
+    rowGap: 36;
+    columnGap: 36;
+
+    textHeight: 16;
+    textGap: 8;
+  };
+};
+
 const lightPrimaryColor = 'rgba(233, 235, 240, 1)' as const;
 const lightPrimaryHoverColor = 'rgba(233, 235, 240, 0.8)' as const;
 const lightPrimaryActiveColor = 'rgba(233, 235, 240, 0.5)' as const;
@@ -28,7 +39,23 @@ const darkPrimaryDisabledColor = 'rgba(20, 20, 20, 0.3)' as const;
 const rootDarkColor = 'rgba(33, 33, 33, 1)' as const;
 const rootLightColor = 'rgba(255, 255, 255, 1)' as const;
 
+const sizes: Sizes = {
+  widget: {
+    icon: 60,
+    rowGap: 36,
+    columnGap: 36,
+
+    textHeight: 16,
+    textGap: 8,
+  },
+} as const;
+
+const DefaultTheme: Pick<Theme, 'sizes'> = {
+  sizes,
+};
+
 const LightTheme: Theme = {
+  ...DefaultTheme,
   colors: {
     primary: lightPrimaryColor,
     primaryHover: lightPrimaryHoverColor,
@@ -46,6 +73,7 @@ const LightTheme: Theme = {
 };
 
 const DarkTheme: Theme = {
+  ...DefaultTheme,
   colors: {
     primary: darkPrimaryColor,
     primaryHover: darkPrimaryHoverColor,
@@ -63,4 +91,4 @@ const DarkTheme: Theme = {
 };
 
 export { LightTheme, DarkTheme };
-export type { Colros };
+export type { Colros, Sizes };

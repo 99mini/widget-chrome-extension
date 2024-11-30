@@ -3,8 +3,14 @@ import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
-  width: ${({ span }) => `calc(132px * ${span?.column ?? 1} + 12px * ${(span?.column ?? 1) - 1})`};
-  height: ${({ span }) => `calc(60px * ${span?.row ?? 1} + 24px * ${span?.row ? span.row * 2 - 1 : 1})`};
+  width: ${({ span, theme }) =>
+    span?.column === 2
+      ? `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px)`
+      : `${theme.sizes.widget.icon}px`};
+  height: ${({ span, theme }) =>
+    span?.row === 2
+      ? `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`
+      : `calc(${theme.sizes.widget.icon}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`};
 
   display: flex;
   flex-direction: column;
@@ -26,7 +32,10 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
   justify-content: center;
 
   width: 100%;
-  height: ${({ span }) => `calc(60px * ${span?.row ?? 1} + 24px * ${span?.row ? (span.row - 1) * 2 : 0})`};
+  height: ${({ span, theme }) =>
+    span?.row === 2
+      ? `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`
+      : `${theme.sizes.widget.icon}px`};
 
   box-sizing: border-box;
 
@@ -47,7 +56,7 @@ const Name = styled.span`
   font-weight: 500;
   line-height: 16px;
 
-  width: 120px;
+  width: 84px;
   height: 16px;
 
   overflow: hidden;

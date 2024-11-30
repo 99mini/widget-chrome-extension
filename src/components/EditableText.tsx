@@ -22,6 +22,8 @@ const Input = styled.input`
   font-size: 16px;
   font-weight: 500;
 
+  color: ${({ theme }) => theme.colors.text};
+
   &:focus {
     outline: none;
   }
