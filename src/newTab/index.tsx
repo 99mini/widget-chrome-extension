@@ -21,7 +21,9 @@ const NewTab: React.FC = () => {
   return (
     <div>
       <Header />
+
       <WidgetLayout>
+        <Clock WidgetProps={{ span: { row: 1, column: 2 } }} />
         {/* TODO: 북마크와 커스텀 위젯 위치 조정 */}
         {/* 북마크 랜더링 */}
         {bookmarks.map((bookmark) => {
@@ -59,6 +61,7 @@ const NewTab: React.FC = () => {
           );
         })}
         <Clock />
+        <Clock WidgetProps={{ span: { row: 1, column: 1 } }} format="HH:mm" />
       </WidgetLayout>
     </div>
   );

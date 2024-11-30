@@ -25,8 +25,8 @@ const Container = styled.div`
   font-family: 'Roboto Mono', monospace;
 `;
 
-const TimeContainer = styled.div`
-  font-size: 18px;
+const TimeContainer = styled.div<{ colSpan?: boolean }>`
+  font-size: ${({ colSpan }) => (colSpan ? '18px' : '14px')};
 `;
 
 const DateContainer = styled.div`
@@ -43,7 +43,7 @@ type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<T
 type Format = TimeFormat | DateTimeFormat;
 
 type ClockProps = {
-  WidgetProps?: Omit<PropsOf<typeof Widget>, 'id'>;
+  WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
   format?: Format;
 };
 
@@ -61,7 +61,6 @@ const Clock: React.FC<ClockProps> = ({
 
   const hasDay = format[0] === 'y';
 
-  // pick time format HH, mm, ss
   const timeFormat = format
     .replace(/y/g, '')
     .replace(/M/g, '')
@@ -82,13 +81,14 @@ const Clock: React.FC<ClockProps> = ({
   return (
     <Widget
       id={`${ID}-${WidgetProps.span?.row}-${WidgetProps.span?.column}`}
+      title={'시계'}
       childrenProps={{
         border: true,
       }}
       {...WidgetProps}
     >
       <Container>
-        <TimeContainer>{formatDate(time, timeFormat)}</TimeContainer>
+        <TimeContainer colSpan={WidgetProps.span?.column === 2}>{formatDate(time, timeFormat)}</TimeContainer>
         {hasDay && <DateContainer>{formatDate(time, dayFormat)}</DateContainer>}
       </Container>
     </Widget>
