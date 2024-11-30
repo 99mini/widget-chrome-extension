@@ -10,7 +10,6 @@ type IconWidgetProps = {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
-// TODO: IconWidget과 FolderIcon을 합쳐서 IconWidget으로 통합
 const Container = styled.div`
   width: 132px;
 `;
