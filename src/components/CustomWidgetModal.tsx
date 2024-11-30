@@ -21,6 +21,15 @@ const ModalContainer = styled.div`
   ${ModalContainerCSS}
 `;
 
+const Title = styled.div`
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 const WidgetList = styled.div`
   display: grid;
   gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
@@ -48,8 +57,9 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
 
   return createPortal(
     <ModalBackground>
-      <ModalContainer ref={ref}>
-        <WidgetList>
+      <ModalContainer>
+        <Title>{'위젯 추가'}</Title>
+        <WidgetList ref={ref}>
           <ClickableWidget rowSpan colSpan>
             <Clock />
           </ClickableWidget>

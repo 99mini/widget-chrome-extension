@@ -32,6 +32,9 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
   const [{ isOver }, drop] = useDrop({
     accept: 'BOOKMARK',
     drop: async (item: { id: string }) => {
+      if (!/^[0-9]*$/g.test(item.id)) {
+        return;
+      }
       try {
         await moveBookmark(item.id, folderId);
         await refresh();
@@ -39,9 +42,12 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         console.error('Failed to move bookmark:', error);
       }
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
+
+    collect: (monitor) => {
+      return {
+        isOver: monitor.isOver(),
+      };
+    },
   });
 
   const handleClose = () => setIsOpen(false);
