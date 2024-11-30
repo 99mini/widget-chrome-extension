@@ -25,6 +25,9 @@ const ModalContainer = styled.div`
 
   gap: 8px;
 
+  width: 50%;
+  height: 50%;
+
   position: fixed;
   top: 50%;
   left: 50%;
@@ -40,11 +43,11 @@ const ModalTitle = styled.div`
 
 const Modal = styled.div`
   display: grid;
+  justify-content: center;
 
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
 
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, 60px);
 
   padding: 24px;
 

@@ -1,6 +1,6 @@
 {
   "name": "widget-chrome-extension",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "new tab widget chrome extension",
   "main": "index.html",
   "type": "module",
@@ -12,7 +12,7 @@
     "format:check": "prettier --check src/**/*.ts?(x)",
     "tsc": "tsc --noEmit",
     "check": "yarn lint && yarn format && yarn tsc",
-    "build": "vite build",
+    "build": "sh ./.scripts/build.sh",
     "build:prod": "yarn check && yarn build",
     "test": "vitest --watch",
     "test:ci": "vitest --ci",

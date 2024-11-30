@@ -9,7 +9,7 @@ const Container = styled.div`
   display: grid;
   justify-content: center;
 
-  gap: 12px 36px;
+  gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
 
   padding: 36px;
 
