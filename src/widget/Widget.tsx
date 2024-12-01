@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
-const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
+const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) =>
     span?.column === 2
       ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`
@@ -26,6 +26,9 @@ const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
   color: inherit;
 
   box-sizing: border-box;
+
+  ${({ isDragging }) => isDragging && 'opacity: 0.5;'}
+  transition: opacity 237ms;
 `;
 
 const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boolean }>`
@@ -67,6 +70,7 @@ const Name = styled.span`
 `;
 
 type WidgetProps = {
+  folder?: boolean;
   span?:
     | {
         row: 1;
@@ -87,6 +91,7 @@ type WidgetProps = {
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Widget: React.FC<WidgetProps> = ({
+  folder,
   span = {
     row: 1,
     column: 1,
@@ -98,16 +103,19 @@ const Widget: React.FC<WidgetProps> = ({
   children,
   ...rest
 }) => {
-  const [, drag] = useDrag(() => ({
-    type: 'BOOKMARK',
-    item: { id },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: 'BOOKMARK',
+      item: { id, folder: Boolean(folder) },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  }));
+    [id, folder]
+  );
 
   return (
-    <Container ref={drag} span={span} {...rest}>
+    <Container ref={drag} span={span} isDragging={isDragging} {...rest}>
       <ChlidrenContainer span={span} {...childrenProps}>
         {children}
       </ChlidrenContainer>

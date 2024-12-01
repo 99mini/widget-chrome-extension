@@ -29,10 +29,10 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
     actions: { moveBookmark, refresh },
   } = useBookmarkStore();
 
-  const [{ isOver }, drop] = useDrop({
+  const [{ isOver, hovered }, drop] = useDrop({
     accept: 'BOOKMARK',
-    drop: async (item: { id: string }) => {
-      if (!/^[0-9]*$/g.test(item.id)) {
+    drop: async (item: { id: string; folder: boolean }) => {
+      if (!/^[0-9]*$/g.test(item.id) || item.folder) {
         return;
       }
       try {
@@ -42,12 +42,8 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         console.error('Failed to move bookmark:', error);
       }
     },
-
-    collect: (monitor) => {
-      return {
-        isOver: monitor.isOver(),
-      };
-    },
+    hover: (item: { id: string; folder: boolean }) => /^[0-9]*$/g.test(item.id) || item.folder,
+    collect: (monitor) => ({ isOver: monitor.isOver(), hovered: monitor.getItem() }),
   });
 
   const handleClose = () => setIsOpen(false);
@@ -61,7 +57,12 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         }}
       >
         <div ref={drop}>
-          <FolderIcon id={folderId} title={title} bookmarks={bookmarks} isOver={isOver} />
+          <FolderIcon
+            id={folderId}
+            title={title}
+            bookmarks={bookmarks}
+            isOver={isOver && /^[0-9]*$/g.test(hovered.id)}
+          />
         </div>
       </Clickable>
       {isOpen && (

@@ -47,6 +47,7 @@ type FolderIconProps = {
 const FolderIcon: React.FC<FolderIconProps> = ({ id, title, bookmarks, isOver }) => {
   return (
     <Widget
+      folder
       id={id}
       title={title}
       TitleProps={{
