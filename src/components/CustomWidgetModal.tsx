@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { createPortal } from 'react-dom';
 
-import { ModalBackground, ModalContainerCSS } from './Modal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from './Modal';
 
 import useClickAway from '@/hook/useClickAway';
 import Clock from '@/widget/Clock';
+import { rgbWithAlpha } from '@/utils/style';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -28,6 +29,14 @@ const Title = styled.div`
   font-weight: 500;
 
   color: ${({ theme }) => theme.colors.text};
+`;
+
+const WidgetContainer = styled.div`
+  padding: 36px 24px;
+  border-radius: 16px;
+
+  background-color: ${({ theme }) => rgbWithAlpha(theme.colors.backgroundPalette[600], 0.6)};
+  ${Glassmorphism}
 `;
 
 const WidgetList = styled.div`
@@ -59,11 +68,13 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
     <ModalBackground>
       <ModalContainer>
         <Title>{'위젯 추가'}</Title>
-        <WidgetList ref={ref}>
-          <ClickableWidget rowSpan colSpan>
-            <Clock />
-          </ClickableWidget>
-        </WidgetList>
+        <WidgetContainer ref={ref}>
+          <WidgetList>
+            <ClickableWidget rowSpan colSpan>
+              <Clock />
+            </ClickableWidget>
+          </WidgetList>
+        </WidgetContainer>
       </ModalContainer>
     </ModalBackground>,
     document.body

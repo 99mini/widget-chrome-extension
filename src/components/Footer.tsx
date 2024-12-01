@@ -24,7 +24,7 @@ const FooterContainer = styled.footer`
 const AddWidgetButton = styled.button`
   padding: 8px 16px;
 
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
 
   border: none;

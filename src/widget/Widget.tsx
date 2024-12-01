@@ -79,7 +79,7 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
     border-radius: 16px;
     padding: 8px;
     border: 1px solid ${theme.colors.background};
-    background-color: ${theme.colors.primary};
+    background-color: ${theme.colors.background};
     color: ${theme.colors.text};
   `
       : ''}

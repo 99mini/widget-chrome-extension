@@ -19,3 +19,8 @@ export const ModalContainerCSS = css`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
+export const Glassmorphism = css`
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+`;
