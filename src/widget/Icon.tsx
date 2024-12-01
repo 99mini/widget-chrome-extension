@@ -32,7 +32,7 @@ const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.colors.backgroundPalette[200]};
   border-radius: 16px;
 `;
 

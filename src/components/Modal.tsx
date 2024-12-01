@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { rgbWithAlpha } from '@/utils/style';
+
 export const ModalBackground = styled.div`
   position: fixed;
   top: 0;
@@ -20,7 +22,9 @@ export const ModalContainerCSS = css`
   transform: translate(-50%, -50%);
 `;
 
-export const Glassmorphism = css`
+export const Glassmorphism = styled.div`
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+
+  background-color: ${({ theme }) => rgbWithAlpha(theme.colors.backgroundPalette[600], 0.6)};
 `;

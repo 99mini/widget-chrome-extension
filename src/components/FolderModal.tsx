@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import useClickAway from '@/hook/useClickAway';
 
 import EditableText from './EditableText';
-import { ModalBackground, ModalContainerCSS } from './Modal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from './Modal';
 
 import styled from '@emotion/styled';
 
@@ -27,7 +27,7 @@ const ModalTitle = styled.div`
   font-weight: 500;
 `;
 
-const Modal = styled.div`
+const Modal = styled(Glassmorphism)`
   display: grid;
   justify-content: center;
 
@@ -37,7 +37,6 @@ const Modal = styled.div`
 
   padding: 24px;
 
-  background-color: #f0f0f0;
   border-radius: 16px;
 `;
 
