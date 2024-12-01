@@ -13,7 +13,7 @@ const IconContainer = styled.div<{ isOver?: boolean }>`
   grid-template-rows: repeat(3, 1fr);
   gap: 4px;
 
-  background-color: ${({ theme }) => theme.colors.backgroundPalette[500]};
+  background-color: ${({ theme }) => theme.colors.backgroundPalette[200]};
   border-radius: 16px;
 
   padding: 8px;

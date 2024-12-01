@@ -2,45 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
-import { DefaultTheme } from '@/context/theme';
-
-/**
- * @decryption 84
- */
-const rowSpan1 =
-  DefaultTheme.sizes.widget.icon + DefaultTheme.sizes.widget.textHeight + DefaultTheme.sizes.widget.textGap;
-
-/**
- * @decryption 180
- */
-const rowSpan2 =
-  DefaultTheme.sizes.widget.icon * 2 +
-  DefaultTheme.sizes.widget.rowGap +
-  DefaultTheme.sizes.widget.textHeight +
-  DefaultTheme.sizes.widget.textGap;
-
-/**
- * @description 60
- */
-const columnSpan1 = DefaultTheme.sizes.widget.icon;
-
-/**
- * @description 156
- */
-const columnSpan2 = DefaultTheme.sizes.widget.icon * 2 + DefaultTheme.sizes.widget.rowGap;
-
 const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
-  width: ${({ span }) =>
+  width: ${({ span, theme }) =>
     span?.column === 2
-      ? // `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px)`
-        `${columnSpan2}px`
-      : `${columnSpan1}px`};
-  height: ${({ span }) =>
+      ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`
+      : `${theme.sizes.widget.icon}px`};
+  height: ${({ span, theme }) =>
     span?.row === 2
-      ? // `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`
-        `${rowSpan2}px`
-      : // `calc(${theme.sizes.widget.icon}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`}
-        `${rowSpan1}px`};
+      ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`
+      : `${theme.sizes.widget.icon + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`};
 
   ${({ span }) => (span?.row === 2 ? 'grid-row: span 2;' : '')}
   ${({ span }) => (span?.column === 2 ? 'grid-column: span 2;' : '')}
@@ -65,11 +35,8 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
   justify-content: center;
 
   width: 100%;
-  height: ${({ span }) =>
-    span?.row === 2
-      ? // `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`
-        `${columnSpan2}px`
-      : `${columnSpan1}px`};
+  height: ${({ span, theme }) =>
+    span?.row === 2 ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px` : `${theme.sizes.widget.icon}px`};
 
   box-sizing: border-box;
 
@@ -91,11 +58,12 @@ const Name = styled.span`
   line-height: 16px;
 
   width: inherit;
-  min-width: ${({ theme }) => theme.sizes.widget.icon + theme.sizes.widget.rowGap / 2 - 2}px;
+  min-width: ${({ theme }) => theme.sizes.widget.icon + theme.sizes.widget.rowGap - 4}px;
   height: 16px;
 
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 type WidgetProps = {

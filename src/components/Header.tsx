@@ -28,6 +28,7 @@ const Header: React.FC = () => {
       <Switch
         InputProps={{
           checked: isDarkMode,
+          title: 'Dark Mode',
           onChange: async () => {
             setIsDarkMode((prev) => {
               setMode(prev ? 'light' : 'dark');
