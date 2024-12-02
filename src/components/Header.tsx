@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import React, { useEffect } from 'react';
 
 import Switch from './Switch';
 
@@ -16,9 +16,14 @@ const Container = styled.header`
 const Header: React.FC = () => {
   const {
     mode,
-    actions: { setMode },
+    actions: { setMode, getMode },
   } = useThemeStore();
-  const [isDarkMode, setIsDarkMode] = useState(mode === 'dark');
+
+  useEffect(() => {
+    getMode();
+  }, [getMode]);
+
+  console.log(mode);
 
   return (
     // 3 children
@@ -27,14 +32,9 @@ const Header: React.FC = () => {
       <div></div>
       <Switch
         InputProps={{
-          checked: isDarkMode,
+          checked: mode === 'dark',
           title: 'Dark Mode',
-          onChange: async () => {
-            setIsDarkMode((prev) => {
-              setMode(prev ? 'light' : 'dark');
-              return !prev;
-            });
-          },
+          onChange: () => setMode(mode === 'dark' ? 'light' : 'dark'),
         }}
       />
     </Container>
