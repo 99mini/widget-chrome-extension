@@ -43,9 +43,9 @@ const WidgetList = styled.div`
   grid-template-columns: repeat(auto-fill, 60px);
 `;
 
-const ClickableWidget = styled.button<{ rowSpan?: boolean; colSpan?: boolean }>`
-  grid-row: ${({ rowSpan }) => (rowSpan ? 'span 2' : 'span 1')};
-  grid-column: ${({ colSpan }) => (colSpan ? 'span 2' : 'span 1')};
+const ClickableWidget = styled.button<{ isRowSpan?: boolean; isColSpan?: boolean }>`
+  grid-row: ${({ isRowSpan }) => (isRowSpan ? 'span 2' : 'span 1')};
+  grid-column: ${({ isColSpan }) => (isColSpan ? 'span 2' : 'span 1')};
 
   padding: 0;
   border: none;
@@ -66,7 +66,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
         <Title>{'위젯 추가'}</Title>
         <WidgetContainer ref={ref}>
           <WidgetList>
-            <ClickableWidget rowSpan colSpan>
+            <ClickableWidget isRowSpan isColSpan>
               <Clock />
             </ClickableWidget>
           </WidgetList>

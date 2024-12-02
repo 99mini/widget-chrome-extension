@@ -25,8 +25,8 @@ const Container = styled.div`
   font-family: 'Roboto Mono', monospace;
 `;
 
-const TimeContainer = styled.div<{ colSpan?: boolean }>`
-  font-size: ${({ colSpan }) => (colSpan ? '18px' : '14px')};
+const TimeContainer = styled.div<{ isColSpan?: boolean }>`
+  font-size: ${({ isColSpan }) => (isColSpan ? '18px' : '14px')};
 `;
 
 const DateContainer = styled.div`
@@ -88,7 +88,7 @@ const Clock: React.FC<ClockProps> = ({
       {...WidgetProps}
     >
       <Container>
-        <TimeContainer colSpan={WidgetProps.span?.column === 2}>{formatDate(time, timeFormat)}</TimeContainer>
+        <TimeContainer isColSpan={WidgetProps.span?.column === 2}>{formatDate(time, timeFormat)}</TimeContainer>
         {hasDay && <DateContainer>{formatDate(time, dayFormat)}</DateContainer>}
       </Container>
     </Widget>

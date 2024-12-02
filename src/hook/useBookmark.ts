@@ -4,6 +4,7 @@ import { getTree, search, create as createBookmark, update, remove, move } from 
 
 import { flatBookmark } from '@/utils/bookmark';
 import { WidgetBookmarkType } from '@/types/Bookmarks';
+import { WidgetType } from '@/types/Widget';
 
 type BookmarkStore = {
   bookmarks: WidgetBookmarkType[];
@@ -26,6 +27,15 @@ const useBookmarkStore = create<BookmarkStore>((set) => ({
       const parsed = flatBookmark(res);
 
       set({ bookmarks: parsed });
+      const widgets: WidgetType<WidgetBookmarkType>[] = parsed.map((bookmark, index) => ({
+        index,
+        id: bookmark.id,
+        title: bookmark.title,
+        widgetType: 'bookmark',
+        data: bookmark,
+      }));
+      await chrome.storage.sync.set({ widgets });
+
       return parsed;
     },
     searchBookmarks: search,
