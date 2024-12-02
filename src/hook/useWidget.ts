@@ -3,6 +3,8 @@ import { create } from 'zustand';
 import { WidgetBookmarkType } from '@/types/Bookmarks';
 import { ClockWidgetType, WidgetType } from '@/types/Widget';
 
+import { syncGet, syncSet } from '@/chrome/storage';
+
 export type CustomWidget = WidgetBookmarkType | ClockWidgetType;
 
 type WidgetStoreType<T> = {
@@ -19,7 +21,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidget>>((set) => ({
   widgets: [],
   actions: {
     getWidgets: async () => {
-      const widgets = await chrome.storage.sync.get('widgets');
+      const widgets = await syncGet('widgets');
 
       set({ widgets: widgets as WidgetType<CustomWidget>[] });
       return widgets as WidgetType<CustomWidget>[];
@@ -28,7 +30,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidget>>((set) => ({
       set((prev) => {
         const widgets = [...prev.widgets, widget];
 
-        chrome.storage.sync.set({ widgets });
+        syncSet('widgets', { widgets });
         return { widgets };
       });
     },
@@ -41,7 +43,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidget>>((set) => ({
           return widget;
         });
 
-        chrome.storage.sync.set({ widgets });
+        syncSet('widgets', { widgets });
         return { widgets };
       });
     },
@@ -49,7 +51,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidget>>((set) => ({
       set((prev) => {
         const widgets = prev.widgets.filter((widget) => widget.id !== id);
 
-        chrome.storage.sync.set({ widgets });
+        syncSet('widgets', { widgets });
         return { widgets };
       });
     },

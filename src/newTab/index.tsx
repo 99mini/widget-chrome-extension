@@ -27,9 +27,7 @@ const NewTab: React.FC = () => {
   }, [getBookmarks]);
 
   useEffect(() => {
-    setTimeout(() => {
-      getWidgets();
-    }, 1000);
+    getWidgets();
   }, [getWidgets]);
 
   const isWidget = <T extends CustomWidget>(
