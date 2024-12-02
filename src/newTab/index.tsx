@@ -116,9 +116,9 @@ const NewTab: React.FC = () => {
           );
         })} */}
         <Clock />
-        <Clock WidgetProps={{ span: { row: 1, column: 1 } }} format="HH:mm" />
-        <Clock WidgetProps={{ span: { row: 4, column: 4 } }} format="HH:mm" />
-        <Clock WidgetProps={{ span: { row: 2, column: 4 } }} format="HH:mm" />
+        <Clock WidgetProps={{ span: { row: 4, column: 4 } }} format="yyyy년 MM월 dd일 a HH:mm:ss" />
+        <Clock WidgetProps={{ span: { row: 2, column: 4 } }} format="yyyy년 MM월 dd일 a HH:mm:ss" />
+        <Clock WidgetProps={{ span: { row: 1, column: 1 } }} format="a HH:mm" />
       </WidgetLayout>
       <Footer />
     </main>

@@ -88,7 +88,9 @@ const Clock: React.FC<ClockProps> = ({
       {...WidgetProps}
     >
       <Container>
-        <TimeContainer isColSpan={WidgetProps.span?.column === 2}>{formatDate(time, timeFormat)}</TimeContainer>
+        <TimeContainer isColSpan={WidgetProps.span?.column && WidgetProps.span.column > 1}>
+          {formatDate(time, timeFormat)}
+        </TimeContainer>
         {hasDay && <DateContainer>{formatDate(time, dayFormat)}</DateContainer>}
       </Container>
     </Widget>
