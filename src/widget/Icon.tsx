@@ -22,6 +22,8 @@ const Link = styled.a`
 
   text-decoration: none;
   color: inherit;
+
+  border-radius: 16px;
 `;
 
 const ImageWrapper = styled.div`
@@ -33,7 +35,7 @@ const ImageWrapper = styled.div`
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.backgroundPalette[200]};
-  border-radius: 16px;
+  border-radius: inherit;
 `;
 
 const Image = styled.img`
@@ -43,7 +45,7 @@ const Image = styled.img`
   max-width: 44px;
   max-height: 44px;
 
-  border-radius: 16px;
+  border-radius: inherit;
   object-fit: cover;
 `;
 

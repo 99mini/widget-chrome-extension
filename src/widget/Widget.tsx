@@ -115,8 +115,8 @@ const Widget: React.FC<WidgetProps> = ({
   );
 
   return (
-    <Container ref={drag} span={span} isDragging={isDragging} {...rest}>
-      <ChlidrenContainer span={span} {...childrenProps}>
+    <Container span={span} isDragging={isDragging} {...rest}>
+      <ChlidrenContainer ref={drag} span={span} {...childrenProps}>
         {children}
       </ChlidrenContainer>
       <Name {...TitleProps}>{title}</Name>
