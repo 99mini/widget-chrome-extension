@@ -3,17 +3,27 @@ import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
-  width: ${({ span, theme }) =>
-    span?.column === 2
-      ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`
-      : `${theme.sizes.widget.icon}px`};
-  height: ${({ span, theme }) =>
-    span?.row === 2
-      ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`
-      : `${theme.sizes.widget.icon + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`};
+  width: ${({ span, theme }) => {
+    if (span?.column === 4) {
+      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
+    }
+    if (span?.column === 2) {
+      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`;
+    }
+    return `${theme.sizes.widget.icon}px`;
+  }};
+  height: ${({ span, theme }) => {
+    if (span?.row === 4) {
+      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3 + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+    }
+    if (span?.row === 2) {
+      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+    }
+    return `${theme.sizes.widget.icon + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+  }};
 
-  ${({ span }) => (span?.row === 2 ? 'grid-row: span 2;' : '')}
-  ${({ span }) => (span?.column === 2 ? 'grid-column: span 2;' : '')}
+  ${({ span }) => (span?.row && span.row > 1 ? `grid-row: span ${span.row};` : '')}
+  ${({ span }) => (span?.column && span.column > 1 ? `grid-column: span ${span.column};` : '')}
 
   display: flex;
   flex-direction: column;
@@ -38,8 +48,15 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
   justify-content: center;
 
   width: 100%;
-  height: ${({ span, theme }) =>
-    span?.row === 2 ? `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px` : `${theme.sizes.widget.icon}px`};
+  height: ${({ span, theme }) => {
+    if (span?.row === 4) {
+      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
+    }
+    if (span?.row === 2) {
+      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`;
+    }
+    return `${theme.sizes.widget.icon}px`;
+  }};
 
   box-sizing: border-box;
 
@@ -69,21 +86,31 @@ const Name = styled.span`
   white-space: nowrap;
 `;
 
+type SpanType =
+  | {
+      row: 1;
+      column: 1;
+    }
+  | {
+      row: 1;
+      column: 2;
+    }
+  | {
+      row: 2;
+      column: 2;
+    }
+  | {
+      row: 2;
+      column: 4;
+    }
+  | {
+      row: 4;
+      column: 4;
+    };
+
 type WidgetProps = {
   folder?: boolean;
-  span?:
-    | {
-        row: 1;
-        column: 1;
-      }
-    | {
-        row: 1;
-        column: 2;
-      }
-    | {
-        row: 2;
-        column: 2;
-      };
+  span?: SpanType;
   id: string;
   childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   title: string;
