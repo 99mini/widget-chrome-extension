@@ -99,6 +99,10 @@ const useWidget = () => {
     return [...widgets, ...newWidgets];
   }, [actions, getBookmarks]);
 
+  const refresh = useCallback(async () => {
+    await getWidgets();
+  }, [getWidgets]);
+
   return {
     widgets,
     actions: {
@@ -106,6 +110,7 @@ const useWidget = () => {
       createWidget: actions.createWidget,
       updateWidget: actions.updateWidget,
       removeWidget: actions.removeWidget,
+      refresh,
     },
   };
 };

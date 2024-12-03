@@ -7,6 +7,7 @@ import useBookmarkStore from '@/hook/useBookmark';
 
 import FolderModal from '@/components/FolderModal';
 import FolderIcon from './FolderIcon';
+import useWidget from '@/hook/useWidget';
 
 const Clickable = styled.div`
   cursor: pointer;
@@ -26,8 +27,12 @@ type FolderProps = {
 const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    actions: { moveBookmark, refresh },
+    actions: { moveBookmark },
   } = useBookmarkStore();
+
+  const {
+    actions: { refresh },
+  } = useWidget();
 
   const [{ isOver, hovered }, drop] = useDrop({
     accept: 'BOOKMARK',
