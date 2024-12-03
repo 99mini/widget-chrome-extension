@@ -2,15 +2,10 @@
 
 const storage = {
   sync: {
-    get: (key: string, callback: (items: { [key: string]: any }) => void): void => {
+    get: (key: string): void => {
       const value = localStorage.getItem(key);
 
-      if (value?.startsWith('{')) {
-        callback(JSON.parse(value));
-        return;
-      }
-
-      callback({ [key]: value?.replace(/"/g, '') });
+      return value ? JSON.parse(value) : undefined;
     },
     set: (items: { [key: string]: any }, callback?: () => void) => {
       Object.entries(items).forEach(([key, value]) => {
@@ -18,6 +13,7 @@ const storage = {
       });
       if (callback) callback();
     },
+    QUOTA_BYTES_PER_ITEM: 2048,
   },
 };
 

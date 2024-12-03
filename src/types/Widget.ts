@@ -3,7 +3,7 @@ type DateFormat = 'yyyy-MM-dd' | 'yyyy년 MM월 dd일';
 
 type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<TimeFormat, 'a HH:mm:ss' | 'a HH:mm'>}`;
 
-type Format = TimeFormat | DateTimeFormat;
+export type ClockFormatType = TimeFormat | DateTimeFormat;
 
 export type SpanType =
   | {
@@ -42,7 +42,7 @@ export type WidgetBookmarkType = Omit<chrome.bookmarks.BookmarkTreeNode, 'childr
 };
 
 export type ClockWidgetType = {
-  format?: Format;
+  format?: ClockFormatType;
 };
 
 export type CustomWidgetType = WidgetBookmarkType | ClockWidgetType;

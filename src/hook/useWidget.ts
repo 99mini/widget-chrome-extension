@@ -9,11 +9,10 @@ import { CustomWidgetType, WidgetType } from '@/types/Widget';
 
 type WidgetStoreType<T> = {
   widgets: WidgetType<T>[];
-  lastWidgetIndex: number;
   actions: {
     getWidgets: () => Promise<WidgetType<T>[]>;
     setWidgets: (widgets: WidgetType<T>[]) => void;
-    createWidget: (widget: WidgetType<T>) => Promise<void>;
+    createWidget: (widget: Omit<WidgetType<T>, 'index'>) => Promise<void>;
     updateWidget: (id: string, changes: Partial<WidgetType<T>>, dataChanges: Partial<T>) => Promise<void>;
     removeWidget: (id: string) => Promise<void>;
   };
@@ -21,7 +20,6 @@ type WidgetStoreType<T> = {
 
 const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
   widgets: [],
-  lastWidgetIndex: -1,
   actions: {
     getWidgets: async () => {
       const widgets = await syncGet('widgets');
@@ -33,16 +31,16 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
       return widgets as WidgetType<CustomWidgetType>[];
     },
     setWidgets: (widgets) => {
-      syncSet('widgets', { widgets });
+      syncSet('widgets', widgets);
       set({ widgets });
     },
     createWidget: async (widget) => {
       set((prev) => {
-        const widgets = [...prev.widgets, widget];
+        const widgets = [...prev.widgets, { ...widget, index: prev.widgets.length }];
 
-        syncSet('widgets', { widgets });
+        syncSet('widgets', widgets);
 
-        return { widgets, lastWidgetIndex: prev.lastWidgetIndex + 1 };
+        return { widgets };
       });
     },
     updateWidget: async (id, changes, dataChanges) => {
@@ -54,7 +52,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
           return widget;
         });
 
-        syncSet('widgets', { widgets });
+        syncSet('widgets', widgets);
         return { widgets };
       });
     },
@@ -62,7 +60,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
       set((prev) => {
         const widgets = prev.widgets.filter((widget) => widget.id !== id);
 
-        syncSet('widgets', { widgets });
+        syncSet('widgets', widgets);
         return { widgets };
       });
     },
@@ -83,7 +81,7 @@ const useWidget = () => {
 
     const lastWidgetIndex = Math.max(...widgets.map((widget) => widget.index), -1);
 
-    const newWidgets: WidgetType<CustomWidgetType>[] = bookmarks.map((bookmark, index) => {
+    const newBookmarks: WidgetType<CustomWidgetType>[] = bookmarks.map((bookmark, index) => {
       if (widgetIds.includes(bookmark.id)) {
         const currentWidget = widgets.find((widget) => widget.id === bookmark.id) as WidgetType<CustomWidgetType>;
         return {
@@ -102,6 +100,13 @@ const useWidget = () => {
         widgetType: 'bookmark',
         data: bookmark,
       };
+    });
+
+    const newWidgets = [...widgets, ...newBookmarks].map((widget) => {
+      if (widget.widgetType === 'bookmark') {
+        return newBookmarks.find((bookmark) => bookmark.id === widget.id) || widget;
+      }
+      return widget;
     });
 
     actions.setWidgets(newWidgets);
