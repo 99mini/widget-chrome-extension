@@ -115,6 +115,7 @@ type WidgetProps = {
   childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   title: string;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+  dragDisabled?: boolean;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Widget: React.FC<WidgetProps> = ({
@@ -127,6 +128,7 @@ const Widget: React.FC<WidgetProps> = ({
   childrenProps,
   title,
   TitleProps,
+  dragDisabled,
   children,
   ...rest
 }) => {
@@ -142,8 +144,8 @@ const Widget: React.FC<WidgetProps> = ({
   );
 
   return (
-    <Container span={span} isDragging={isDragging} {...rest}>
-      <ChlidrenContainer ref={drag} span={span} {...childrenProps}>
+    <Container span={span} isDragging={isDragging && !dragDisabled} {...rest}>
+      <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
         {children}
       </ChlidrenContainer>
       <Name {...TitleProps}>{title}</Name>

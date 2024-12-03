@@ -4,8 +4,12 @@ import { createPortal } from 'react-dom';
 
 import { Glassmorphism, ModalBackground, ModalContainerCSS } from './Modal';
 
-import useClickAway from '@/hook/useClickAway';
 import Clock from '@/widget/Clock';
+import IconWidget from '@/widget/Icon';
+
+import useClickAway from '@/hook/useClickAway';
+import { getIconPath } from '@/utils/icon';
+import useThemeStore from '@/hook/useTheme';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -59,15 +63,36 @@ type CustomWidgetModalProps = {
 const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
   const ref = useClickAway<HTMLDivElement>(onClose, 300);
 
+  const { mode } = useThemeStore();
+
   return createPortal(
     <ModalBackground>
       <ModalContainer>
         <Title>{'위젯 추가'}</Title>
         <WidgetContainer ref={ref}>
           <WidgetList>
-            <ClickableWidget isRowSpan isColSpan>
-              <Clock />
+            {/* bookmark */}
+            <ClickableWidget>
+              <IconWidget
+                id={'-1'}
+                title={'바로가기 추가'}
+                url={'#'}
+                image={getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64')}
+                WidgetProps={{
+                  dragDisabled: true,
+                }}
+              />
             </ClickableWidget>
+            {/* bookmark */}
+            {/* clock */}
+            <ClickableWidget isRowSpan isColSpan>
+              <Clock
+                WidgetProps={{
+                  dragDisabled: true,
+                }}
+              />
+            </ClickableWidget>
+            {/* clock */}
           </WidgetList>
         </WidgetContainer>
       </ModalContainer>

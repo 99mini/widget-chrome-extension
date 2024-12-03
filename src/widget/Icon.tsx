@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
+import { PropsOf } from '@emotion/react';
 
 import Widget from './Widget';
 
@@ -10,6 +11,7 @@ type IconWidgetProps = {
   url: string;
   image?: string | undefined;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
 };
 
 const Link = styled.a`
@@ -49,9 +51,9 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
-const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick }) => {
+const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick, WidgetProps }) => {
   return (
-    <Widget id={id} title={title}>
+    <Widget id={id} title={title} {...WidgetProps}>
       <Link href={url} onClick={onClick} title={title}>
         <ImageWrapper>
           <Image src={image} alt={title} />
