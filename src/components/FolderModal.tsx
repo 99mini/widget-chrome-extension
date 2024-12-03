@@ -14,8 +14,19 @@ const ModalContainer = styled.div`
 
   gap: 8px;
 
-  width: 50%;
   height: 50%;
+
+  @media (min-width: 1224px) {
+    width: 1164px;
+  }
+
+  @media (min-width: 840px) and (max-width: 1224px) {
+    width: 780px;
+  }
+
+  @media (max-width: 840px) {
+    width: 396px;
+  }
 
   ${ModalContainerCSS}
 `;
@@ -29,7 +40,6 @@ const ModalTitle = styled.div`
 
 const Modal = styled(Glassmorphism)`
   display: grid;
-  justify-content: center;
 
   gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
 

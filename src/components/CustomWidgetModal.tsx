@@ -38,7 +38,6 @@ const WidgetContainer = styled(Glassmorphism)`
 const WidgetList = styled.div`
   display: grid;
   gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
-  justify-content: center;
 
   grid-template-columns: repeat(auto-fill, 60px);
 `;

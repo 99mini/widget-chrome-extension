@@ -23,8 +23,6 @@ const Header: React.FC = () => {
     getMode();
   }, [getMode]);
 
-  console.log(mode);
-
   return (
     // 3 children
     <Container>

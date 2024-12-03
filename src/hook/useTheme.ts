@@ -19,7 +19,6 @@ const initialTheme: StateCreator<ThemeStoreType, [], [], ThemeStoreType> = (set)
   actions: {
     getMode: async () => {
       const theme = await syncGet('theme');
-      console.log(theme);
 
       set({ mode: theme as ThemeModeType });
       return theme as ThemeModeType;
