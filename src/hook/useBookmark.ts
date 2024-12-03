@@ -1,13 +1,12 @@
 import { create } from 'zustand';
 
-import { getTree, search, create as createBookmark, update, remove, move } from '@/chrome/bookmarks';
-import { syncSet } from '@/chrome/storage';
+import { create as createBookmark, getTree, move, remove, search, update } from '@/chrome/bookmarks';
 
 import { flatBookmark } from '@/utils/bookmark';
 
-import { WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import { WidgetBookmarkType } from '@/types/Widget';
 
-type BookmarkStore = {
+type BookmarkStoreType = {
   bookmarks: WidgetBookmarkType[];
   actions: {
     getBookmarks: () => Promise<WidgetBookmarkType[]>;
@@ -20,7 +19,7 @@ type BookmarkStore = {
   };
 };
 
-const useBookmarkStore = create<BookmarkStore>((set) => ({
+const useBookmarkStore = create<BookmarkStoreType>((set) => ({
   bookmarks: [],
   actions: {
     getBookmarks: async () => {
@@ -28,14 +27,6 @@ const useBookmarkStore = create<BookmarkStore>((set) => ({
       const parsed = flatBookmark(res);
 
       set({ bookmarks: parsed });
-      const widgets: WidgetType<WidgetBookmarkType>[] = parsed.map((bookmark, index) => ({
-        index,
-        id: bookmark.id,
-        title: bookmark.title,
-        widgetType: 'bookmark',
-        data: bookmark,
-      }));
-      await syncSet('widgets', { widgets });
 
       return parsed;
     },

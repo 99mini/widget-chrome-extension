@@ -7,25 +7,16 @@ import Folder from '@/widget/Folder';
 import IconWidget from '@/widget/Icon';
 import WidgetLayout from '@/widget/WidgetLayout';
 
-import useBookmarkStore from '@/hook/useBookmark';
 import useWidget from '@/hook/useWidget';
 
-import { isWidget } from '@/utils/types';
 import { WidgetBookmarkType } from '@/types/Widget';
+import { isWidget } from '@/utils/types';
 
 const NewTab: React.FC = () => {
-  const {
-    actions: { getBookmarks },
-  } = useBookmarkStore();
-
   const {
     widgets,
     actions: { getWidgets },
   } = useWidget();
-
-  useEffect(() => {
-    getBookmarks();
-  }, [getBookmarks]);
 
   useEffect(() => {
     getWidgets();
