@@ -9,7 +9,7 @@ import WidgetLayout from '@/widget/WidgetLayout';
 
 import useWidget from '@/hook/useWidget';
 
-import { WidgetBookmarkType } from '@/types/Widget';
+import { ClockWidgetType, WidgetBookmarkType } from '@/types/Widget';
 import { isWidget } from '@/utils/types';
 
 const NewTab: React.FC = () => {
@@ -62,48 +62,19 @@ const NewTab: React.FC = () => {
               />
             );
           }
-        })}
-        <Clock WidgetProps={{ span: { row: 1, column: 2 } }} />
-        {/* TODO: 북마크와 커스텀 위젯 위치 조정 */}
-        {/* 북마크 랜더링 */}
-        {/* {bookmarks.map((bookmark) => {
-          if (!bookmark.url && bookmark.children) {
+          if (isWidget<ClockWidgetType>(widget, 'clock')) {
             return (
-              <Folder
-                key={bookmark.id}
-                id={bookmark.id}
-                title={bookmark.title}
-                bookmarks={bookmark.children.map((child) => ({
-                  id: child.id,
-                  imageUrl: child.imageUrl,
-                }))}
-              >
-                {bookmark.children.map((folderClild) => (
-                  <IconWidget
-                    key={folderClild.id}
-                    id={folderClild.id}
-                    title={folderClild.title}
-                    url={folderClild.url ?? '#'}
-                    image={folderClild.imageUrl}
-                  />
-                ))}
-              </Folder>
+              <Clock
+                key={widget.id}
+                format={widget.data.format}
+                WidgetProps={{
+                  title: widget.title,
+                  span: widget.span,
+                }}
+              />
             );
           }
-          return (
-            <IconWidget
-              key={bookmark.id}
-              id={bookmark.id}
-              title={bookmark.title}
-              url={bookmark.url ?? '#'}
-              image={bookmark.imageUrl}
-            />
-          );
-        })} */}
-        <Clock />
-        <Clock WidgetProps={{ span: { row: 4, column: 4 } }} format="yyyy년 MM월 dd일 a HH:mm:ss" />
-        <Clock WidgetProps={{ span: { row: 2, column: 4 } }} format="yyyy년 MM월 dd일 a HH:mm:ss" />
-        <Clock WidgetProps={{ span: { row: 1, column: 1 } }} format="a HH:mm" />
+        })}
       </WidgetLayout>
       <Footer />
     </main>

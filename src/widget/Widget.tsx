@@ -1,6 +1,9 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
+
+import styled from '@emotion/styled';
+
+import { SpanType } from '@/types/Widget';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) => {
@@ -85,28 +88,6 @@ const Name = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-
-type SpanType =
-  | {
-      row: 1;
-      column: 1;
-    }
-  | {
-      row: 1;
-      column: 2;
-    }
-  | {
-      row: 2;
-      column: 2;
-    }
-  | {
-      row: 2;
-      column: 4;
-    }
-  | {
-      row: 4;
-      column: 4;
-    };
 
 type WidgetProps = {
   folder?: boolean;

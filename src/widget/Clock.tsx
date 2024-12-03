@@ -6,6 +6,8 @@ import Widget from './Widget';
 
 import { formatDate } from '@/utils/day';
 
+import { ClockWidgetType } from '@/types/Widget';
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,17 +37,9 @@ const DateContainer = styled.div`
 
 const ID = 'clock' as const;
 
-type TimeFormat = 'HH:mm:ss' | 'HH:mm' | 'a HH:mm:ss' | 'a HH:mm';
-type DateFormat = 'yyyy-MM-dd' | 'yyyy년 MM월 dd일';
-
-type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<TimeFormat, 'a HH:mm:ss' | 'a HH:mm'>}`;
-
-type Format = TimeFormat | DateTimeFormat;
-
 type ClockProps = {
   WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
-  format?: Format;
-};
+} & ClockWidgetType;
 
 const Clock: React.FC<ClockProps> = ({ WidgetProps, format = 'yyyy년 MM월 dd일 a HH:mm:ss' }) => {
   const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
