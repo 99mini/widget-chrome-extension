@@ -78,7 +78,6 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
               <IconWidget
                 id={'-1'}
                 title={'바로가기 추가'}
-                url={'#'}
                 image={getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64')}
                 WidgetProps={{
                   dragDisabled: true,
