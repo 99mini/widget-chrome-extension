@@ -1,6 +1,6 @@
 import { partition } from 'es-toolkit';
 
-import { WidgetBookmarkType } from '@/types/Bookmarks';
+import { WidgetBookmarkType } from '@/types/Widget';
 
 export function _parseFavicon(url?: string | undefined): string | undefined {
   if (!url) {

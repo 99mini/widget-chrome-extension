@@ -1,11 +1,8 @@
 import { create } from 'zustand';
 
-import { WidgetBookmarkType } from '@/types/Bookmarks';
-import { ClockWidgetType, WidgetType } from '@/types/Widget';
+import { CustomWidgetType, WidgetType } from '@/types/Widget';
 
 import { syncGet, syncSet } from '@/chrome/storage';
-
-export type CustomWidget = WidgetBookmarkType | ClockWidgetType;
 
 type WidgetStoreType<T> = {
   widgets: WidgetType<T>[];
@@ -17,14 +14,18 @@ type WidgetStoreType<T> = {
   };
 };
 
-const useWidgetStore = create<WidgetStoreType<CustomWidget>>((set) => ({
+const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
   widgets: [],
   actions: {
     getWidgets: async () => {
       const widgets = await syncGet('widgets');
 
-      set({ widgets: widgets as WidgetType<CustomWidget>[] });
-      return widgets as WidgetType<CustomWidget>[];
+      if (!widgets) {
+        return [];
+      }
+
+      set({ widgets: widgets as WidgetType<CustomWidgetType>[] });
+      return widgets as WidgetType<CustomWidgetType>[];
     },
     createWidget: async (widget) => {
       set((prev) => {
@@ -58,4 +59,10 @@ const useWidgetStore = create<WidgetStoreType<CustomWidget>>((set) => ({
   },
 }));
 
-export default useWidgetStore;
+const useWidget = () => {
+  const { widgets, actions } = useWidgetStore();
+
+  return { widgets, actions };
+};
+
+export default useWidget;

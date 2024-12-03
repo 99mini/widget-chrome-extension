@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import Clock from '@/widget/Clock';
 import Folder from '@/widget/Folder';
 import IconWidget from '@/widget/Icon';
 import WidgetLayout from '@/widget/WidgetLayout';
-import Clock from '@/widget/Clock';
 
 import useBookmarkStore from '@/hook/useBookmark';
-import Footer from '@/components/Footer';
-import useWidgetStore, { CustomWidget } from '@/hook/useWidget';
-import { WidgetType } from '@/types/Widget';
-import { WidgetBookmarkType } from '@/types/Bookmarks';
+import useWidget from '@/hook/useWidget';
+
+import { isWidget } from '@/utils/types';
+import { WidgetBookmarkType } from '@/types/Widget';
 
 const NewTab: React.FC = () => {
   const {
@@ -20,7 +21,7 @@ const NewTab: React.FC = () => {
   const {
     widgets,
     actions: { getWidgets },
-  } = useWidgetStore();
+  } = useWidget();
 
   useEffect(() => {
     getBookmarks();
@@ -29,13 +30,6 @@ const NewTab: React.FC = () => {
   useEffect(() => {
     getWidgets();
   }, [getWidgets]);
-
-  const isWidget = <T extends CustomWidget>(
-    widget: WidgetType<CustomWidget>,
-    widgetType: WidgetType<T>['widgetType']
-  ): widget is WidgetType<T> => {
-    return widget.widgetType === widgetType;
-  };
 
   return (
     <main>
