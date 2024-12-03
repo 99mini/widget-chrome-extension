@@ -32,7 +32,7 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
   const [{ isOver, hovered }, drop] = useDrop({
     accept: 'BOOKMARK',
     drop: async (item: { id: string; folder: boolean }) => {
-      if (!/^[0-9]*$/g.test(item.id) || item.folder) {
+      if (!/^[0-9]*$/g.test(item.id) || item.folder || item.id === folderId) {
         return;
       }
       try {
@@ -42,7 +42,6 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         console.error('Failed to move bookmark:', error);
       }
     },
-    hover: (item: { id: string; folder: boolean }) => /^[0-9]*$/g.test(item.id) || item.folder,
     collect: (monitor) => ({ isOver: monitor.isOver(), hovered: monitor.getItem() }),
   });
 
@@ -61,7 +60,7 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
             id={folderId}
             title={title}
             bookmarks={bookmarks}
-            isOver={isOver && /^[0-9]*$/g.test(hovered.id)}
+            isOver={isOver && /^[0-9]*$/g.test(hovered.id) && !hovered.folder}
           />
         </div>
       </Clickable>
