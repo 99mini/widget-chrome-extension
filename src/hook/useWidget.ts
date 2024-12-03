@@ -80,23 +80,33 @@ const useWidget = () => {
     const bookmarks = await getBookmarks();
 
     const widgetIds = widgets.map((widget) => widget.id);
+
     const lastWidgetIndex = Math.max(...widgets.map((widget) => widget.index), -1);
 
-    const newWidgets: WidgetType<CustomWidgetType>[] = bookmarks
-      .filter((widget) => !widgetIds.includes(widget.id))
-      .map((bookmark, index) => ({
+    const newWidgets: WidgetType<CustomWidgetType>[] = bookmarks.map((bookmark, index) => {
+      if (widgetIds.includes(bookmark.id)) {
+        const currentWidget = widgets.find((widget) => widget.id === bookmark.id) as WidgetType<CustomWidgetType>;
+        return {
+          index: currentWidget.index,
+          id: bookmark.id,
+          title: bookmark.title,
+          widgetType: 'bookmark',
+          data: bookmark,
+        };
+      }
+
+      return {
         index: lastWidgetIndex + index + 1,
         id: bookmark.id,
         title: bookmark.title,
         widgetType: 'bookmark',
         data: bookmark,
-      }));
+      };
+    });
 
-    if (newWidgets.length !== widgets.length) {
-      actions.setWidgets([...widgets, ...newWidgets]);
-    }
+    actions.setWidgets(newWidgets);
 
-    return [...widgets, ...newWidgets];
+    return newWidgets;
   }, [actions, getBookmarks]);
 
   const refresh = useCallback(async () => {

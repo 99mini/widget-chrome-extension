@@ -4,6 +4,8 @@ import { PropsOf } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Widget from './Widget';
+import { getIconPath } from '@/utils/icon';
+import useThemeStore from '@/hook/useTheme';
 
 const Link = styled.a`
   display: flex;
@@ -58,11 +60,16 @@ type IconWidgetProps = {
 };
 
 const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick, WidgetProps }) => {
+  const { mode } = useThemeStore();
   return (
     <Widget id={id} title={title} {...WidgetProps}>
       <Link href={url} onClick={onClick} title={title} as={url ? 'a' : 'div'}>
         <ImageWrapper>
-          <Image src={image} alt={title} />
+          <Image
+            src={image}
+            alt={title}
+            onError={(e) => (e.currentTarget.src = getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64'))}
+          />
         </ImageWrapper>
       </Link>
     </Widget>

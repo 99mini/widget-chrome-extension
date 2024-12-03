@@ -3,8 +3,14 @@
 const storage = {
   sync: {
     get: (key: string, callback: (items: { [key: string]: any }) => void): void => {
-      const mockData = JSON.parse(localStorage.getItem(key) ?? '{}');
-      callback(mockData);
+      const value = localStorage.getItem(key);
+
+      if (value?.startsWith('{')) {
+        callback(JSON.parse(value));
+        return;
+      }
+
+      callback({ [key]: value?.replace(/"/g, '') });
     },
     set: (items: { [key: string]: any }, callback?: () => void) => {
       Object.entries(items).forEach(([key, value]) => {
