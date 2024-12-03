@@ -17,18 +17,20 @@ const ModalContainer = styled.div`
 
   gap: 8px;
 
-  width: 80%;
-  height: 80%;
-
   padding: 24px;
 
   ${ModalContainerCSS}
 `;
 
 const Title = styled.div`
+  padding: 8px 0;
+  height: 36px;
+
+  box-sizing: border-box;
+
   text-align: center;
 
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 500;
 
   color: ${({ theme }) => theme.colors.text};

@@ -12,6 +12,11 @@ const AdArea = styled.div`
 `;
 
 const FooterContainer = styled.footer`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   ${({ theme }) => theme.sizes.footer}
 
   display: flex;
@@ -22,7 +27,11 @@ const FooterContainer = styled.footer`
 `;
 
 const AddWidgetButton = styled.button`
+  width: 84px;
+
   padding: 8px 16px;
+
+  box-sizing: border-box;
 
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};

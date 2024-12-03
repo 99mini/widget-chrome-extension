@@ -20,6 +20,20 @@ export const ModalContainerCSS = css`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  height: 50%;
+
+  @media (min-width: 1224px) {
+    width: 1164px;
+  }
+
+  @media (min-width: 840px) and (max-width: 1224px) {
+    width: 780px;
+  }
+
+  @media (max-width: 840px) {
+    width: 396px;
+  }
 `;
 
 export const Glassmorphism = styled.div`
