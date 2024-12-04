@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       MOCK_CHROME: mode === 'development',
+      APP_VERSION: JSON.stringify(process.env.npm_package_version),
     },
     test: {
       globals: true,

@@ -27,7 +27,7 @@ const ModalContainer = styled.div`
 
 const SettingContainer = styled(Glassmorphism)`
   width: 100%;
-  padding: 36px 24px;
+  padding: 36px 24px 16px 24px;
   box-sizing: border-box;
 
   display: flex;
@@ -97,6 +97,63 @@ const Line = styled.hr`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
+const FooterContainer = styled.footer`
+  ${({ theme }) => theme.sizes.footer}
+
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+`;
+
+const FooterColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const CopyRightContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  gap: 2px;
+
+  justify-content: center;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+
+  align-items: center;
+`;
+
+const Link = styled.a<{ isPrimary?: boolean }>`
+  color: ${({ isPrimary, theme }) => (isPrimary ? theme.colors.primary : theme.colors.text)};
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const FooterSpan = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 type SettingModalProps = {
   onClose: () => void;
 };
@@ -138,6 +195,40 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
               <DangerButton onClick={() => setOpenAgreement(true)}>{'초기화'}</DangerButton>
             </SettingItem>
           </SettingItemList>
+          <FooterContainer>
+            <FooterColumn>
+              <CopyRightContainer>
+                <FooterSpan>{`© ${new Date().getFullYear()}.`}</FooterSpan>
+                <Link title="https://github.com/99mini" href="https://github.com/99mini">
+                  {'99mini.'}
+                </Link>
+                <FooterSpan>{` All rights reserved.`}</FooterSpan>
+              </CopyRightContainer>
+              <LinkContainer>
+                <Link
+                  title="https://github.com/99mini/widget-chrome-extension"
+                  href="https://github.com/99mini/widget-chrome-extension"
+                  isPrimary
+                >
+                  {'Github'}
+                </Link>
+                <Link
+                  title="https://github.com/99mini/widget-chrome-extension/blob/main/LICENSE"
+                  href="https://github.com/99mini/widget-chrome-extension/blob/main/LICENSE"
+                >
+                  {'MIT License'}
+                </Link>
+                <Link
+                  title="https://github.com/99mini/widget-chrome-extension/releases"
+                  href="https://github.com/99mini/widget-chrome-extension/releases"
+                >
+                  {'Release Notes'}
+                </Link>
+                {/* eslint-disable-next-line no-undef */}
+                <FooterSpan>{`version: ${APP_VERSION}`}</FooterSpan>
+              </LinkContainer>
+            </FooterColumn>
+          </FooterContainer>
         </SettingContainer>
       </ModalContainer>
       {openAgreement && (
