@@ -11,7 +11,7 @@ const AdArea = styled.div`
   justify-content: flex-end;
 `;
 
-const FooterContainer = styled.footer`
+const FloatContainer = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -48,9 +48,9 @@ const Footer: React.FC = () => {
   return (
     <>
       <AdArea></AdArea>
-      <FooterContainer>
+      <FloatContainer>
         <AddWidgetButton onClick={() => setOpenAddWidget(true)}>{'+ 위젯 추가'}</AddWidgetButton>
-      </FooterContainer>
+      </FloatContainer>
       {openAddWidget && <CustomWidgetModal onClose={() => setOpenAddWidget(false)} />}
     </>
   );
