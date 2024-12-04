@@ -113,13 +113,28 @@ const Widget: React.FC<WidgetProps> = ({
   children,
   ...rest
 }) => {
-  const [{ isDragging }, drag] = useDrag(
+  // TODO: useDrag 타입 정의
+  // TODO: drag end 시 dropResult에 대한 처리
+  const [{ isDragging }, drag] = useDrag<
+    { id: string; folder: boolean },
+    { id: string; folder: boolean },
+    {
+      isDragging: boolean;
+    }
+  >(
     () => ({
       type: 'BOOKMARK',
       item: { id, folder: Boolean(folder) },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
+      end(draggedItem, monitor) {
+        const dropResult = monitor.getDropResult();
+        if (draggedItem && dropResult) {
+          console.log('dropResult', dropResult);
+          console.log(`You dropped ${draggedItem.id} into ${dropResult.id}!`);
+        }
+      },
     }),
     [id, folder]
   );
