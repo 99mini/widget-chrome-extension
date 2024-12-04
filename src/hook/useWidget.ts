@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { create } from 'zustand';
 
-import { syncGet, syncSet } from '@/chrome/storage';
+import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
 import useBookmarkStore from './useBookmark';
 
@@ -15,6 +15,7 @@ type WidgetStoreType<T> = {
     createWidget: (widget: Omit<WidgetType<T>, 'index'>) => Promise<void>;
     updateWidget: (id: string, changes: Partial<WidgetType<T>>, dataChanges: Partial<T>) => Promise<void>;
     removeWidget: (id: string) => Promise<void>;
+    clearWidgets: () => Promise<void>;
   };
 };
 
@@ -64,6 +65,10 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
         return { widgets };
       });
     },
+    clearWidgets: async () => {
+      await syncClear();
+      set({ widgets: [] });
+    },
   },
 }));
 
@@ -74,8 +79,12 @@ const useWidget = () => {
   } = useBookmarkStore();
 
   const getWidgets = useCallback(async () => {
-    const widgets = await actions.getWidgets();
     const bookmarks = await getBookmarks();
+    console.log('bookmarks', bookmarks);
+
+    const widgets = await actions.getWidgets();
+
+    console.log('widgets', widgets);
 
     const widgetIds = widgets.map((widget) => widget.id);
 
@@ -102,12 +111,18 @@ const useWidget = () => {
       };
     });
 
-    const newWidgets = [...widgets, ...newBookmarks].map((widget) => {
-      if (widget.widgetType === 'bookmark') {
-        return newBookmarks.find((bookmark) => bookmark.id === widget.id) || widget;
-      }
-      return widget;
-    });
+    const newBookmarksIds = newBookmarks.map((bookmark) => bookmark.id);
+
+    const withoutBookmarks = widgets.filter((widget) => !newBookmarksIds.includes(widget.id));
+
+    const newWidgets = [...withoutBookmarks, ...newBookmarks]
+      .map((widget) => {
+        if (widget.widgetType === 'bookmark') {
+          return newBookmarks.find((bookmark) => bookmark.id === widget.id) || widget;
+        }
+        return widget;
+      })
+      .sort((a, b) => a.index - b.index);
 
     actions.setWidgets(newWidgets);
 
@@ -118,6 +133,12 @@ const useWidget = () => {
     await getWidgets();
   }, [getWidgets]);
 
+  const clearWidgets = useCallback(async () => {
+    await actions.clearWidgets();
+
+    await refresh();
+  }, [actions, refresh]);
+
   return {
     widgets,
     actions: {
@@ -126,6 +147,7 @@ const useWidget = () => {
       updateWidget: actions.updateWidget,
       removeWidget: actions.removeWidget,
       refresh,
+      clearWidgets,
     },
   };
 };

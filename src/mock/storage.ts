@@ -13,6 +13,9 @@ const storage = {
       });
       if (callback) callback();
     },
+    clear: async () => {
+      localStorage.clear();
+    },
     QUOTA_BYTES_PER_ITEM: 2048,
   },
 };

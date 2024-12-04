@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import useClickAway from '@/hook/useClickAway';
 
 import EditableText from './EditableText';
-import { Glassmorphism, ModalBackground, ModalContainerCSS } from './Modal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './Modal';
 
 import styled from '@emotion/styled';
 
@@ -17,13 +17,6 @@ const ModalContainer = styled.div`
   height: 50%;
 
   ${ModalContainerCSS}
-`;
-
-const ModalTitle = styled.div`
-  text-align: center;
-
-  font-size: 24px;
-  font-weight: 500;
 `;
 
 const Modal = styled(Glassmorphism)`

@@ -30,7 +30,13 @@ export const syncGet = async <T extends object | string>(key: StorageKey): Promi
     json += (await chrome.storage.sync.get(k))[k];
   }
 
+  console.dir(json);
+
   if (!json) return undefined;
 
   return JSON.parse(json);
+};
+
+export const syncClear = async (): Promise<void> => {
+  await chrome.storage.sync.clear();
 };

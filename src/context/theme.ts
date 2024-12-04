@@ -61,6 +61,11 @@ const darkContrast = lightBackgroundColorPalette;
 const rootDarkColor = 'rgb(33, 33, 33)' as const;
 const rootLightColor = 'rgb(255, 255, 255)' as const;
 
+const defaultColors = {
+  error: 'rgb(255, 51, 51)',
+  warning: 'rgb(255, 204, 0)',
+} as const;
+
 const sizes = {
   widget: {
     icon: 60,
@@ -74,13 +79,18 @@ const sizes = {
   footer: `height: 80px; padding: 16px; box-sizing: border-box;`,
 } as const;
 
-const DefaultTheme: Pick<Theme, 'sizes'> = {
+const DefaultTheme = {
   sizes,
+  colors: {
+    ...defaultColors,
+  },
 };
 
 const LightTheme: Theme = {
   ...DefaultTheme,
   colors: {
+    ...defaultColors,
+
     root: rootLightColor,
 
     primary: lightPrimaryColor,
@@ -107,6 +117,8 @@ const LightTheme: Theme = {
 const DarkTheme: Theme = {
   ...DefaultTheme,
   colors: {
+    ...defaultColors,
+
     root: rootDarkColor,
 
     primary: darkPrimaryColor,
@@ -131,7 +143,8 @@ const DarkTheme: Theme = {
 };
 
 type Sizes = typeof sizes;
-type Colors = {
+type DefaultColors = typeof defaultColors;
+type Colors = DefaultColors & {
   /* root */
   root: typeof rootLightColor | typeof rootDarkColor;
 

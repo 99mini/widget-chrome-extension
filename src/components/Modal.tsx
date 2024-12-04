@@ -15,6 +15,15 @@ export const ModalBackground = styled.div`
   -webkit-backdrop-filter: blur(10px);
 `;
 
+export const ModalTitle = styled.div`
+  text-align: center;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export const ModalContainerCSS = css`
   position: fixed;
   top: 50%;

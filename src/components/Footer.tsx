@@ -27,7 +27,7 @@ const FooterContainer = styled.footer`
 `;
 
 const AddWidgetButton = styled.button`
-  width: 84px;
+  width: 94px;
 
   padding: 8px 16px;
 
@@ -43,15 +43,15 @@ const AddWidgetButton = styled.button`
 `;
 
 const Footer: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [openAddWidget, setOpenAddWidget] = useState(false);
 
   return (
     <>
       <AdArea></AdArea>
       <FooterContainer>
-        <AddWidgetButton onClick={() => setOpen(true)}>{'위젯 추가'}</AddWidgetButton>
+        <AddWidgetButton onClick={() => setOpenAddWidget(true)}>{'+ 위젯 추가'}</AddWidgetButton>
       </FooterContainer>
-      {open && <CustomWidgetModal onClose={() => setOpen(false)} />}
+      {openAddWidget && <CustomWidgetModal onClose={() => setOpenAddWidget(false)} />}
     </>
   );
 };
