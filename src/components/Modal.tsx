@@ -18,8 +18,9 @@ export const ModalBackground = styled.div`
 export const ModalTitle = styled.div`
   text-align: center;
 
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 500;
+  line-height: 1.5;
 
   color: ${({ theme }) => theme.colors.text};
 `;
