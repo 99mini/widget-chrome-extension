@@ -1,5 +1,9 @@
-type IconPathType = 'widgets_24' | 'widgets_64';
+type IconPathType = 'widgets_24' | 'widgets_64' | 'widgets_light_24' | 'widgets_light_64';
 
 export function getIconPath(type: IconPathType): string {
-  return `./src/assets/${type}.svg`;
+  if (chrome !== undefined && chrome.runtime !== undefined) {
+    return chrome.runtime.getURL(`assets/${type}.svg`);
+  }
+
+  return `assets/${type}.svg`;
 }

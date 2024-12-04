@@ -2,17 +2,21 @@
 
 const storage = {
   sync: {
-    get: (key: string, callback: (result: { [key: string]: any }) => void) => {
-      const mockData = { [key]: localStorage.getItem(key) };
+    get: (key: string): void => {
+      const value = localStorage.getItem(key);
 
-      callback(mockData);
+      return value ? JSON.parse(value) : undefined;
     },
     set: (items: { [key: string]: any }, callback?: () => void) => {
       Object.entries(items).forEach(([key, value]) => {
-        localStorage.setItem(key, value);
+        localStorage.setItem(key, JSON.stringify(value));
       });
       if (callback) callback();
     },
+    clear: async () => {
+      localStorage.clear();
+    },
+    QUOTA_BYTES_PER_ITEM: 2048,
   },
 };
 

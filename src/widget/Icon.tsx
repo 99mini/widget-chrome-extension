@@ -1,16 +1,11 @@
 import React from 'react';
+
+import { PropsOf } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useDrag } from 'react-dnd';
 
 import Widget from './Widget';
-
-type IconWidgetProps = {
-  id: string;
-  title: string;
-  url: string;
-  image?: string | undefined;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-};
+import { getIconPath } from '@/utils/icon';
+import useThemeStore from '@/hook/useTheme';
 
 const Link = styled.a`
   display: flex;
@@ -22,6 +17,8 @@ const Link = styled.a`
 
   text-decoration: none;
   color: inherit;
+
+  border-radius: 16px;
 `;
 
 const ImageWrapper = styled.div`
@@ -32,8 +29,8 @@ const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #f5f5f5;
-  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.backgroundPalette[200]};
+  border-radius: inherit;
 `;
 
 const Image = styled.img`
@@ -43,23 +40,36 @@ const Image = styled.img`
   max-width: 44px;
   max-height: 44px;
 
-  border-radius: 16px;
+  border-radius: inherit;
   object-fit: cover;
+
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 `;
 
-const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick }) => {
-  const [{ isDragging }] = useDrag(() => ({
-    type: 'BOOKMARK',
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
+type IconWidgetProps = {
+  id: string;
+  title: string;
+  url?: string;
+  image?: string | undefined;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
+};
 
+const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick, WidgetProps }) => {
+  const { mode } = useThemeStore();
   return (
-    <Widget id={id} style={{ opacity: isDragging ? 0.5 : 1 }} title={title}>
-      <Link href={url} onClick={onClick} title={title}>
+    <Widget id={id} title={title} {...WidgetProps}>
+      <Link href={url} onClick={onClick} title={title} as={url ? 'a' : 'div'}>
         <ImageWrapper>
-          <Image src={image} alt={title} />
+          <Image
+            src={image}
+            alt={title}
+            onError={(e) => (e.currentTarget.src = getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64'))}
+          />
         </ImageWrapper>
       </Link>
     </Widget>

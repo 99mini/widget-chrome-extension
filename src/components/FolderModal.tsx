@@ -4,20 +4,9 @@ import { createPortal } from 'react-dom';
 import useClickAway from '@/hook/useClickAway';
 
 import EditableText from './EditableText';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './Modal';
 
 import styled from '@emotion/styled';
-
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-`;
 
 const ModalContainer = styled.div`
   display: flex;
@@ -25,25 +14,13 @@ const ModalContainer = styled.div`
 
   gap: 8px;
 
-  width: 50%;
   height: 50%;
 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  ${ModalContainerCSS}
 `;
 
-const ModalTitle = styled.div`
-  text-align: center;
-
-  font-size: 24px;
-  font-weight: 500;
-`;
-
-const Modal = styled.div`
+const Modal = styled(Glassmorphism)`
   display: grid;
-  justify-content: center;
 
   gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
 
@@ -51,7 +28,6 @@ const Modal = styled.div`
 
   padding: 24px;
 
-  background-color: #f0f0f0;
   border-radius: 16px;
 `;
 

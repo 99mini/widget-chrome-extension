@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 
 const Container = styled.button`
   width: 100%;
-  height: 100%;
+  height: 36px;
   padding: 8px;
+
+  box-sizing: border-box;
 
   border: none;
   background-color: transparent;

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { PropsOf } from '@emotion/react';
 
 import Widget from './Widget';
 
 import { formatDate } from '@/utils/day';
+
+import { ClockWidgetType } from '@/types/Widget';
 
 const Container = styled.div`
   display: flex;
@@ -25,8 +27,8 @@ const Container = styled.div`
   font-family: 'Roboto Mono', monospace;
 `;
 
-const TimeContainer = styled.div<{ colSpan?: boolean }>`
-  font-size: ${({ colSpan }) => (colSpan ? '18px' : '14px')};
+const TimeContainer = styled.div<{ isColSpan?: boolean }>`
+  font-size: ${({ isColSpan }) => (isColSpan ? '18px' : '14px')};
 `;
 
 const DateContainer = styled.div`
@@ -35,28 +37,22 @@ const DateContainer = styled.div`
 
 const ID = 'clock' as const;
 
-type TimeFormat = 'HH:mm:ss' | 'HH:mm' | 'a HH:mm:ss' | 'a HH:mm';
-type DateFormat = 'yyyy-MM-dd' | 'yyyy년 MM월 dd일';
-
-type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<TimeFormat, 'a HH:mm:ss' | 'a HH:mm'>}`;
-
-type Format = TimeFormat | DateTimeFormat;
-
 type ClockProps = {
   WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
-  format?: Format;
-};
+} & ClockWidgetType;
 
-const Clock: React.FC<ClockProps> = ({
-  WidgetProps = {
-    title: 'Clock',
-    span: {
-      row: 2,
-      column: 2,
-    },
-  },
-  format = 'yyyy년 MM월 dd일 a HH:mm:ss',
-}) => {
+const Clock: React.FC<ClockProps> = ({ WidgetProps, format = 'yyyy년 MM월 dd일 a HH:mm:ss' }) => {
+  const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
+    () => ({
+      title: '시계',
+      span: {
+        row: 2,
+        column: 2,
+      },
+      ...WidgetProps,
+    }),
+    [WidgetProps]
+  );
   const [time, setTime] = useState<Date>(new Date());
 
   const hasDay = format[0] === 'y';
@@ -80,15 +76,17 @@ const Clock: React.FC<ClockProps> = ({
 
   return (
     <Widget
-      id={`${ID}-${WidgetProps.span?.row}-${WidgetProps.span?.column}`}
+      id={`${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`}
       title={'시계'}
       childrenProps={{
         border: true,
       }}
-      {...WidgetProps}
+      {...defalutWidgetProps}
     >
       <Container>
-        <TimeContainer colSpan={WidgetProps.span?.column === 2}>{formatDate(time, timeFormat)}</TimeContainer>
+        <TimeContainer isColSpan={defalutWidgetProps.span?.column && defalutWidgetProps.span.column > 1}>
+          {formatDate(time, timeFormat)}
+        </TimeContainer>
         {hasDay && <DateContainer>{formatDate(time, dayFormat)}</DateContainer>}
       </Container>
     </Widget>

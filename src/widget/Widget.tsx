@@ -1,49 +1,32 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { useDrag } from 'react-dnd';
 
-import { DefaultTheme } from '@/context/theme';
+import styled from '@emotion/styled';
 
-/**
- * @decryption 84
- */
-const rowSpan1 =
-  DefaultTheme.sizes.widget.icon + DefaultTheme.sizes.widget.textHeight + DefaultTheme.sizes.widget.textGap;
+import { SpanType } from '@/types/Widget';
 
-/**
- * @decryption 180
- */
-const rowSpan2 =
-  DefaultTheme.sizes.widget.icon * 2 +
-  DefaultTheme.sizes.widget.rowGap +
-  DefaultTheme.sizes.widget.textHeight +
-  DefaultTheme.sizes.widget.textGap;
+const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
+  width: ${({ span, theme }) => {
+    if (span?.column === 4) {
+      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
+    }
+    if (span?.column === 2) {
+      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`;
+    }
+    return `${theme.sizes.widget.icon}px`;
+  }};
+  height: ${({ span, theme }) => {
+    if (span?.row === 4) {
+      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3 + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+    }
+    if (span?.row === 2) {
+      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+    }
+    return `${theme.sizes.widget.icon + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+  }};
 
-/**
- * @description 60
- */
-const columnSpan1 = DefaultTheme.sizes.widget.icon;
-
-/**
- * @description 156
- */
-const columnSpan2 = DefaultTheme.sizes.widget.icon * 2 + DefaultTheme.sizes.widget.rowGap;
-
-const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
-  width: ${({ span }) =>
-    span?.column === 2
-      ? // `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px)`
-        `${columnSpan2}px`
-      : `${columnSpan1}px`};
-  height: ${({ span }) =>
-    span?.row === 2
-      ? // `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`
-        `${rowSpan2}px`
-      : // `calc(${theme.sizes.widget.icon}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`}
-        `${rowSpan1}px`};
-
-  ${({ span }) => (span?.row === 2 ? 'grid-row: span 2;' : '')}
-  ${({ span }) => (span?.column === 2 ? 'grid-column: span 2;' : '')}
+  ${({ span }) => (span?.row && span.row > 1 ? `grid-row: span ${span.row};` : '')}
+  ${({ span }) => (span?.column && span.column > 1 ? `grid-column: span ${span.column};` : '')}
 
   display: flex;
   flex-direction: column;
@@ -56,6 +39,9 @@ const Container = styled.div<{ span: Required<WidgetProps['span']> }>`
   color: inherit;
 
   box-sizing: border-box;
+
+  ${({ isDragging }) => isDragging && 'opacity: 0.5;'}
+  transition: opacity 237ms;
 `;
 
 const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boolean }>`
@@ -65,11 +51,15 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
   justify-content: center;
 
   width: 100%;
-  height: ${({ span }) =>
-    span?.row === 2
-      ? // `calc(${theme.sizes.widget.icon}px * 2 + ${theme.sizes.widget.rowGap}px + ${theme.sizes.widget.textHeight}px + ${theme.sizes.widget.textGap}px)`
-        `${columnSpan2}px`
-      : `${columnSpan1}px`};
+  height: ${({ span, theme }) => {
+    if (span?.row === 4) {
+      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
+    }
+    if (span?.row === 2) {
+      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`;
+    }
+    return `${theme.sizes.widget.icon}px`;
+  }};
 
   box-sizing: border-box;
 
@@ -79,7 +69,7 @@ const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boole
     border-radius: 16px;
     padding: 8px;
     border: 1px solid ${theme.colors.background};
-    background-color: ${theme.colors.primary};
+    background-color: ${theme.colors.background};
     color: ${theme.colors.text};
   `
       : ''}
@@ -91,34 +81,26 @@ const Name = styled.span`
   line-height: 16px;
 
   width: inherit;
-  min-width: ${({ theme }) => theme.sizes.widget.icon + theme.sizes.widget.rowGap / 2 - 2}px;
+  min-width: ${({ theme }) => theme.sizes.widget.icon + theme.sizes.widget.rowGap - 4}px;
   height: 16px;
 
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 type WidgetProps = {
-  span?:
-    | {
-        row: 1;
-        column: 1;
-      }
-    | {
-        row: 1;
-        column: 2;
-      }
-    | {
-        row: 2;
-        column: 2;
-      };
+  folder?: boolean;
+  span?: SpanType;
   id: string;
   childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   title: string;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+  dragDisabled?: boolean;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Widget: React.FC<WidgetProps> = ({
+  folder,
   span = {
     row: 1,
     column: 1,
@@ -127,20 +109,24 @@ const Widget: React.FC<WidgetProps> = ({
   childrenProps,
   title,
   TitleProps,
+  dragDisabled,
   children,
   ...rest
 }) => {
-  const [, drag] = useDrag(() => ({
-    type: 'BOOKMARK',
-    item: { id },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: 'BOOKMARK',
+      item: { id, folder: Boolean(folder) },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  }));
+    [id, folder]
+  );
 
   return (
-    <Container ref={drag} span={span} {...rest}>
-      <ChlidrenContainer span={span} {...childrenProps}>
+    <Container span={span} isDragging={isDragging && !dragDisabled} {...rest}>
+      <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
         {children}
       </ChlidrenContainer>
       <Name {...TitleProps}>{title}</Name>

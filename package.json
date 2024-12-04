@@ -16,7 +16,8 @@
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "build": "sh ./.scripts/build.sh",
-    "build:prod": "yarn check && yarn test &&yarn build"
+    "build:prod": "yarn check && yarn test && sh ./.scripts/build.sh production",
+    "build:stage": "yarn check && yarn test && sh ./.scripts/build.sh staging"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

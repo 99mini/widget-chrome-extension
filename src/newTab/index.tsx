@@ -1,68 +1,83 @@
 import React, { useEffect } from 'react';
 
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import Clock from '@/widget/Clock';
 import Folder from '@/widget/Folder';
 import IconWidget from '@/widget/Icon';
 import WidgetLayout from '@/widget/WidgetLayout';
-import Clock from '@/widget/Clock';
 
-import useBookmarkStore from '@/hook/useBookmark';
+import useWidget from '@/hook/useWidget';
+
+import { ClockWidgetType, WidgetBookmarkType } from '@/types/Widget';
+import { isWidget } from '@/utils/types';
 
 const NewTab: React.FC = () => {
   const {
-    bookmarks,
-    actions: { getBookmarks },
-  } = useBookmarkStore();
+    widgets,
+    actions: { getWidgets },
+  } = useWidget();
 
   useEffect(() => {
-    getBookmarks();
-  }, [getBookmarks]);
+    getWidgets();
+  }, [getWidgets]);
 
   return (
-    <div>
+    <main>
       <Header />
       <WidgetLayout>
-        <Clock WidgetProps={{ span: { row: 1, column: 2 } }} />
-        {/* TODO: 북마크와 커스텀 위젯 위치 조정 */}
-        {/* 북마크 랜더링 */}
-        {bookmarks.map((bookmark) => {
-          if (!bookmark.url && bookmark.children) {
+        {widgets.map((widget) => {
+          if (isWidget<WidgetBookmarkType>(widget, 'bookmark')) {
+            const bookmark = widget.data;
+            if (!bookmark.url && bookmark.children) {
+              return (
+                <Folder
+                  key={bookmark.id}
+                  id={bookmark.id}
+                  title={bookmark.title}
+                  bookmarks={bookmark.children.map((child) => ({
+                    id: child.id,
+                    imageUrl: child.imageUrl,
+                  }))}
+                >
+                  {bookmark.children.map((folderClild) => (
+                    <IconWidget
+                      key={folderClild.id}
+                      id={folderClild.id}
+                      title={folderClild.title}
+                      url={folderClild.url ?? '#'}
+                      image={folderClild.imageUrl}
+                    />
+                  ))}
+                </Folder>
+              );
+            }
             return (
-              <Folder
+              <IconWidget
                 key={bookmark.id}
                 id={bookmark.id}
                 title={bookmark.title}
-                bookmarks={bookmark.children.map((child) => ({
-                  id: child.id,
-                  imageUrl: child.imageUrl,
-                }))}
-              >
-                {bookmark.children.map((folderClild) => (
-                  <IconWidget
-                    key={folderClild.id}
-                    id={folderClild.id}
-                    title={folderClild.title}
-                    url={folderClild.url ?? '#'}
-                    image={folderClild.imageUrl}
-                  />
-                ))}
-              </Folder>
+                url={bookmark.url ?? '#'}
+                image={bookmark.imageUrl}
+              />
             );
           }
-          return (
-            <IconWidget
-              key={bookmark.id}
-              id={bookmark.id}
-              title={bookmark.title}
-              url={bookmark.url ?? '#'}
-              image={bookmark.imageUrl}
-            />
-          );
+          if (isWidget<ClockWidgetType>(widget, 'clock')) {
+            return (
+              <Clock
+                key={widget.id}
+                format={widget.data.format}
+                WidgetProps={{
+                  title: widget.title,
+                  span: widget.span,
+                }}
+              />
+            );
+          }
         })}
-        <Clock />
-        <Clock WidgetProps={{ span: { row: 1, column: 1 } }} format="HH:mm" />
       </WidgetLayout>
-    </div>
+      <Footer />
+    </main>
   );
 };
 

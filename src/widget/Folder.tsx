@@ -7,6 +7,7 @@ import useBookmarkStore from '@/hook/useBookmark';
 
 import FolderModal from '@/components/FolderModal';
 import FolderIcon from './FolderIcon';
+import useWidget from '@/hook/useWidget';
 
 const Clickable = styled.div`
   cursor: pointer;
@@ -26,12 +27,19 @@ type FolderProps = {
 const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    actions: { moveBookmark, refresh },
+    actions: { moveBookmark },
   } = useBookmarkStore();
 
-  const [{ isOver }, drop] = useDrop({
+  const {
+    actions: { refresh },
+  } = useWidget();
+
+  const [{ isOver, hovered }, drop] = useDrop({
     accept: 'BOOKMARK',
-    drop: async (item: { id: string }) => {
+    drop: async (item: { id: string; folder: boolean }) => {
+      if (!/^[0-9]*$/g.test(item.id) || item.folder || item.id === folderId) {
+        return;
+      }
       try {
         await moveBookmark(item.id, folderId);
         await refresh();
@@ -39,9 +47,7 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         console.error('Failed to move bookmark:', error);
       }
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
+    collect: (monitor) => ({ isOver: monitor.isOver(), hovered: monitor.getItem() }),
   });
 
   const handleClose = () => setIsOpen(false);
@@ -55,7 +61,12 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         }}
       >
         <div ref={drop}>
-          <FolderIcon id={folderId} title={title} bookmarks={bookmarks} isOver={isOver} />
+          <FolderIcon
+            id={folderId}
+            title={title}
+            bookmarks={bookmarks}
+            isOver={isOver && /^[0-9]*$/g.test(hovered.id) && !hovered.folder}
+          />
         </div>
       </Clickable>
       {isOpen && (

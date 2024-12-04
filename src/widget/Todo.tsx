@@ -59,7 +59,7 @@ const Todo: React.FC = () => {
       setTasks(newTasks);
       setTask('');
 
-      syncSet('tasks', newTasks);
+      syncSet('tasks', { newTasks });
     }
   };
 
@@ -67,7 +67,7 @@ const Todo: React.FC = () => {
     const newTasks = tasks.filter((_, i) => i !== index);
     setTasks(newTasks);
 
-    syncSet('tasks', newTasks);
+    syncSet('tasks', { newTasks });
   };
 
   return (

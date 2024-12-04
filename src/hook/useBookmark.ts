@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 
-import { getTree, search, create as createBookmark, update, remove, move } from '@/chrome/bookmarks';
+import { create as createBookmark, getTree, move, remove, search, update } from '@/chrome/bookmarks';
 
 import { flatBookmark } from '@/utils/bookmark';
-import { WidgetBookmarkType } from '@/types/Bookmarks';
 
-type BookmarkStore = {
+import { WidgetBookmarkType } from '@/types/Widget';
+
+type BookmarkStoreType = {
   bookmarks: WidgetBookmarkType[];
   actions: {
     getBookmarks: () => Promise<WidgetBookmarkType[]>;
@@ -18,7 +19,7 @@ type BookmarkStore = {
   };
 };
 
-const useBookmarkStore = create<BookmarkStore>((set) => ({
+const useBookmarkStore = create<BookmarkStoreType>((set) => ({
   bookmarks: [],
   actions: {
     getBookmarks: async () => {
@@ -26,6 +27,7 @@ const useBookmarkStore = create<BookmarkStore>((set) => ({
       const parsed = flatBookmark(res);
 
       set({ bookmarks: parsed });
+
       return parsed;
     },
     searchBookmarks: search,

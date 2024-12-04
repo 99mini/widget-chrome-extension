@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ThemeProvider as EmotionThemeProvider, ThemeProviderProps } from '@emotion/react';
 import useThemeStore from '@/hook/useTheme';
+import { ThemeProvider as EmotionThemeProvider, ThemeProviderProps } from '@emotion/react';
 import { DarkTheme, LightTheme } from './theme';
 
 const ThemeProvider: React.FC<Omit<ThemeProviderProps, 'theme'>> = ({ children }) => {

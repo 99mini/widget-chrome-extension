@@ -1,36 +1,53 @@
-# sync with package.json version to public/manifest.json
+#!/bin/sh
 
-# read package.json version
-version=$(node -p "require('./package.json').version")
+# Usage: sh .scripts/build.sh
+# Description: Build the project and generate manifest.json file for Chrome extension
+# Dependencies: vite, node
+# Arguments: mode (development, production, staging) default: development
+# .scripts/build.sh [development | production | staging]
+# Example: sh .scripts/build.sh production
 
-# generate manifest.json
+MODE=${1:-"development"}
 
-# {
-#   "manifest_version": 3,
-#   "name": "widget chrome extension",
-#   "description": "A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.",
-#   "version": "0.1.0",
-#   "action": {
-#     "default_popup": "index.html"
-#   },
-#   "permissions": ["storage", "bookmarks"],
-#   "chrome_url_overrides": {
-#     "newtab": "index.html"
-#   }
-# }
+echo "Building the project in $MODE mode"
 
-echo "{
-  \"manifest_version\": 3,
-  \"name\": \"widget chrome extension\",
-  \"description\": \"A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.\",
-  \"version\": \"$version\",
-  \"action\": {
-    \"default_popup\": \"index.html\"
-  },
-  \"permissions\": [\"storage\", \"bookmarks\"],
-  \"chrome_url_overrides\": {
-    \"newtab\": \"index.html\"
-  }
-}" > public/manifest.json
+if [ "$MODE" = "production" ]; then
+  # sync with package.json version to public/manifest.json
 
-vite build
+  # read package.json version
+  version=$(node -p "require('./package.json').version")
+
+  # generate manifest.json
+
+  # {
+  #   "manifest_version": 3,
+  #   "name": "widget chrome extension",
+  #   "description": "A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.",
+  #   "version": "0.1.0",
+  #   "action": {
+  #     "default_popup": "index.html"
+  #   },
+  #   "permissions": ["storage", "bookmarks"],
+  #   "chrome_url_overrides": {
+  #     "newtab": "index.html"
+  #   }
+  # }
+
+  echo "{
+    \"manifest_version\": 3,
+    \"name\": \"widget chrome extension\",
+    \"description\": \"A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.\",
+    \"version\": \"$version\",
+    \"action\": {
+      \"default_popup\": \"index.html\"
+    },
+    \"permissions\": [\"storage\", \"bookmarks\"],
+    \"chrome_url_overrides\": {
+      \"newtab\": \"index.html\"
+    }
+  }" > public/manifest.json
+
+  echo "Generated manifest.json file with version $version"
+fi 
+
+vite build --mode $MODE

@@ -3,6 +3,9 @@ import React from 'react';
 
 import Widget from './Widget';
 
+import { getIconPath } from '@/utils/icon';
+import useThemeStore from '@/hook/useTheme';
+
 const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;
   height: 44px;
@@ -13,7 +16,7 @@ const IconContainer = styled.div<{ isOver?: boolean }>`
   grid-template-rows: repeat(3, 1fr);
   gap: 4px;
 
-  background-color: #f0f0f0;
+  background-color: ${({ theme }) => theme.colors.backgroundPalette[200]};
   border-radius: 16px;
 
   padding: 8px;
@@ -45,8 +48,11 @@ type FolderIconProps = {
 };
 
 const FolderIcon: React.FC<FolderIconProps> = ({ id, title, bookmarks, isOver }) => {
+  const { mode } = useThemeStore();
+
   return (
     <Widget
+      folder
       id={id}
       title={title}
       TitleProps={{
@@ -55,7 +61,12 @@ const FolderIcon: React.FC<FolderIconProps> = ({ id, title, bookmarks, isOver })
     >
       <IconContainer isOver={isOver}>
         {bookmarks.slice(0, 9).map(({ id, imageUrl }) => (
-          <IconImage key={id} src={imageUrl} alt={title} />
+          <IconImage
+            key={id}
+            src={imageUrl}
+            alt={title}
+            onError={(e) => (e.currentTarget.src = getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64'))}
+          />
         ))}
       </IconContainer>
     </Widget>
