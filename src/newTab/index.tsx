@@ -45,7 +45,7 @@ const NewTab: React.FC = () => {
                     <IconWidget
                       key={folderClild.id}
                       id={folderClild.id}
-                      index={widget.index}
+                      index={folderClild.index}
                       title={folderClild.title}
                       url={folderClild.url ?? '#'}
                       image={folderClild.imageUrl}

@@ -139,6 +139,7 @@ const Widget: React.FC<WidgetProps> = ({
   );
 
   // TODO: folder drag and drop 과 위젯 drag and drop 이동 로직 분리
+  // TODO: folder 자식 위젯 간 이동 로직 추가
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ isOver, hovered }, drop] = useDrop(
     {
