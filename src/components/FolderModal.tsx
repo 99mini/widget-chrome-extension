@@ -19,6 +19,8 @@ const ModalContainer = styled.div`
   ${ModalContainerCSS}
 `;
 
+const ModalContent = styled.div``;
+
 const Modal = styled(Glassmorphism)`
   display: grid;
 
@@ -46,11 +48,13 @@ const FolderModal: React.FC<FolderModalProps> = ({ onClose, title, children }) =
 
   return createPortal(
     <ModalBackground>
-      <ModalContainer ref={ref}>
-        <ModalTitle>
-          <EditableText text={title} onChange={onChangeTitle} />
-        </ModalTitle>
-        <Modal>{children}</Modal>
+      <ModalContainer>
+        <ModalContent ref={ref}>
+          <ModalTitle>
+            <EditableText text={title} onChange={onChangeTitle} />
+          </ModalTitle>
+          <Modal>{children}</Modal>
+        </ModalContent>
       </ModalContainer>
     </ModalBackground>,
     document.body
