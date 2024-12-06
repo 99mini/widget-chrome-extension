@@ -118,7 +118,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
                 isColSpan
                 onClick={() => {
                   createClockWidget({
-                    format: 'a HH:mm',
+                    format: 'a h:mm',
                     span: { row: 1, column: 1 },
                     title: 'clock',
                   });

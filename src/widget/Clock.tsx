@@ -42,7 +42,7 @@ type ClockProps = {
   WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
 } & ClockWidgetType;
 
-const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM월 dd일 a HH:mm:ss' }) => {
+const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM월 dd일 a h:mm:ss' }) => {
   const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
     () => ({
       title: '시계',
@@ -65,7 +65,12 @@ const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM�
     .replace(/년|월|일/g, '')
     .replace(/-/g, '');
 
-  const dayFormat = format.replace(/H/g, '').replace(/m/g, '').replace(/s/g, '').replace(/:/g, '').replace(/a/g, '');
+  const dayFormat = format
+    .replace(/[h|H]/g, '')
+    .replace(/m/g, '')
+    .replace(/s/g, '')
+    .replace(/:/g, '')
+    .replace(/a/g, '');
 
   useEffect(() => {
     const interval = setInterval(() => {

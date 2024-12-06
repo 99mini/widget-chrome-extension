@@ -1,7 +1,7 @@
-type TimeFormat = 'HH:mm:ss' | 'HH:mm' | 'a HH:mm:ss' | 'a HH:mm';
+type TimeFormat = 'HH:mm:ss' | 'HH:mm' | 'a h:mm:ss' | 'a h:mm';
 type DateFormat = 'yyyy-MM-dd' | 'yyyy년 MM월 dd일';
 
-type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<TimeFormat, 'a HH:mm:ss' | 'a HH:mm'>}`;
+type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<TimeFormat, 'a h:mm:ss' | 'a h:mm'>}`;
 
 export type ClockFormatType = TimeFormat | DateTimeFormat;
 

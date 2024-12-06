@@ -49,6 +49,7 @@ function formatDate(date: Date | number | string, format = 'yyyy-MM-dd HH:mm:ss'
     .replace('MM', month.toString().padStart(2, '0'))
     .replace('dd', day.toString().padStart(2, '0'))
     .replace('HH', hour.toString().padStart(2, '0'))
+    .replace('h', (hour % 12).toString().padStart(2, '0'))
     .replace('mm', minute.toString().padStart(2, '0'))
     .replace('ss', second.toString().padStart(2, '0'))
     .replace('a', hour >= 12 ? i18n('PM') : i18n('AM'));
