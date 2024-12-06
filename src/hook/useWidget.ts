@@ -5,7 +5,8 @@ import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
 import useBookmarkStore from './useBookmark';
 
-import { CustomWidgetType, WidgetType } from '@/types/Widget';
+import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import { isWidgetOf } from '@/utils/types';
 
 type WidgetStoreType<T> = {
   widgets: WidgetType<T>[];
@@ -97,7 +98,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
 const useWidget = () => {
   const { widgets, actions } = useWidgetStore();
   const {
-    actions: { getBookmarks },
+    actions: { getBookmarks, createBookmark },
   } = useBookmarkStore();
 
   const getWidgets = useCallback(async () => {
@@ -161,6 +162,24 @@ const useWidget = () => {
     await refresh();
   }, [actions, refresh]);
 
+  const createWidget = useCallback(
+    async (widget: Omit<WidgetType<CustomWidgetType>, 'index'>) => {
+      if (widget.widgetType === 'bookmark' && isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
+        const res = await createBookmark({
+          title: widget.data.title,
+          url: widget.data.url,
+          parentId: widget.data.parentId ?? '0',
+        });
+        console.log(res);
+        actions.createWidget({ ...widget, data: { ...widget.data } });
+        return;
+      }
+
+      actions.createWidget(widget);
+    },
+    [actions, createBookmark]
+  );
+
   return {
     widgets,
     actions: {
@@ -168,6 +187,7 @@ const useWidget = () => {
       getWidgets,
       refresh,
       clearWidgets,
+      createWidget,
     },
   };
 };
