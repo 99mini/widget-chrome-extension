@@ -69,9 +69,7 @@ const defaultColors = {
 const sizes = {
   widget: {
     icon: 60,
-    gridIcon: 60 + 24, // expected icon size: 60px, drop area padding: 24px (horizontal padding 12px)
     rowGap: 36,
-    gridRowGap: 36 - 24, // expected gap: 36px, drop area padding: 24px (horizontal padding 12px)
     columnGap: 12,
 
     textHeight: 16,

@@ -37,8 +37,6 @@ const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: 
 
   gap: 8px;
 
-  padding: 0 12px;
-
   text-decoration: none;
   color: inherit;
 

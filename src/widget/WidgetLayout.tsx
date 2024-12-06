@@ -27,13 +27,13 @@ const Container = styled.div`
   display: grid;
   justify-content: center;
 
-  gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.gridRowGap}px `};
+  gap: ${({ theme }) => `${theme.sizes.widget.columnGap}px ${theme.sizes.widget.rowGap}px `};
 
   padding: 36px;
 
-  grid-template-columns: repeat(auto-fill, ${({ theme }) => theme.sizes.widget.gridIcon}px);
+  grid-template-columns: repeat(auto-fill, ${({ theme }) => theme.sizes.widget.icon}px);
 
-  ${({ theme }) => generateMediaQueryLayout(456, 384, theme.sizes.widget.gridIcon)}
+  ${({ theme }) => generateMediaQueryLayout(456, 384, theme.sizes.widget.icon)}
 `;
 
 type WidgetLayoutProps = {
