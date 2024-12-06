@@ -10,7 +10,7 @@ import WidgetLayout from '@/widget/WidgetLayout';
 import useWidget from '@/hook/useWidget';
 
 import { ClockWidgetType, WidgetBookmarkType } from '@/types/Widget';
-import { isWidget } from '@/utils/types';
+import { isWidgetOf } from '@/utils/types';
 
 const NewTab: React.FC = () => {
   const {
@@ -27,7 +27,7 @@ const NewTab: React.FC = () => {
       <Header />
       <WidgetLayout>
         {widgets.map((widget) => {
-          if (isWidget<WidgetBookmarkType>(widget, 'bookmark')) {
+          if (isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
             const bookmark = widget.data;
             if (!bookmark.url && bookmark.children) {
               return (
@@ -62,7 +62,7 @@ const NewTab: React.FC = () => {
               />
             );
           }
-          if (isWidget<ClockWidgetType>(widget, 'clock')) {
+          if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
             return (
               <Clock
                 key={widget.id}
