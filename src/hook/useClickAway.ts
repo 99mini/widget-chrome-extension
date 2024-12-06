@@ -42,11 +42,10 @@ const useClickAway = <T extends HTMLElement>(callback: () => void, delay: number
       if ([...refs.values()].map((val) => val.current?.id)[refs.size - 1] === id) {
         if (!ref.current.contains(event.target)) {
           callback();
-          actions.pop();
         }
       }
     },
-    [refs, id, callback, actions]
+    [refs, id, callback]
   );
 
   useEffect(() => {
@@ -65,6 +64,14 @@ const useClickAway = <T extends HTMLElement>(callback: () => void, delay: number
       document.removeEventListener('click', handleClick);
     };
   }, [delay, handleClick]);
+
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('click', handleClick);
+      actions.pop();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return ref;
 };
