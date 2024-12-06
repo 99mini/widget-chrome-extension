@@ -62,7 +62,7 @@ const useClickAway = <T extends HTMLElement>(callback: () => void, delay: number
     }
 
     setTimeout(() => {
-      document.addEventListener('click', handleClick, { once: true });
+      document.addEventListener('click', handleClick);
     }, delay);
 
     return () => {
