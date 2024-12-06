@@ -57,10 +57,6 @@ const useClickAway = <T extends HTMLElement>(callback: () => void, delay: number
   }, [actions, id]);
 
   useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
-
     setTimeout(() => {
       document.addEventListener('click', handleClick);
     }, delay);
@@ -68,7 +64,7 @@ const useClickAway = <T extends HTMLElement>(callback: () => void, delay: number
     return () => {
       document.removeEventListener('click', handleClick);
     };
-  }, [delay, handleClick, refs]);
+  }, [delay, handleClick]);
 
   return ref;
 };
