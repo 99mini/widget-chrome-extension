@@ -32,8 +32,9 @@ const NewTab: React.FC = () => {
             if (!bookmark.url && bookmark.children) {
               return (
                 <Folder
-                  key={bookmark.id}
+                  key={`${bookmark.id}-${widget.index}`}
                   id={bookmark.id}
+                  index={widget.index}
                   title={bookmark.title}
                   bookmarks={bookmark.children.map((child) => ({
                     id: child.id,
@@ -44,6 +45,7 @@ const NewTab: React.FC = () => {
                     <IconWidget
                       key={folderClild.id}
                       id={folderClild.id}
+                      index={widget.index}
                       title={folderClild.title}
                       url={folderClild.url ?? '#'}
                       image={folderClild.imageUrl}
@@ -54,8 +56,9 @@ const NewTab: React.FC = () => {
             }
             return (
               <IconWidget
-                key={bookmark.id}
+                key={`${bookmark.id}-${widget.index}`}
                 id={bookmark.id}
+                index={widget.index}
                 title={bookmark.title}
                 url={bookmark.url ?? '#'}
                 image={bookmark.imageUrl}
@@ -65,7 +68,8 @@ const NewTab: React.FC = () => {
           if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
             return (
               <Clock
-                key={widget.id}
+                key={`${widget.id}-${widget.index}`}
+                index={widget.index}
                 format={widget.data.format}
                 WidgetProps={{
                   title: widget.title,

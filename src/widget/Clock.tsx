@@ -38,10 +38,11 @@ const DateContainer = styled.div`
 const ID = 'clock' as const;
 
 type ClockProps = {
+  index?: number;
   WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
 } & ClockWidgetType;
 
-const Clock: React.FC<ClockProps> = ({ WidgetProps, format = 'yyyy년 MM월 dd일 a HH:mm:ss' }) => {
+const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM월 dd일 a HH:mm:ss' }) => {
   const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
     () => ({
       title: '시계',
@@ -77,6 +78,7 @@ const Clock: React.FC<ClockProps> = ({ WidgetProps, format = 'yyyy년 MM월 dd�
   return (
     <Widget
       id={`${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`}
+      index={index ?? -1}
       title={'시계'}
       childrenProps={{
         border: true,

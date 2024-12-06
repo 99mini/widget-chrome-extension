@@ -52,6 +52,7 @@ const Image = styled.img`
 
 type IconWidgetProps = {
   id: string;
+  index?: number;
   title: string;
   url?: string;
   image?: string | undefined;
@@ -59,10 +60,10 @@ type IconWidgetProps = {
   WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
 };
 
-const IconWidget: React.FC<IconWidgetProps> = ({ id, title, url, image, onClick, WidgetProps }) => {
+const IconWidget: React.FC<IconWidgetProps> = ({ id, index, title, url, image, onClick, WidgetProps }) => {
   const { mode } = useThemeStore();
   return (
-    <Widget id={id} title={title} {...WidgetProps}>
+    <Widget id={id} title={title} index={index ?? -1} {...WidgetProps}>
       <Link href={url} onClick={onClick} title={title} as={url ? 'a' : 'div'}>
         <ImageWrapper>
           <Image

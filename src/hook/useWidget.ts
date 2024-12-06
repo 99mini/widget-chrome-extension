@@ -13,6 +13,7 @@ type WidgetStoreType<T> = {
     getWidgets: () => Promise<WidgetType<T>[]>;
     setWidgets: (widgets: WidgetType<T>[]) => void;
     createWidget: (widget: Omit<WidgetType<T>, 'index'>) => Promise<void>;
+    moveWidget: (id: string, prevIndex: number, nextIndex: number) => Promise<void>;
     updateWidget: (id: string, changes: Partial<WidgetType<T>>, dataChanges: Partial<T>) => Promise<void>;
     removeWidget: (id: string) => Promise<void>;
     clearWidgets: () => Promise<void>;
@@ -42,6 +43,27 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
         syncSet('widgets', widgets);
 
         return { widgets };
+      });
+    },
+    moveWidget: async (id, prevIndex, nextIndex) => {
+      console.log(`moveWidget(${id}): ${prevIndex} to ${nextIndex}`);
+      set((prev) => {
+        const newWidgets = prev.widgets
+          .map((widget) => {
+            if (widget.id === id) {
+              return { ...widget, index: nextIndex };
+            } else if (widget.index >= nextIndex && widget.index < prevIndex) {
+              return { ...widget, index: widget.index + 1 };
+            } else if (widget.index <= nextIndex && widget.index > prevIndex) {
+              return { ...widget, index: widget.index - 1 };
+            }
+            return widget;
+          })
+          .sort((a, b) => a.index - b.index);
+
+        console.log('widgets', newWidgets);
+        syncSet('widgets', newWidgets);
+        return { widgets: newWidgets };
       });
     },
     updateWidget: async (id, changes, dataChanges) => {
@@ -142,10 +164,8 @@ const useWidget = () => {
   return {
     widgets,
     actions: {
+      ...actions,
       getWidgets,
-      createWidget: actions.createWidget,
-      updateWidget: actions.updateWidget,
-      removeWidget: actions.removeWidget,
       refresh,
       clearWidgets,
     },

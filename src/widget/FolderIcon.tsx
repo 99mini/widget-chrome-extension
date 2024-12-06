@@ -39,6 +39,7 @@ const IconImage = styled.img`
 
 type FolderIconProps = {
   id: string;
+  index: number;
   title: string;
   bookmarks: {
     id: string;
@@ -47,13 +48,14 @@ type FolderIconProps = {
   isOver?: boolean;
 };
 
-const FolderIcon: React.FC<FolderIconProps> = ({ id, title, bookmarks, isOver }) => {
+const FolderIcon: React.FC<FolderIconProps> = ({ id, index, title, bookmarks, isOver }) => {
   const { mode } = useThemeStore();
 
   return (
     <Widget
       folder
       id={id}
+      index={index}
       title={title}
       TitleProps={{
         style: isOver ? { opacity: 0, transition: 'opacity 237ms' } : undefined,
