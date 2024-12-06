@@ -239,11 +239,8 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
           confirmText="초기화"
           confirmType="error"
         >
-          <SettingItemList>
-            <SettingItem>
-              <SettingItemLabel>{'정말로 초기화 하시겠습니까?'}</SettingItemLabel>
-            </SettingItem>
-          </SettingItemList>
+          <h4>{'데이터를 초기화하시겠습니까?'}</h4>
+          <p>{'위젯의 모든 데이터가 초기화 됩니다. 이 작업은 되돌릴 수 없습니다'}</p>
         </ActionModal>
       )}
     </ModalBackground>,

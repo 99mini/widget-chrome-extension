@@ -30,7 +30,7 @@ const ModalContainer = styled.div`
 
   border-radius: 16px;
 
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.root};
 `;
 
 const ActionModalTitle = styled(ModalTitle)``;
@@ -43,7 +43,9 @@ const ActionModalTopSection = styled.div`
   width: 100%;
 `;
 
-const ModalContent = styled.div``;
+const ModalContent = styled.div`
+  color: ${({ theme }) => theme.colors.text};
+`;
 
 const ModalButtonContainer = styled.div`
   width: 100%;
@@ -64,6 +66,18 @@ const ModalButton = styled.button<{ buttonType: 'default' | 'primary' | 'error' 
   border-radius: 8px;
 
   cursor: pointer;
+
+  transition: background-color 237ms;
+
+  &:hover {
+    background-color: ${({ buttonType, theme }) =>
+      buttonType === 'default' ? theme.colors.backgroundHover : theme.colors[`${buttonType}Hover`]};
+  }
+
+  &:active {
+    background-color: ${({ buttonType, theme }) =>
+      buttonType === 'default' ? theme.colors.backgroundActive : theme.colors[`${buttonType}Active`]};
+  }
 `;
 
 type ActionModalProps = {
