@@ -35,7 +35,7 @@ const SettingtButton = styled.button`
   border: none;
   border-radius: 8px;
 
-  cursor: pointer;
+  box-sizing: initial;
 `;
 
 const Header: React.FC = () => {

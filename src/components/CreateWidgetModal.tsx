@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 import ActionModal from './common/ActionModal';
+import Line from './common/Line';
 
 const PreviewContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ type CreateWidgetModalProps = {
   title: string;
   PreviewWidget: React.ReactNode;
   onConfirm: () => void;
+  disabledClickAway?: boolean;
   children?: React.ReactNode;
 };
 
@@ -38,12 +40,20 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
   title,
   PreviewWidget,
   onConfirm,
+  disabledClickAway,
   children,
 }) => {
   return createPortal(
-    <ActionModal onClose={onClose} title={title} onConfirm={onConfirm}>
+    <ActionModal
+      onClose={onClose}
+      title={title}
+      onConfirm={onConfirm}
+      confirmText="생성"
+      disabledClickAway={disabledClickAway}
+    >
       <PreviewContainer>
         <PreviewWrapper>{PreviewWidget}</PreviewWrapper>
+        <Line maxWidth="unset" />
         {children}
       </PreviewContainer>
     </ActionModal>,

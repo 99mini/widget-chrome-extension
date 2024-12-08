@@ -27,13 +27,7 @@ yarn install
 yarn dev
 ```
 
-## build
-
-```bash
-yarn build
-```
-
-## lint, pritter, tsc
+## lint, prettier, tsc
 
 ```bash
 yarn lint
@@ -41,16 +35,56 @@ yarn format
 yarn tsc
 ```
 
-run all lint (`eslint`, `prettier`, `tsc`)
+### prettier only check
+
+```bash
+yarn format:check
+```
+
+### run all lint (`eslint`, `prettier`, `tsc`)
 
 ```bash
 yarn check
 ```
 
-## product
+## test
+
+```bash
+yarn test
+```
+
+### test: watch
+
+```bash
+yarn test:watch
+```
+
+### test: coverage
+
+```bash
+yarn test:coverage
+```
+
+## build
 
 ```bash
 yarn build
+```
+
+### build with mode (lint, prettier, tsc)
+
+```bash
+yarn build:prod
+```
+
+```bash
+yarn build:stage
+```
+
+## product publish
+
+```bash
+yarn build:prod
 ```
 
 1. open [chrome://extensions/](chrome://extensions/)

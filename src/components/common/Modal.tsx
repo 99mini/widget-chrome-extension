@@ -63,7 +63,7 @@ export const InputContainer = styled.label`
   align-items: center;
 
   & > {
-    :first-child {
+    :first-of-type {
       flex: 1;
     }
     :last-child {

@@ -39,7 +39,7 @@ const AddWidgetButton = styled.button`
   border: none;
   border-radius: 8px;
 
-  cursor: pointer;
+  box-sizing: initial;
 `;
 
 const Footer: React.FC = () => {

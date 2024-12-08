@@ -21,6 +21,8 @@ const IconContainer = styled.div<{ isOver?: boolean }>`
 
   padding: 8px;
 
+  box-sizing: initial;
+
   ${({ isOver }) =>
     isOver &&
     `
