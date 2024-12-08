@@ -8,9 +8,24 @@ main {
   margin: 0;
 }
 
+body {
+  font-size: 100%;
+
+  font-family: Pretendard, system-ui, 'Apple SD Gothic Neo', AppleGothic, sans-serif;
+}
+
 main {
   display: flex;
   flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 1rem 0;
 }
 
 #root {
