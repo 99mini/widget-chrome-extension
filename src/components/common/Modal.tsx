@@ -52,3 +52,29 @@ export const Glassmorphism = styled.div`
 
   background-color: ${({ theme }) => rgbWithAlpha(theme.colors.backgroundPalette[600], 0.6)};
 `;
+
+export const InputContainer = styled.label`
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  gap: 24px;
+  align-items: center;
+
+  & > {
+    :first-child {
+      flex: 1;
+    }
+    :last-child {
+      flex: 3;
+    }
+  }
+`;
+
+export const InputLabelText = styled.span`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.text};
+`;

@@ -8,9 +8,9 @@ import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import ActionModal from './ActionModal';
-import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './Modal';
-import Switch from './Switch';
+import ActionModal from './common/ActionModal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
+import Switch from './common/Switch';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -239,11 +239,8 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
           confirmText="초기화"
           confirmType="error"
         >
-          <SettingItemList>
-            <SettingItem>
-              <SettingItemLabel>{'정말로 초기화 하시겠습니까?'}</SettingItemLabel>
-            </SettingItem>
-          </SettingItemList>
+          <h4>{'데이터를 초기화하시겠습니까?'}</h4>
+          <p>{'위젯의 모든 데이터가 초기화 됩니다. 이 작업은 되돌릴 수 없습니다'}</p>
         </ActionModal>
       )}
     </ModalBackground>,

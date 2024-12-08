@@ -31,7 +31,17 @@ const useBookmarkStore = create<BookmarkStoreType>((set) => ({
       return parsed;
     },
     searchBookmarks: search,
-    createBookmark: createBookmark,
+    createBookmark: async (bookmark) => {
+      const res = await createBookmark({ ...bookmark, parentId: bookmark.parentId ?? '0' });
+
+      set((prev) => {
+        const bookmarks = [...prev.bookmarks, res];
+
+        return { bookmarks };
+      });
+
+      return res;
+    },
     updateBookmark: async (id, changes) => {
       const res = await update(id, changes);
 

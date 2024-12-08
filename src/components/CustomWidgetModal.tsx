@@ -1,18 +1,17 @@
-import styled from '@emotion/styled';
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Glassmorphism, ModalBackground, ModalContainerCSS } from './Modal';
+import styled from '@emotion/styled';
 
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from './common/Modal';
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
+import CreateBookmarkModal from './CreateBookbarkModal';
+import CreateClockModal from './CreateClockModal';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
-import useWidget from '@/hook/useWidget';
 import { getIconPath } from '@/utils/icon';
-
-import { ClockFormatType, SpanType, WidgetType, ClockWidgetType } from '@/types/Widget';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -70,67 +69,46 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
 
   const { mode } = useThemeStore();
 
-  const {
-    actions: { createWidget },
-  } = useWidget();
-
-  const createClockWidget = useCallback(
-    async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }) => {
-      const newClockWidget: Omit<WidgetType<ClockWidgetType>, 'index'> = {
-        id: `clock-${span.row}-${span.column}`,
-        title,
-        widgetType: 'clock',
-        span,
-        data: {
-          format,
-        },
-      };
-      createWidget(newClockWidget);
-    },
-    [createWidget]
-  );
+  const [openBookmarkModal, setOpenBookmarkModal] = useState(false);
+  const [openClockModal, setOpenClockModal] = useState(false);
 
   return createPortal(
-    <ModalBackground>
-      <ModalContainer>
-        <Title>{'위젯 추가'}</Title>
-        <WidgetContainer ref={ref}>
-          <WidgetList>
-            {/* bookmark */}
-            <ClickableWidget>
-              <IconWidget
-                id={'-1'}
-                title={'바로가기 추가'}
-                image={getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64')}
-                WidgetProps={{
-                  dragDisabled: true,
-                }}
-              />
-            </ClickableWidget>
-            {/* bookmark */}
-            {/* clock */}
-            <ClickableWidget
-              isRowSpan
-              isColSpan
-              onClick={() => {
-                createClockWidget({
-                  format: 'a HH:mm',
-                  span: { row: 1, column: 1 },
-                  title: 'clock',
-                });
-              }}
-            >
-              <Clock
-                WidgetProps={{
-                  dragDisabled: true,
-                }}
-              />
-            </ClickableWidget>
-            {/* clock */}
-          </WidgetList>
-        </WidgetContainer>
-      </ModalContainer>
-    </ModalBackground>,
+    <>
+      <ModalBackground>
+        <ModalContainer>
+          <Title>{'위젯 추가'}</Title>
+          <WidgetContainer ref={ref}>
+            <WidgetList>
+              {/* bookmark */}
+              <ClickableWidget onClick={() => setOpenBookmarkModal(true)}>
+                <IconWidget
+                  id={'-1'}
+                  title={'바로가기 추가'}
+                  image={getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64')}
+                  WidgetProps={{
+                    dragDisabled: true,
+                  }}
+                />
+              </ClickableWidget>
+              {/* bookmark */}
+              {/* clock */}
+              <ClickableWidget onClick={() => setOpenClockModal(true)}>
+                <Clock
+                  format="HH:mm"
+                  WidgetProps={{
+                    dragDisabled: true,
+                    span: { row: 1, column: 1 },
+                  }}
+                />
+              </ClickableWidget>
+              {/* clock */}
+            </WidgetList>
+          </WidgetContainer>
+        </ModalContainer>
+      </ModalBackground>
+      {openBookmarkModal && <CreateBookmarkModal onClose={() => setOpenBookmarkModal(false)} />}
+      {openClockModal && <CreateClockModal onClose={() => setOpenClockModal(false)} />}
+    </>,
     document.body
   );
 };

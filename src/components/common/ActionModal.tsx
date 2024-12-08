@@ -14,7 +14,7 @@ const ModalContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  gap: 8px;
+  gap: 16px;
 
   padding: 24px;
 
@@ -24,13 +24,13 @@ const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
 
   width: 480px;
-  height: 360px;
+  min-height: 360px;
 
   box-sizing: border-box;
 
   border-radius: 16px;
 
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.root};
 `;
 
 const ActionModalTitle = styled(ModalTitle)``;
@@ -43,7 +43,9 @@ const ActionModalTopSection = styled.div`
   width: 100%;
 `;
 
-const ModalContent = styled.div``;
+const ModalContent = styled.div`
+  color: ${({ theme }) => theme.colors.text};
+`;
 
 const ModalButtonContainer = styled.div`
   width: 100%;
@@ -64,6 +66,18 @@ const ModalButton = styled.button<{ buttonType: 'default' | 'primary' | 'error' 
   border-radius: 8px;
 
   cursor: pointer;
+
+  transition: background-color 237ms;
+
+  &:hover {
+    background-color: ${({ buttonType, theme }) =>
+      buttonType === 'default' ? theme.colors.backgroundHover : theme.colors[`${buttonType}Hover`]};
+  }
+
+  &:active {
+    background-color: ${({ buttonType, theme }) =>
+      buttonType === 'default' ? theme.colors.backgroundActive : theme.colors[`${buttonType}Active`]};
+  }
 `;
 
 type ActionModalProps = {
@@ -99,10 +113,26 @@ const ActionModal: React.FC<ActionModalProps> = ({
           <ModalContent>{children}</ModalContent>
         </ActionModalTopSection>
         <ModalButtonContainer>
-          <ModalButton onClick={onCancel || onClose} buttonType={cancelType}>
+          <ModalButton
+            onClick={() => {
+              if (onCancel) {
+                onCancel();
+              }
+              onClose();
+            }}
+            buttonType={cancelType}
+          >
             {cancelText}
           </ModalButton>
-          <ModalButton onClick={onConfirm || onClose} buttonType={confirmType}>
+          <ModalButton
+            onClick={() => {
+              if (onConfirm) {
+                onConfirm();
+              }
+              onClose();
+            }}
+            buttonType={confirmType}
+          >
             {confirmText}
           </ModalButton>
         </ModalButtonContainer>

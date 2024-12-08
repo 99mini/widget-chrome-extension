@@ -10,7 +10,7 @@ import WidgetLayout from '@/widget/WidgetLayout';
 import useWidget from '@/hook/useWidget';
 
 import { ClockWidgetType, WidgetBookmarkType } from '@/types/Widget';
-import { isWidget } from '@/utils/types';
+import { isWidgetOf } from '@/utils/types';
 
 const NewTab: React.FC = () => {
   const {
@@ -27,13 +27,14 @@ const NewTab: React.FC = () => {
       <Header />
       <WidgetLayout>
         {widgets.map((widget) => {
-          if (isWidget<WidgetBookmarkType>(widget, 'bookmark')) {
+          if (isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
             const bookmark = widget.data;
             if (!bookmark.url && bookmark.children) {
               return (
                 <Folder
-                  key={bookmark.id}
+                  key={`${bookmark.id}-${widget.index}`}
                   id={bookmark.id}
+                  index={widget.index}
                   title={bookmark.title}
                   bookmarks={bookmark.children.map((child) => ({
                     id: child.id,
@@ -44,6 +45,7 @@ const NewTab: React.FC = () => {
                     <IconWidget
                       key={folderClild.id}
                       id={folderClild.id}
+                      index={folderClild.index}
                       title={folderClild.title}
                       url={folderClild.url ?? '#'}
                       image={folderClild.imageUrl}
@@ -54,18 +56,20 @@ const NewTab: React.FC = () => {
             }
             return (
               <IconWidget
-                key={bookmark.id}
+                key={`${bookmark.id}-${widget.index}`}
                 id={bookmark.id}
+                index={widget.index}
                 title={bookmark.title}
                 url={bookmark.url ?? '#'}
                 image={bookmark.imageUrl}
               />
             );
           }
-          if (isWidget<ClockWidgetType>(widget, 'clock')) {
+          if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
             return (
               <Clock
-                key={widget.id}
+                key={`${widget.id}-${widget.index}`}
+                index={widget.index}
                 format={widget.data.format}
                 WidgetProps={{
                   title: widget.title,

@@ -1,7 +1,9 @@
 import React from 'react';
-import { useDrag } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
+
+import useWidget from '@/hook/useWidget';
 
 import { SpanType } from '@/types/Widget';
 
@@ -37,8 +39,6 @@ const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: 
 
   text-decoration: none;
   color: inherit;
-
-  box-sizing: border-box;
 
   ${({ isDragging }) => isDragging && 'opacity: 0.5;'}
   transition: opacity 237ms;
@@ -93,6 +93,7 @@ type WidgetProps = {
   folder?: boolean;
   span?: SpanType;
   id: string;
+  index: number;
   childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   title: string;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
@@ -106,6 +107,7 @@ const Widget: React.FC<WidgetProps> = ({
     column: 1,
   },
   id,
+  index,
   childrenProps,
   title,
   TitleProps,
@@ -113,10 +115,20 @@ const Widget: React.FC<WidgetProps> = ({
   children,
   ...rest
 }) => {
-  const [{ isDragging }, drag] = useDrag(
+  const {
+    actions: { moveWidget },
+  } = useWidget();
+
+  const [{ isDragging }, drag] = useDrag<
+    { id: string; folder: boolean; index: number },
+    { id: string; folder: boolean; index: number },
+    {
+      isDragging: boolean;
+    }
+  >(
     () => ({
       type: 'BOOKMARK',
-      item: { id, folder: Boolean(folder) },
+      item: { id, folder: Boolean(folder), index },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -124,8 +136,33 @@ const Widget: React.FC<WidgetProps> = ({
     [id, folder]
   );
 
+  // TODO: folder drag and drop 과 위젯 drag and drop 이동 로직 분리
+  // TODO: folder 자식 위젯 간 이동 로직 추가
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [{ isOver, hovered }, drop] = useDrop(
+    {
+      accept: 'BOOKMARK',
+      drop: async (item: { id: string; index: number }) => {
+        try {
+          if (item.index === index) {
+            return;
+          }
+          console.log(`moveBookmark ${item.index} to ${index}`);
+          await moveWidget(item.id, item.index, index);
+        } catch (error) {
+          console.error('Failed to move bookmark:', error);
+        }
+      },
+      hover: (item: { id: string; index: number }) => {
+        console.log(`hoverBookmark ${item.index} to ${index}`);
+      },
+      collect: (monitor) => ({ isOver: monitor.isOver(), hovered: monitor.getItem() }),
+    },
+    [id]
+  );
+
   return (
-    <Container span={span} isDragging={isDragging && !dragDisabled} {...rest}>
+    <Container span={span} isDragging={isDragging && !dragDisabled} ref={!dragDisabled ? drop : undefined} {...rest}>
       <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
         {children}
       </ChlidrenContainer>

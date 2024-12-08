@@ -83,13 +83,20 @@ const DefaultTheme = {
   sizes,
   colors: {
     ...defaultColors,
+    errorHover: rgbWithAlpha(defaultColors.error, 0.8),
+    errorActive: rgbWithAlpha(defaultColors.error, 0.5),
+    errorDisabled: rgbWithAlpha(defaultColors.error, 0.3),
+
+    warningHover: rgbWithAlpha(defaultColors.warning, 0.8),
+    warningActive: rgbWithAlpha(defaultColors.warning, 0.5),
+    warningDisabled: rgbWithAlpha(defaultColors.warning, 0.3),
   },
-};
+} as const;
 
 const LightTheme: Theme = {
   ...DefaultTheme,
   colors: {
-    ...defaultColors,
+    ...DefaultTheme.colors,
 
     root: rootLightColor,
 
@@ -117,7 +124,7 @@ const LightTheme: Theme = {
 const DarkTheme: Theme = {
   ...DefaultTheme,
   colors: {
-    ...defaultColors,
+    ...DefaultTheme.colors,
 
     root: rootDarkColor,
 
@@ -143,8 +150,8 @@ const DarkTheme: Theme = {
 };
 
 type Sizes = typeof sizes;
-type DefaultColors = typeof defaultColors;
-type Colors = DefaultColors & {
+
+type Colors = (typeof DefaultTheme)['colors'] & {
   /* root */
   root: typeof rootLightColor | typeof rootDarkColor;
 

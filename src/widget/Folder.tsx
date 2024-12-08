@@ -15,6 +15,7 @@ const Clickable = styled.div`
 
 type FolderProps = {
   id: string;
+  index: number;
   title: string;
   bookmarks: {
     id: string;
@@ -24,7 +25,7 @@ type FolderProps = {
   children: React.ReactNode;
 };
 
-const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, children }) => {
+const Folder: React.FC<FolderProps> = ({ id: folderId, index, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
     actions: { moveBookmark },
@@ -63,6 +64,7 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, title, bookmarks, childre
         <div ref={drop}>
           <FolderIcon
             id={folderId}
+            index={index}
             title={title}
             bookmarks={bookmarks}
             isOver={isOver && /^[0-9]*$/g.test(hovered.id) && !hovered.folder}

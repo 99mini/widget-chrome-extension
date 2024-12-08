@@ -5,7 +5,8 @@ import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
 import useBookmarkStore from './useBookmark';
 
-import { CustomWidgetType, WidgetType } from '@/types/Widget';
+import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import { isWidgetOf } from '@/utils/types';
 
 type WidgetStoreType<T> = {
   widgets: WidgetType<T>[];
@@ -13,6 +14,7 @@ type WidgetStoreType<T> = {
     getWidgets: () => Promise<WidgetType<T>[]>;
     setWidgets: (widgets: WidgetType<T>[]) => void;
     createWidget: (widget: Omit<WidgetType<T>, 'index'>) => Promise<void>;
+    moveWidget: (id: string, prevIndex: number, nextIndex: number) => Promise<void>;
     updateWidget: (id: string, changes: Partial<WidgetType<T>>, dataChanges: Partial<T>) => Promise<void>;
     removeWidget: (id: string) => Promise<void>;
     clearWidgets: () => Promise<void>;
@@ -42,6 +44,27 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
         syncSet('widgets', widgets);
 
         return { widgets };
+      });
+    },
+    moveWidget: async (id, prevIndex, nextIndex) => {
+      console.log(`moveWidget(${id}): ${prevIndex} to ${nextIndex}`);
+      set((prev) => {
+        const newWidgets = prev.widgets
+          .map((widget) => {
+            if (widget.id === id) {
+              return { ...widget, index: nextIndex };
+            } else if (widget.index >= nextIndex && widget.index < prevIndex) {
+              return { ...widget, index: widget.index + 1 };
+            } else if (widget.index <= nextIndex && widget.index > prevIndex) {
+              return { ...widget, index: widget.index - 1 };
+            }
+            return widget;
+          })
+          .sort((a, b) => a.index - b.index);
+
+        console.log('widgets', newWidgets);
+        syncSet('widgets', newWidgets);
+        return { widgets: newWidgets };
       });
     },
     updateWidget: async (id, changes, dataChanges) => {
@@ -75,7 +98,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
 const useWidget = () => {
   const { widgets, actions } = useWidgetStore();
   const {
-    actions: { getBookmarks },
+    actions: { getBookmarks, createBookmark },
   } = useBookmarkStore();
 
   const getWidgets = useCallback(async () => {
@@ -139,15 +162,32 @@ const useWidget = () => {
     await refresh();
   }, [actions, refresh]);
 
+  const createWidget = useCallback(
+    async (widget: Omit<WidgetType<CustomWidgetType>, 'index'>) => {
+      if (widget.widgetType === 'bookmark' && isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
+        const res = await createBookmark({
+          title: widget.data.title,
+          url: widget.data.url,
+          parentId: widget.data.parentId ?? '0',
+        });
+        console.log(res);
+        actions.createWidget({ ...widget, data: { ...widget.data } });
+        return;
+      }
+
+      actions.createWidget(widget);
+    },
+    [actions, createBookmark]
+  );
+
   return {
     widgets,
     actions: {
+      ...actions,
       getWidgets,
-      createWidget: actions.createWidget,
-      updateWidget: actions.updateWidget,
-      removeWidget: actions.removeWidget,
       refresh,
       clearWidgets,
+      createWidget,
     },
   };
 };

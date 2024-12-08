@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 
 import useClickAway from '@/hook/useClickAway';
 
-import EditableText from './EditableText';
-import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './Modal';
+import EditableText from './common/EditableText';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
 
 import styled from '@emotion/styled';
 
@@ -18,6 +18,8 @@ const ModalContainer = styled.div`
 
   ${ModalContainerCSS}
 `;
+
+const ModalContent = styled.div``;
 
 const Modal = styled(Glassmorphism)`
   display: grid;
@@ -46,11 +48,13 @@ const FolderModal: React.FC<FolderModalProps> = ({ onClose, title, children }) =
 
   return createPortal(
     <ModalBackground>
-      <ModalContainer ref={ref}>
-        <ModalTitle>
-          <EditableText text={title} onChange={onChangeTitle} />
-        </ModalTitle>
-        <Modal>{children}</Modal>
+      <ModalContainer>
+        <ModalContent ref={ref}>
+          <ModalTitle>
+            <EditableText text={title} onChange={onChangeTitle} />
+          </ModalTitle>
+          <Modal>{children}</Modal>
+        </ModalContent>
       </ModalContainer>
     </ModalBackground>,
     document.body
