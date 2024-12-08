@@ -7,7 +7,7 @@ import { ModalBackground, ModalTitle } from './Modal';
 
 import useClickAway from '@/hook/useClickAway';
 
-const ModalContainer = styled.div`
+const ModalContainer = styled.div<{ size: 'small' | 'medium' | 'large' }>`
   display: flex;
   flex-direction: column;
 
@@ -16,14 +16,21 @@ const ModalContainer = styled.div`
 
   gap: 16px;
 
-  padding: 24px;
-
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 480px;
+  ${({ size }) => {
+    if (size === 'small') {
+      return `min-width: 360px;`;
+    } else if (size === 'medium') {
+      return `min-width: 540px; aspect-ratio: 3 / 4;`;
+    } else if (size === 'large') {
+      return `min-width: 720px; aspect-ratio: 3 / 4;`;
+    }
+  }}
+
   min-height: 360px;
 
   box-sizing: border-box;
@@ -35,26 +42,66 @@ const ModalContainer = styled.div`
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 `;
 
-const ActionModalTitle = styled(ModalTitle)``;
+const ActionModalTitle = styled(ModalTitle)`
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  padding-top: 24px;
+  padding-bottom: 16px;
+
+  background-color: ${({ theme }) => theme.colors.root};
+
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+`;
 
 const ActionModalTopSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
 
   width: 100%;
+  height: 100%;
 `;
 
 const ModalContent = styled.div`
   color: ${({ theme }) => theme.colors.text};
+  height: calc(100% - 64px - 72px);
+
+  padding-bottom: 36px;
+
+  overflow-y: auto;
 `;
 
-const ModalButtonContainer = styled.div`
+const ModalContentContainer = styled.div`
+  padding: 0 24px;
+`;
+
+const ModalButtonContainer = styled.div<{ size?: 'small' | 'medium' | 'large' }>`
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   width: 100%;
 
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+
+  padding: 16px 24px;
+  background-color: ${({ theme }) => theme.colors.root};
+
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+
+  ${({ size }) => {
+    if (size !== 'small') {
+      return `box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);`;
+    }
+  }}
 `;
 
 const ModalButton = styled.button<{ buttonType: 'default' | 'primary' | 'error' | 'warning' }>`
@@ -93,6 +140,7 @@ type ActionModalProps = {
   cancelType?: 'default' | 'primary' | 'error' | 'warning';
   onCancel?: () => void;
   disabledClickAway?: boolean;
+  size?: 'small' | 'medium' | 'large';
 };
 
 const ActionModal: React.FC<ActionModalProps> = ({
@@ -106,17 +154,20 @@ const ActionModal: React.FC<ActionModalProps> = ({
   onCancel,
   cancelType = 'default',
   disabledClickAway,
+  size = 'medium',
 }) => {
   const ref = useClickAway<HTMLDivElement>(!disabledClickAway ? onClose : () => {});
 
   return createPortal(
     <ModalBackground>
-      <ModalContainer ref={ref}>
+      <ModalContainer ref={ref} size={size}>
         <ActionModalTopSection>
           {title && <ActionModalTitle>{title}</ActionModalTitle>}
-          <ModalContent>{children}</ModalContent>
+          <ModalContent>
+            <ModalContentContainer>{children}</ModalContentContainer>
+          </ModalContent>
         </ActionModalTopSection>
-        <ModalButtonContainer>
+        <ModalButtonContainer size={size}>
           <ModalButton
             onClick={() => {
               if (onCancel) {

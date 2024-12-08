@@ -81,7 +81,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           }}
         >
           <SelectTrigger>
-            <SelectValue placeholder={'시간 형식'} />
+            <SelectValue placeholder={'HH:mm'} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -110,7 +110,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           }}
         >
           <SelectTrigger>
-            <SelectValue placeholder={'위젯 크기'} />
+            <SelectValue placeholder={'1x1'} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
