@@ -13,7 +13,7 @@ type CreateClockModalProps = {
 };
 
 const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
-  const [format, setFormat] = useState<ClockFormatType>('a h:mm');
+  const [format, setFormat] = useState<ClockFormatType>('HH:mm');
   const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
   const [title, setTitle] = useState('시계');
 
@@ -59,10 +59,12 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
     >
       <InputContainer>
         <InputLabelText>{'위젯 이름'}</InputLabelText>
+        {/* TODO: 공용 input 위젯 구현  */}
         <input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
         <InputLabelText>{'시간 형식'}</InputLabelText>
+        {/* TODO: 공용 select 위젯 구현 */}
         <select
           value={format}
           onChange={(e) => {
