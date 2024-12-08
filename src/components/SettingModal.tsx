@@ -8,9 +8,9 @@ import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import ActionModal from './ActionModal';
-import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './Modal';
-import Switch from './Switch';
+import ActionModal from './common/ActionModal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
+import Switch from './common/Switch';
 
 const ModalContainer = styled.div`
   display: flex;

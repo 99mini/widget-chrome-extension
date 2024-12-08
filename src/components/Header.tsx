@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 
-import Switch from './Switch';
+import Switch from './common/Switch';
 import SettingModal from './SettingModal';
 
 import useThemeStore from '@/hook/useTheme';

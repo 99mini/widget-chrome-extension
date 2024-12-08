@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import ActionModal from './ActionModal';
+import ActionModal from './common/ActionModal';
 import { createPortal } from 'react-dom';
-import { ModalTitle } from './Modal';
+import { ModalTitle } from './common/Modal';
 import useWidget from '@/hook/useWidget';
 
 type CreateBookmarkModalProps = {

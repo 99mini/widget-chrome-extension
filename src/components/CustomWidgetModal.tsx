@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Glassmorphism, ModalBackground, ModalContainerCSS } from './Modal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from './common/Modal';
 
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
