@@ -1,19 +1,17 @@
-import styled from '@emotion/styled';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Glassmorphism, ModalBackground, ModalContainerCSS } from './common/Modal';
+import styled from '@emotion/styled';
 
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from './common/Modal';
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
+import CreateBookmarkModal from './CreateBookbarkModal';
+import CreateClockModal from './CreateClockModal';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
-import useWidget from '@/hook/useWidget';
 import { getIconPath } from '@/utils/icon';
-
-import { ClockFormatType, SpanType, WidgetType, ClockWidgetType } from '@/types/Widget';
-import CreateBookmarkModal from './CreateBookbarkModal';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -71,27 +69,8 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
 
   const { mode } = useThemeStore();
 
-  const {
-    actions: { createWidget },
-  } = useWidget();
-
   const [openBookmarkModal, setOpenBookmarkModal] = useState(false);
-
-  const createClockWidget = useCallback(
-    async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }) => {
-      const newClockWidget: Omit<WidgetType<ClockWidgetType>, 'index'> = {
-        id: `clock-${span.row}-${span.column}`,
-        title,
-        widgetType: 'clock',
-        span,
-        data: {
-          format,
-        },
-      };
-      createWidget(newClockWidget);
-    },
-    [createWidget]
-  );
+  const [openClockModal, setOpenClockModal] = useState(false);
 
   return createPortal(
     <>
@@ -113,20 +92,12 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
               </ClickableWidget>
               {/* bookmark */}
               {/* clock */}
-              <ClickableWidget
-                isRowSpan
-                isColSpan
-                onClick={() => {
-                  createClockWidget({
-                    format: 'a h:mm',
-                    span: { row: 1, column: 1 },
-                    title: 'clock',
-                  });
-                }}
-              >
+              <ClickableWidget onClick={() => setOpenClockModal(true)}>
                 <Clock
+                  format="HH:mm"
                   WidgetProps={{
                     dragDisabled: true,
+                    span: { row: 1, column: 1 },
                   }}
                 />
               </ClickableWidget>
@@ -136,6 +107,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
         </ModalContainer>
       </ModalBackground>
       {openBookmarkModal && <CreateBookmarkModal onClose={() => setOpenBookmarkModal(false)} />}
+      {openClockModal && <CreateClockModal onClose={() => setOpenClockModal(false)} />}
     </>,
     document.body
   );

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import useClickAway from '@/hook/useClickAway';
 
-import EditableText from './EditableText';
+import EditableText from './common/EditableText';
 import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
 
 import styled from '@emotion/styled';

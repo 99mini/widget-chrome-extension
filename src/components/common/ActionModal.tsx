@@ -14,7 +14,7 @@ const ModalContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  gap: 8px;
+  gap: 16px;
 
   padding: 24px;
 
@@ -24,7 +24,7 @@ const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
 
   width: 480px;
-  height: 360px;
+  min-height: 360px;
 
   box-sizing: border-box;
 
@@ -113,10 +113,26 @@ const ActionModal: React.FC<ActionModalProps> = ({
           <ModalContent>{children}</ModalContent>
         </ActionModalTopSection>
         <ModalButtonContainer>
-          <ModalButton onClick={onCancel || onClose} buttonType={cancelType}>
+          <ModalButton
+            onClick={() => {
+              if (onCancel) {
+                onCancel();
+              }
+              onClose();
+            }}
+            buttonType={cancelType}
+          >
             {cancelText}
           </ModalButton>
-          <ModalButton onClick={onConfirm || onClose} buttonType={confirmType}>
+          <ModalButton
+            onClick={() => {
+              if (onConfirm) {
+                onConfirm();
+              }
+              onClose();
+            }}
+            buttonType={confirmType}
+          >
             {confirmText}
           </ModalButton>
         </ModalButtonContainer>

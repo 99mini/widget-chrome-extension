@@ -45,8 +45,8 @@ type ClockProps = {
 const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM월 dd일 a h:mm:ss' }) => {
   const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
     () => ({
-      title: '시계',
-      span: {
+      title: WidgetProps?.title ?? '시계',
+      span: WidgetProps?.span ?? {
         row: 2,
         column: 2,
       },

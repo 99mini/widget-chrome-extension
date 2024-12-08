@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import ActionModal from './common/ActionModal';
-import { createPortal } from 'react-dom';
-import { ModalTitle } from './common/Modal';
+
 import useWidget from '@/hook/useWidget';
+
+import IconWidget from '@/widget/Icon';
+import { InputContainer, InputLabelText } from './common/Modal';
+import CreateWidgetModal from './CreateWidgetModal';
+import { urlProtocol } from '@/utils/common';
 
 type CreateBookmarkModalProps = {
   onClose: () => void;
@@ -34,20 +37,30 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) =>
     [createWidget]
   );
 
-  return createPortal(
-    <ActionModal
+  return (
+    <CreateWidgetModal
       onClose={onClose}
-      onConfirm={async () => {
-        if (url && title) {
-          await handleConfirm(url, title);
-        }
-      }}
+      title="바로가기 추가"
+      PreviewWidget={
+        <IconWidget
+          id="bookmark"
+          index={0}
+          title={title}
+          url={urlProtocol(url)}
+          image={`${urlProtocol(url)}/favicon.ico`}
+        />
+      }
+      onConfirm={() => handleConfirm(urlProtocol(url), title)}
     >
-      <ModalTitle>{'바로가기 추가'}</ModalTitle>
-      <input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} />
-      <input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
-    </ActionModal>,
-    document.body
+      <InputContainer>
+        <InputLabelText>{'위젯 이름'}</InputLabelText>
+        <input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
+      </InputContainer>
+      <InputContainer>
+        <InputLabelText>{'URL'}</InputLabelText>
+        <input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} />
+      </InputContainer>
+    </CreateWidgetModal>
   );
 };
 
