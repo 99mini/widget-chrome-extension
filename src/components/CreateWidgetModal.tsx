@@ -30,6 +30,7 @@ type CreateWidgetModalProps = {
   title: string;
   PreviewWidget: React.ReactNode;
   onConfirm: () => void;
+  disabledClickAway?: boolean;
   children?: React.ReactNode;
 };
 
@@ -38,10 +39,11 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
   title,
   PreviewWidget,
   onConfirm,
+  disabledClickAway,
   children,
 }) => {
   return createPortal(
-    <ActionModal onClose={onClose} title={title} onConfirm={onConfirm}>
+    <ActionModal onClose={onClose} title={title} onConfirm={onConfirm} disabledClickAway={disabledClickAway}>
       <PreviewContainer>
         <PreviewWrapper>{PreviewWidget}</PreviewWrapper>
         {children}

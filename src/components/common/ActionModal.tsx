@@ -31,6 +31,8 @@ const ModalContainer = styled.div`
   border-radius: 16px;
 
   background-color: ${({ theme }) => theme.colors.root};
+
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 `;
 
 const ActionModalTitle = styled(ModalTitle)``;
@@ -90,6 +92,7 @@ type ActionModalProps = {
   cancelText?: string;
   cancelType?: 'default' | 'primary' | 'error' | 'warning';
   onCancel?: () => void;
+  disabledClickAway?: boolean;
 };
 
 const ActionModal: React.FC<ActionModalProps> = ({
@@ -102,8 +105,9 @@ const ActionModal: React.FC<ActionModalProps> = ({
   cancelText = '취소',
   onCancel,
   cancelType = 'default',
+  disabledClickAway,
 }) => {
-  const ref = useClickAway<HTMLDivElement>(onClose);
+  const ref = useClickAway<HTMLDivElement>(!disabledClickAway ? onClose : () => {});
 
   return createPortal(
     <ModalBackground>
