@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           newtab: 'index.html',
+          popup: 'popup.html',
         },
       },
     },

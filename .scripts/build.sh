@@ -34,18 +34,18 @@ if [ "$MODE" = "production" ]; then
   # }
 
   echo "{
-    \"manifest_version\": 3,
-    \"name\": \"widget chrome extension\",
-    \"description\": \"A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.\",
-    \"version\": \"$version\",
-    \"action\": {
-      \"default_popup\": \"index.html\"
-    },
-    \"permissions\": [\"storage\", \"bookmarks\"],
-    \"chrome_url_overrides\": {
-      \"newtab\": \"index.html\"
-    }
-  }" > public/manifest.json
+  \"manifest_version\": 3,
+  \"name\": \"widget chrome extension\",
+  \"description\": \"A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.\",
+  \"version\": \"$version\",
+  \"action\": {
+    \"default_popup\": \"index.html\"
+  },
+  \"permissions\": [\"storage\", \"bookmarks\"],
+  \"chrome_url_overrides\": {
+    \"newtab\": \"index.html\"
+  }
+}" > public/manifest.json
 
   echo "Generated manifest.json file with version $version"
 fi 
