@@ -29,7 +29,7 @@ const SettingtButton = styled.button`
 
   box-sizing: border-box;
 
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: transparent;
   color: ${({ theme }) => theme.colors.text};
 
   border: none;

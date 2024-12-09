@@ -28,6 +28,9 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
   const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
   const [title, setTitle] = useState('시계');
 
+  const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
+  const [openSelectClockFormat, setOpenSelectClockFormat] = useState(false);
+
   const {
     actions: { createWidget },
   } = useWidget();
@@ -47,11 +50,12 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
     },
     [createWidget]
   );
+
   return (
     <CreateWidgetModal
       onClose={onClose}
-      disabledClickAway
       title="시계 위젯 추가"
+      disabledClickAway={openSelectClockFormat || openSelectWidgetSize}
       PreviewWidget={
         <Clock
           format={format}
@@ -74,40 +78,34 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
         <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{'시간 형식'}</InputLabelText>
-        <Select
-          onValueChange={(e) => {
-            setFormat(e as ClockFormatType);
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder={'HH:mm'} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>{'시간 형식'}</SelectLabel>
-              {CLOCK_FORMAT_OPTIONS.map((clockFormat) => {
-                if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
-                  return null;
-                }
-                return (
-                  <SelectItem key={clockFormat} value={clockFormat}>
-                    {clockFormat}
-                  </SelectItem>
-                );
-              })}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </InputContainer>
-      <InputContainer>
         <InputLabelText>{'위젯 크기'}</InputLabelText>
         <Select
           onValueChange={(e) => {
             const [row, column] = e.split('x').map((v) => parseInt(v));
             const selectedSpan = { row, column } as SpanType;
             setSpan(selectedSpan);
+
+            if (row === 1) {
+              if (column === 1 && format.endsWith('s')) {
+                setFormat(
+                  (prevFormat) =>
+                    prevFormat
+                      .replace(/y|[년|-]|M|[월|-]|d|[일|-]/g, '')
+                      .replace(/s/g, '')
+                      .replace(/:$/g, '')
+                      .replace(/^\s*/g, '') as ClockFormatType
+                );
+              } else {
+                setFormat(
+                  (prevFormat) =>
+                    prevFormat.replace(/y|[년|-]|M|[월|-]|d|[일|-]/g, '').replace(/^\s*/g, '') as ClockFormatType
+                );
+              }
+            }
           }}
+          onOpenChange={setOpenSelectWidgetSize}
+          open={openSelectWidgetSize}
+          value={`${span.row}x${span.column}`}
         >
           <SelectTrigger>
             <SelectValue placeholder={'1x1'} />
@@ -120,6 +118,39 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
                   {`${span.row}x${span.column}`}
                 </SelectItem>
               ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </InputContainer>
+      <InputContainer>
+        <InputLabelText>{'시간 형식'}</InputLabelText>
+        <Select
+          onValueChange={(e) => {
+            setFormat(e as ClockFormatType);
+          }}
+          onOpenChange={setOpenSelectClockFormat}
+          open={openSelectClockFormat}
+          value={format}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder={'HH:mm'} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>{'시간 형식'}</SelectLabel>
+              {CLOCK_FORMAT_OPTIONS.map((clockFormat) => {
+                if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
+                  return null;
+                }
+                if (span.row === 1 && span.column === 2 && clockFormat.startsWith('y')) {
+                  return null;
+                }
+                return (
+                  <SelectItem key={clockFormat} value={clockFormat}>
+                    {clockFormat}
+                  </SelectItem>
+                );
+              })}
             </SelectGroup>
           </SelectContent>
         </Select>
