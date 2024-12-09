@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
@@ -43,9 +43,15 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
   disabledClickAway,
   children,
 }) => {
+  const handleClickAway = useCallback(() => {
+    if (!disabledClickAway) {
+      onClose();
+    }
+  }, [disabledClickAway, onClose]);
+
   return createPortal(
     <ActionModal
-      onClose={onClose}
+      onClose={handleClickAway}
       title={title}
       onConfirm={onConfirm}
       confirmText="생성"
