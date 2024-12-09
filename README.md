@@ -27,6 +27,9 @@ yarn install
 yarn dev
 ```
 
+- newtab: http://localhost:5173
+- popup: http://localhost:5173/popup.html
+
 ## lint, prettier, tsc
 
 ```bash

@@ -1,16 +1,16 @@
 import React from 'react';
 
-import RootProvider from './context';
+import RootProvider from '@/context';
 
-import NewTab from './newTab';
+import Popup from '.';
 
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from '@/GlobalStyle';
 
 function App() {
   return (
     <RootProvider>
       <GlobalStyle>
-        <NewTab />
+        <Popup />
       </GlobalStyle>
     </RootProvider>
   );
