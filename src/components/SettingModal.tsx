@@ -225,7 +225,10 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
           onClose={() => setOpenAgreement(false)}
           title="데이터 초기화"
           size="small"
-          onConfirm={async () => await clearWidgets()}
+          onConfirm={async () => {
+            await clearWidgets();
+            onClose();
+          }}
           confirmText="초기화"
           confirmType="error"
         >

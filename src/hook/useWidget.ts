@@ -163,19 +163,30 @@ const useWidget = () => {
   }, [actions, refresh]);
 
   const createWidget = useCallback(
-    async (widget: Omit<WidgetType<CustomWidgetType>, 'index'>) => {
+    async <T extends CustomWidgetType>(widget: Omit<WidgetType<T>, 'index'>) => {
       if (widget.widgetType === 'bookmark' && isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
-        const res = await createBookmark({
-          title: widget.data.title,
-          url: widget.data.url,
-          parentId: widget.data.parentId ?? '0',
-        });
-        console.log(res);
-        actions.createWidget({ ...widget, data: { ...widget.data } });
-        return;
+        try {
+          const res = await createBookmark({
+            title: widget.data.title,
+            url: widget.data.url,
+            parentId: widget.data.parentId ?? '1',
+          });
+          console.debug(`createWidget: ${res}`);
+          await actions.createWidget({
+            id: res.id,
+            title: res.title,
+            widgetType: 'bookmark',
+            data: { ...res, imageUrl: widget.data.imageUrl },
+          });
+
+          return;
+        } catch (e) {
+          console.error(e);
+          return;
+        }
       }
 
-      actions.createWidget(widget);
+      await actions.createWidget(widget);
     },
     [actions, createBookmark]
   );

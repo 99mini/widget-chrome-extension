@@ -72,9 +72,19 @@ export const InputContainer = styled.label`
   }
 `;
 
-export const InputLabelText = styled.span`
+export const InputLabelText = styled.span<{ required?: boolean }>`
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.text};
+
+  ${({ theme, required }) =>
+    required &&
+    css`
+      &::after {
+        content: '*';
+        color: ${theme.colors.error};
+        margin-left: 4px;
+      }
+    `}
 `;

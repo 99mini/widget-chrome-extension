@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { Glassmorphism, ModalBackground, ModalContainerCSS } from './common/Modal';
 import Clock from '@/widget/Clock';
 import IconWidget from '@/widget/Icon';
-import CreateBookmarkModal from './CreateBookbarkModal';
+import CreateBookmarkModal from './CreateBookmarkModal';
 import CreateClockModal from './CreateClockModal';
 
 import useClickAway from '@/hook/useClickAway';
