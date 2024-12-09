@@ -11,6 +11,7 @@ import useWidget from '@/hook/useWidget';
 import ActionModal from './common/ActionModal';
 import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
 import Switch from './common/Switch';
+import Line from './common/Line';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -83,18 +84,6 @@ const DangerButton = styled.button`
   padding: 0;
 
   cursor: pointer;
-`;
-
-const Line = styled.hr`
-  width: 100%;
-  max-width: 360px;
-  height: 2px;
-
-  margin: 4px 0;
-  padding: 0;
-
-  border: none;
-  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const FooterContainer = styled.footer`
@@ -235,6 +224,7 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
         <ActionModal
           onClose={() => setOpenAgreement(false)}
           title="데이터 초기화"
+          size="small"
           onConfirm={async () => await clearWidgets()}
           confirmText="초기화"
           confirmType="error"

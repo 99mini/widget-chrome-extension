@@ -1,19 +1,30 @@
 import React, { useCallback, useState } from 'react';
 
+import { Input } from './ui/input';
+import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue, SelectGroup } from './ui/select';
+
 import Clock from '@/widget/Clock';
 
 import useWidget from '@/hook/useWidget';
 
-import { ClockFormatType, ClockWidgetType, SpanType, WidgetType } from '@/types/Widget';
 import CreateWidgetModal from './CreateWidgetModal';
 import { InputContainer, InputLabelText } from './common/Modal';
+
+import {
+  CLOCK_FORMAT_OPTIONS,
+  ClockFormatType,
+  ClockWidgetType,
+  SPAN_OPTIONS,
+  SpanType,
+  WidgetType,
+} from '@/types/Widget';
 
 type CreateClockModalProps = {
   onClose: () => void;
 };
 
 const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
-  const [format, setFormat] = useState<ClockFormatType>('a h:mm');
+  const [format, setFormat] = useState<ClockFormatType>('HH:mm');
   const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
   const [title, setTitle] = useState('시계');
 
@@ -39,6 +50,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
   return (
     <CreateWidgetModal
       onClose={onClose}
+      disabledClickAway
       title="시계 위젯 추가"
       PreviewWidget={
         <Clock
@@ -59,46 +71,58 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
     >
       <InputContainer>
         <InputLabelText>{'위젯 이름'}</InputLabelText>
-        <input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
         <InputLabelText>{'시간 형식'}</InputLabelText>
-        <select
-          value={format}
-          onChange={(e) => {
-            setFormat(e.target.value as ClockFormatType);
+        <Select
+          onValueChange={(e) => {
+            setFormat(e as ClockFormatType);
           }}
         >
-          {['HH:mm:ss', 'HH:mm', 'a h:mm:ss', 'a h:mm', 'yyyy년 MM월 dd일 a h:mm:ss', 'yyyy년 MM월 dd일 a h:mm'].map(
-            (clockFormat) => {
-              if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
-                return null;
-              }
-              return (
-                <option key={clockFormat} value={clockFormat}>
-                  {clockFormat}
-                </option>
-              );
-            }
-          )}
-        </select>
+          <SelectTrigger>
+            <SelectValue placeholder={'HH:mm'} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>{'시간 형식'}</SelectLabel>
+              {CLOCK_FORMAT_OPTIONS.map((clockFormat) => {
+                if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
+                  return null;
+                }
+                return (
+                  <SelectItem key={clockFormat} value={clockFormat}>
+                    {clockFormat}
+                  </SelectItem>
+                );
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </InputContainer>
       <InputContainer>
         <InputLabelText>{'위젯 크기'}</InputLabelText>
-        <select
-          value={`${span.row}x${span.column}`}
-          onChange={(e) => {
-            const [row, column] = e.target.value.split('x').map((v) => parseInt(v));
+        <Select
+          onValueChange={(e) => {
+            const [row, column] = e.split('x').map((v) => parseInt(v));
             const selectedSpan = { row, column } as SpanType;
             setSpan(selectedSpan);
           }}
         >
-          <option value={'1x1'}>{'1x1'}</option>
-          <option value={'1x2'}>{'1x2'}</option>
-          <option value={'2x2'}>{'2x2'}</option>
-          <option value={'2x4'}>{'2x4'}</option>
-          <option value={'4x4'}>{'4x4'}</option>
-        </select>
+          <SelectTrigger>
+            <SelectValue placeholder={'1x1'} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>{'위젯 크기'}</SelectLabel>
+              {SPAN_OPTIONS.map((span) => (
+                <SelectItem key={`${span.row}x${span.column}`} value={`${span.row}x${span.column}`}>
+                  {`${span.row}x${span.column}`}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </InputContainer>
     </CreateWidgetModal>
   );

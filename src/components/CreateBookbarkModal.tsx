@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
-import useWidget from '@/hook/useWidget';
+import { Input } from './ui/input';
 
 import IconWidget from '@/widget/Icon';
 import { InputContainer, InputLabelText } from './common/Modal';
 import CreateWidgetModal from './CreateWidgetModal';
+
+import useWidget from '@/hook/useWidget';
+
 import { urlProtocol } from '@/utils/common';
 
 type CreateBookmarkModalProps = {
@@ -54,11 +57,11 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) =>
     >
       <InputContainer>
         <InputLabelText>{'위젯 이름'}</InputLabelText>
-        <input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
         <InputLabelText>{'URL'}</InputLabelText>
-        <input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} />
+        <Input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} />
       </InputContainer>
     </CreateWidgetModal>
   );
