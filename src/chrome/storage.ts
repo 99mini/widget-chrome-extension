@@ -1,4 +1,4 @@
-export const storageKey = ['tasks', 'theme', 'primaryColor', 'widgets'] as const;
+export const storageKey = ['tasks', 'theme', 'primaryColor', 'widgets', 'region'] as const;
 export type StorageKey = (typeof storageKey)[number];
 
 export const syncSet = async (key: StorageKey, value: object | string): Promise<void> => {

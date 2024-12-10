@@ -6,6 +6,8 @@ import Widget from './Widget';
 
 import { formatDate } from '@/utils/day';
 
+import useThemeStore from '@/hook/useTheme';
+
 import { ClockWidgetType } from '@/types/Widget';
 
 const Container = styled.div`
@@ -43,17 +45,20 @@ type ClockProps = {
 } & ClockWidgetType;
 
 const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM월 dd일 a h:mm:ss' }) => {
+  const { region } = useThemeStore();
+
   const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
     () => ({
-      title: WidgetProps?.title ?? '시계',
+      title: (WidgetProps?.title ?? region === 'ko') ? '시계' : 'Clock',
       span: WidgetProps?.span ?? {
         row: 2,
         column: 2,
       },
       ...WidgetProps,
     }),
-    [WidgetProps]
+    [WidgetProps, region]
   );
+
   const [time, setTime] = useState<Date>(new Date());
 
   const hasDay = format[0] === 'y';
@@ -84,7 +89,7 @@ const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM�
     <Widget
       id={`${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`}
       index={index ?? -1}
-      title={'시계'}
+      title={(defalutWidgetProps.title ?? region === 'ko') ? '시계' : 'Clock'}
       childrenProps={{
         border: true,
       }}

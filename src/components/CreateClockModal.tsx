@@ -10,6 +10,8 @@ import useWidget from '@/hook/useWidget';
 import CreateWidgetModal from './CreateWidgetModal';
 import { InputContainer, InputLabelText } from './common/Modal';
 
+import useThemeStore from '@/hook/useTheme';
+
 import {
   CLOCK_FORMAT_OPTIONS,
   ClockFormatType,
@@ -24,16 +26,18 @@ type CreateClockModalProps = {
 };
 
 const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
-  const [format, setFormat] = useState<ClockFormatType>('HH:mm');
-  const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
-  const [title, setTitle] = useState('시계');
-
-  const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
-  const [openSelectClockFormat, setOpenSelectClockFormat] = useState(false);
-
   const {
     actions: { createWidget },
   } = useWidget();
+
+  const { region } = useThemeStore();
+
+  const [format, setFormat] = useState<ClockFormatType>('HH:mm');
+  const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
+  const [title, setTitle] = useState(region === 'ko' ? '시계' : 'Clock');
+
+  const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
+  const [openSelectClockFormat, setOpenSelectClockFormat] = useState(false);
 
   const createClockWidget = useCallback(
     async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }) => {
@@ -54,13 +58,13 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
   return (
     <CreateWidgetModal
       onClose={onClose}
-      title="시계 위젯 추가"
+      title={region === 'ko' ? '시계 위젯 추가' : 'Add Clock Widget'}
       disabledClickAway={openSelectClockFormat || openSelectWidgetSize}
       PreviewWidget={
         <Clock
           format={format}
           WidgetProps={{
-            title: title || '시계',
+            title: title ?? (region === 'ko' ? '시계' : 'Clock'),
             span,
           }}
         />
@@ -74,11 +78,11 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
       }
     >
       <InputContainer>
-        <InputLabelText>{'위젯 이름'}</InputLabelText>
+        <InputLabelText>{region === 'ko' ? '위젯 이름' : 'Widget Name'}</InputLabelText>
         <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{'위젯 크기'}</InputLabelText>
+        <InputLabelText>{region === 'ko' ? '위젯 크기' : 'Widget Size'}</InputLabelText>
         <Select
           onValueChange={(e) => {
             const [row, column] = e.split('x').map((v) => parseInt(v));
@@ -112,7 +116,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>{'위젯 크기'}</SelectLabel>
+              <SelectLabel>{region === 'ko' ? '위젯 크기' : 'Widget Size'}</SelectLabel>
               {SPAN_OPTIONS.map((span) => (
                 <SelectItem key={`${span.row}x${span.column}`} value={`${span.row}x${span.column}`}>
                   {`${span.row}x${span.column}`}
@@ -123,7 +127,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
         </Select>
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{'시간 형식'}</InputLabelText>
+        <InputLabelText>{region === 'ko' ? '시간 형식' : 'Clock Format'}</InputLabelText>
         <Select
           onValueChange={(e) => {
             setFormat(e as ClockFormatType);
@@ -137,7 +141,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>{'시간 형식'}</SelectLabel>
+              <SelectLabel>{region === 'ko' ? '시간 형식' : 'Clock Format'}</SelectLabel>
               {CLOCK_FORMAT_OPTIONS.map((clockFormat) => {
                 if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
                   return null;

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
+
 import CustomWidgetModal from './CustomWidgetModal';
+
+import useThemeStore from '@/hook/useTheme';
 
 const AdArea = styled.div`
   flex: 1;
@@ -30,8 +33,8 @@ const FloatContainer = styled.div`
   gap: 16px;
 `;
 
-const AddWidgetButton = styled.button`
-  width: 94px;
+const AddWidgetButton = styled.button<{ en?: boolean }>`
+  width: ${({ en }) => (en ? '132px' : '94px;')};
 
   padding: 8px 16px;
 
@@ -49,11 +52,15 @@ const AddWidgetButton = styled.button`
 const Footer: React.FC = () => {
   const [openAddWidget, setOpenAddWidget] = useState(false);
 
+  const { region } = useThemeStore();
+
   return (
     <>
       <AdArea></AdArea>
       <FloatContainer>
-        <AddWidgetButton onClick={() => setOpenAddWidget(true)}>{'+ 위젯 추가'}</AddWidgetButton>
+        <AddWidgetButton onClick={() => setOpenAddWidget(true)} en={region === 'en'}>
+          {region === 'ko' ? '+ 위젯 추가' : '+ Add Widget'}
+        </AddWidgetButton>
       </FloatContainer>
       {openAddWidget && <CustomWidgetModal onClose={() => setOpenAddWidget(false)} />}
     </>

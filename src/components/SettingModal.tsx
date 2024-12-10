@@ -12,6 +12,7 @@ import ActionModal from './common/ActionModal';
 import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
 import Switch from './common/Switch';
 import Line from './common/Line';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -59,6 +60,10 @@ const SettingItem = styled.li`
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+
+  & > :last-child {
+    width: fit-content;
+  }
 `;
 
 const SettingItemLabelCSS = css`
@@ -148,26 +153,28 @@ type SettingModalProps = {
 };
 const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
   const [openAgreement, setOpenAgreement] = useState(false);
+  const [openSelectRegion, setOpenSelectRegion] = useState(false);
 
   const {
     mode,
-    actions: { setMode },
+    region,
+    actions: { setMode, setRegion },
   } = useThemeStore();
 
   const {
     actions: { clearWidgets },
   } = useWidget();
 
-  const ref = useClickAway<HTMLDivElement>(onClose, 300);
+  const ref = useClickAway<HTMLDivElement>(!openSelectRegion ? onClose : () => {}, 300);
 
   return createPortal(
     <ModalBackground>
       <ModalContainer>
-        <ModalTitle>{'설정'}</ModalTitle>
+        <ModalTitle>{region === 'ko' ? '설정' : 'setting'}</ModalTitle>
         <SettingContainer ref={ref}>
           <SettingItemList>
             <SettingItem>
-              <SettingItemLabel>{'다크 모드'}</SettingItemLabel>
+              <SettingItemLabel>{region === 'ko' ? '다크 모드' : 'dark mode'}</SettingItemLabel>
               <Switch
                 InputProps={{
                   checked: mode === 'dark',
@@ -176,12 +183,38 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
                 }}
               />
             </SettingItem>
+            <SettingItem>
+              <SettingItemLabel>{region === 'ko' ? '언어' : 'language'}</SettingItemLabel>
+              <Select
+                onValueChange={(e) => {
+                  setRegion(e as 'ko' | 'en');
+                  setOpenSelectRegion(false);
+                }}
+                onOpenChange={setOpenSelectRegion}
+                open={openSelectRegion}
+                value={region}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={'1x1'} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>{region === 'ko' ? '언어' : 'language'}</SelectLabel>
+                    {Object.entries({ ko: '한국어', en: 'English' }).map(([key, language]) => (
+                      <SelectItem key={key} value={key}>
+                        {language}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </SettingItem>
           </SettingItemList>
           <Line />
           <SettingItemList>
             <SettingItem>
-              <SettingItemLabel>{'데이터 초기화'}</SettingItemLabel>
-              <DangerButton onClick={() => setOpenAgreement(true)}>{'초기화'}</DangerButton>
+              <SettingItemLabel>{region === 'ko' ? '데이터 초기화' : 'reset data'}</SettingItemLabel>
+              <DangerButton onClick={() => setOpenAgreement(true)}>{region === 'ko' ? '초기화' : 'reset'}</DangerButton>
             </SettingItem>
           </SettingItemList>
           <FooterContainer>
@@ -223,17 +256,21 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
       {openAgreement && (
         <ActionModal
           onClose={() => setOpenAgreement(false)}
-          title="데이터 초기화"
+          title={region === 'ko' ? '데이터 초기화' : 'Reset Data'}
           size="small"
           onConfirm={async () => {
             await clearWidgets();
             onClose();
           }}
-          confirmText="초기화"
+          confirmText={region === 'ko' ? '초기화' : 'Reset'}
           confirmType="error"
         >
-          <h4>{'데이터를 초기화하시겠습니까?'}</h4>
-          <p>{'위젯의 모든 데이터가 초기화 됩니다. 이 작업은 되돌릴 수 없습니다'}</p>
+          <h4>{region === 'ko' ? '데이터를 초기화하시겠습니까?' : 'Are you sure you want to reset the data?'}</h4>
+          <p>
+            {region === 'ko'
+              ? '위젯의 모든 데이터가 초기화 됩니다. 이 작업은 되돌릴 수 없습니다'
+              : 'All data in the widget will be reset. This operation cannot be undone.'}
+          </p>
         </ActionModal>
       )}
     </ModalBackground>,
