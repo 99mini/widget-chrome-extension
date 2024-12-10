@@ -9,6 +9,10 @@ const AdArea = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  padding: 0 36px;
+  margin-top: 16px;
+  margin-bottom: 80px;
 `;
 
 const FloatContainer = styled.div`
