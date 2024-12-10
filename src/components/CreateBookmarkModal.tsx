@@ -66,8 +66,13 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) =>
         <Input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} required />
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{'이미지 URL'}</InputLabelText>
-        <Input type="text" placeholder={'Image URL'} value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
+        <InputLabelText>{'아이콘 이미지 URL'}</InputLabelText>
+        <Input
+          type="text"
+          placeholder={'Icon Image URL'}
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
       </InputContainer>
     </CreateWidgetModal>
   );
