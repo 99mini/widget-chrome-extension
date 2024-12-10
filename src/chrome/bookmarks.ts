@@ -21,9 +21,22 @@ export async function search(query: string): Promise<chrome.bookmarks.BookmarkTr
   });
 }
 
+/**
+ * Optional. Defaults to the Other Bookmarks folder.
+ * @param {{
+ *   parentId?: string | undefined;
+ *   index?: number | undefined;
+ *   title?: string | undefined;
+ *   url?: string | undefined;
+ * }} bookmark
+ *
+ * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
+ */
 export async function create(bookmark: chrome.bookmarks.BookmarkCreateArg): Promise<chrome.bookmarks.BookmarkTreeNode> {
   return new Promise((resolve, reject) => {
     chrome.bookmarks.create(bookmark, (bookmarkTreeNode) => {
+      console.log('create', bookmarkTreeNode);
+
       resolve(bookmarkTreeNode);
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);

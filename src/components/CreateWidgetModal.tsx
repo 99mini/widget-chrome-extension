@@ -32,6 +32,7 @@ type CreateWidgetModalProps = {
   PreviewWidget: React.ReactNode;
   onConfirm: () => void;
   disabledClickAway?: boolean;
+  requireConfirm?: boolean;
   children?: React.ReactNode;
 };
 
@@ -41,6 +42,7 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
   PreviewWidget,
   onConfirm,
   disabledClickAway,
+  requireConfirm = true,
   children,
 }) => {
   const handleClickAway = useCallback(() => {
@@ -53,7 +55,12 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
     <ActionModal
       onClose={handleClickAway}
       title={title}
-      onConfirm={onConfirm}
+      onConfirm={() => {
+        if (requireConfirm) {
+          onConfirm();
+          onClose();
+        }
+      }}
       confirmText="생성"
       disabledClickAway={disabledClickAway}
     >

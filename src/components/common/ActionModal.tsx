@@ -184,7 +184,6 @@ const ActionModal: React.FC<ActionModalProps> = ({
               if (onConfirm) {
                 onConfirm();
               }
-              onClose();
             }}
             buttonType={confirmType}
           >
