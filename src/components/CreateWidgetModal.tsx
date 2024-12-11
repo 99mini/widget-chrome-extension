@@ -2,8 +2,11 @@ import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
+
 import ActionModal from './common/ActionModal';
 import Line from './common/Line';
+
+import useThemeStore from '@/hook/useTheme';
 
 const PreviewContainer = styled.div`
   display: flex;
@@ -45,6 +48,8 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
   requireConfirm = true,
   children,
 }) => {
+  const { region } = useThemeStore();
+
   const handleClickAway = useCallback(() => {
     if (!disabledClickAway) {
       onClose();
@@ -61,7 +66,7 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
           onClose();
         }
       }}
-      confirmText="생성"
+      confirmText={region === 'ko' ? '생성' : 'Create'}
       disabledClickAway={disabledClickAway}
     >
       <PreviewContainer>

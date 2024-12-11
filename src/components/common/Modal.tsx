@@ -65,6 +65,7 @@ export const InputContainer = styled.label`
   & > {
     :first-of-type {
       flex: 1;
+      min-width: 140px;
     }
     :last-child {
       flex: 3;

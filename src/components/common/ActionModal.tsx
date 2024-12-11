@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { ModalBackground, ModalTitle } from './Modal';
 
 import useClickAway from '@/hook/useClickAway';
+import useThemeStore from '@/hook/useTheme';
 
 const ModalContainer = styled.div<{ size: 'small' | 'medium' | 'large' }>`
   display: flex;
@@ -147,15 +148,17 @@ const ActionModal: React.FC<ActionModalProps> = ({
   children,
   onClose,
   title,
-  confirmText = '확인',
+  confirmText,
   confirmType = 'primary',
   onConfirm,
-  cancelText = '취소',
+  cancelText,
   onCancel,
   cancelType = 'default',
   disabledClickAway,
   size = 'medium',
 }) => {
+  const { region } = useThemeStore();
+
   const ref = useClickAway<HTMLDivElement>(!disabledClickAway ? onClose : () => {});
 
   return createPortal(
@@ -177,7 +180,7 @@ const ActionModal: React.FC<ActionModalProps> = ({
             }}
             buttonType={cancelType}
           >
-            {cancelText}
+            {!cancelText ? (region === 'ko' ? '취소' : 'Cancel') : cancelText}
           </ModalButton>
           <ModalButton
             onClick={() => {
@@ -187,7 +190,7 @@ const ActionModal: React.FC<ActionModalProps> = ({
             }}
             buttonType={confirmType}
           >
-            {confirmText}
+            {!confirmText ? (region === 'ko' ? '확인' : 'Confirm') : confirmText}
           </ModalButton>
         </ModalButtonContainer>
       </ModalContainer>

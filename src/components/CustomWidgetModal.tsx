@@ -67,7 +67,7 @@ type CustomWidgetModalProps = {
 const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
   const ref = useClickAway<HTMLDivElement>(onClose, 300);
 
-  const { mode } = useThemeStore();
+  const { mode, region } = useThemeStore();
 
   const [openBookmarkModal, setOpenBookmarkModal] = useState(false);
   const [openClockModal, setOpenClockModal] = useState(false);
@@ -76,14 +76,14 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
     <>
       <ModalBackground>
         <ModalContainer>
-          <Title>{'위젯 추가'}</Title>
+          <Title>{region === 'ko' ? '위젯 추가' : 'Add Widget'}</Title>
           <WidgetContainer ref={ref}>
             <WidgetList>
               {/* bookmark */}
               <ClickableWidget onClick={() => setOpenBookmarkModal(true)}>
                 <IconWidget
                   id={'-1'}
-                  title={'바로가기 추가'}
+                  title={region === 'ko' ? '바로가기 추가' : 'Add Bookmark'}
                   image={getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64')}
                   WidgetProps={{
                     dragDisabled: true,

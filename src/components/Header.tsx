@@ -41,7 +41,8 @@ const SettingtButton = styled.button`
 const Header: React.FC = () => {
   const {
     mode,
-    actions: { setMode, getMode },
+    region,
+    actions: { setMode, getMode, getRegion },
   } = useThemeStore();
 
   const [openSetting, setOpenSetting] = useState(false);
@@ -49,6 +50,10 @@ const Header: React.FC = () => {
   useEffect(() => {
     getMode();
   }, [getMode]);
+
+  useEffect(() => {
+    getRegion();
+  }, [getRegion]);
 
   return (
     // 3 children
@@ -63,7 +68,7 @@ const Header: React.FC = () => {
             onChange: () => setMode(mode === 'dark' ? 'light' : 'dark'),
           }}
         />
-        <SettingtButton onClick={() => setOpenSetting(true)}>설정</SettingtButton>
+        <SettingtButton onClick={() => setOpenSetting(true)}>{region === 'ko' ? '설정' : 'setting'}</SettingtButton>
       </RighetArea>
       {openSetting && <SettingModal onClose={() => setOpenSetting(false)} />}
     </Container>
