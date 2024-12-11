@@ -4,12 +4,13 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 import { ClockWidget, FolderWidget, IconWidget } from '@/components/widget';
+import { GoogleSearchWidget } from '@/components/widget/google';
 
 import WidgetLayout from '@/components/widget/WidgetLayout';
 
 import useWidget from '@/hook/useWidget';
 
-import { ClockWidgetType, WidgetBookmarkType } from '@/types/Widget';
+import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/Widget';
 import { isWidgetOf } from '@/utils/types';
 
 const NewTab: React.FC = () => {
@@ -77,6 +78,11 @@ const NewTab: React.FC = () => {
                 }}
               />
             );
+          }
+          if (isWidgetOf<GoogleWidgetType>(widget, 'google')) {
+            if (widget.data.googleType === 'search') {
+              return <GoogleSearchWidget key={widget.id} index={widget.index} WidgetProps={widget} />;
+            }
           }
         })}
       </WidgetLayout>

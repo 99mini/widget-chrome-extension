@@ -89,7 +89,7 @@ const Name = styled.span`
   white-space: nowrap;
 `;
 
-type WidgetProps = {
+export type WidgetProps = {
   folder?: boolean;
   span?: SpanType;
   id: string;

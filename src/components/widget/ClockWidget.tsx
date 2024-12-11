@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import styled from '@emotion/styled';
-import { PropsOf } from '@emotion/react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import Widget from './Widget';
+import styled from '@emotion/styled';
+
+import Widget, { WidgetProps } from './Widget';
 
 import { formatDate } from '@/utils/day';
 
@@ -25,8 +25,6 @@ const Container = styled.div`
   text-align: center;
 
   box-sizing: border-box;
-
-  font-family: 'Roboto Mono', monospace;
 `;
 
 const TimeContainer = styled.div<{ isColSpan?: boolean }>`
@@ -41,7 +39,7 @@ const ID = 'clock' as const;
 
 type ClockClockWidgetProps = {
   index?: number;
-  WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
+  WidgetProps?: Partial<Omit<WidgetProps, 'id'>>;
 } & ClockWidgetType;
 
 const ClockWidget: React.FC<ClockClockWidgetProps> = ({

@@ -6,12 +6,15 @@ import styled from '@emotion/styled';
 import { Glassmorphism, ModalBackground, ModalContainerCSS } from '@/components/common/Modal';
 
 import { ClockWidget, IconWidget } from '@/components/widget';
+import { GoogleSearchWidget } from '@/components/widget/google';
 
 import CreateBookmarkModal from './CreateBookmarkModal';
 import CreateClockModal from './CreateClockModal';
+import CreateGoogleModal from './CreateGoogleModal';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
+
 import { getIconPath } from '@/utils/icon';
 
 const ModalContainer = styled.div`
@@ -72,6 +75,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
 
   const [openBookmarkModal, setOpenBookmarkModal] = useState(false);
   const [openClockModal, setOpenClockModal] = useState(false);
+  const [openGoogleModal, setOpenGoogleModal] = useState(false);
 
   return createPortal(
     <>
@@ -103,12 +107,31 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
                 />
               </ClickableWidget>
               {/* clock */}
+              {/* google */}
+              <ClickableWidget
+                isColSpan
+                isRowSpan
+                onClick={() => {
+                  setOpenGoogleModal(true);
+                }}
+              >
+                <GoogleSearchWidget
+                  index={-1}
+                  WidgetProps={{
+                    title: region === 'ko' ? '구글' : 'Google',
+                    span: { row: 2, column: 2 },
+                  }}
+                  disabled
+                />
+              </ClickableWidget>
+              {/* google */}
             </WidgetList>
           </WidgetContainer>
         </ModalContainer>
       </ModalBackground>
       {openBookmarkModal && <CreateBookmarkModal onClose={() => setOpenBookmarkModal(false)} />}
       {openClockModal && <CreateClockModal onClose={() => setOpenClockModal(false)} />}
+      {openGoogleModal && <CreateGoogleModal onClose={() => setOpenGoogleModal(false)} />}
     </>,
     document.body
   );
