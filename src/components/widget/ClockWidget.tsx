@@ -39,15 +39,19 @@ const DateContainer = styled.div`
 
 const ID = 'clock' as const;
 
-type ClockProps = {
+type ClockClockWidgetProps = {
   index?: number;
   WidgetProps?: Partial<Omit<PropsOf<typeof Widget>, 'id'>>;
 } & ClockWidgetType;
 
-const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM월 dd일 a h:mm:ss' }) => {
+const ClockWidget: React.FC<ClockClockWidgetProps> = ({
+  index,
+  WidgetProps,
+  format = 'yyyy년 MM월 dd일 a h:mm:ss',
+}) => {
   const { region } = useThemeStore();
 
-  const defalutWidgetProps: ClockProps['WidgetProps'] = useMemo(
+  const defalutWidgetProps: ClockClockWidgetProps['WidgetProps'] = useMemo(
     () => ({
       title: (WidgetProps?.title ?? region === 'ko') ? '시계' : 'Clock',
       span: WidgetProps?.span ?? {
@@ -105,4 +109,4 @@ const Clock: React.FC<ClockProps> = ({ index, WidgetProps, format = 'yyyy년 MM�
   );
 };
 
-export default Clock;
+export default ClockWidget;

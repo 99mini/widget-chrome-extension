@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import styled from '@emotion/styled';
 
 import { syncGet, syncSet } from '@/chrome/storage';
@@ -41,7 +42,7 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-const Todo: React.FC = () => {
+const TodoWidget: React.FC = () => {
   const [task, setTask] = useState<string>('');
   const [tasks, setTasks] = useState<string[]>([]);
 
@@ -95,4 +96,4 @@ const Todo: React.FC = () => {
   );
 };
 
-export default Todo;
+export default TodoWidget;
