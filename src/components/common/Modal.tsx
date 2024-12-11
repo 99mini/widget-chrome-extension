@@ -62,14 +62,13 @@ export const InputContainer = styled.label`
   gap: 24px;
   align-items: center;
 
-  & > {
-    :first-of-type {
-      flex: 1;
-      min-width: 140px;
-    }
-    :last-child {
-      flex: 3;
-    }
+  & > span:first-of-type {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  & > :last-child {
+    flex: 3;
   }
 `;
 
