@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import Clock from '@/widget/Clock';
-import Folder from '@/widget/Folder';
-import IconWidget from '@/widget/Icon';
-import WidgetLayout from '@/widget/WidgetLayout';
+
+import { ClockWidget, FolderWidget, IconWidget } from '@/components/widget';
+
+import WidgetLayout from '@/components/widget/WidgetLayout';
 
 import useWidget from '@/hook/useWidget';
 
@@ -31,7 +31,7 @@ const NewTab: React.FC = () => {
             const bookmark = widget.data;
             if (!bookmark.url && bookmark.children) {
               return (
-                <Folder
+                <FolderWidget
                   key={`${bookmark.id}-${widget.index}`}
                   id={bookmark.id}
                   index={widget.index}
@@ -51,7 +51,7 @@ const NewTab: React.FC = () => {
                       image={folderClild.imageUrl}
                     />
                   ))}
-                </Folder>
+                </FolderWidget>
               );
             }
             return (
@@ -67,7 +67,7 @@ const NewTab: React.FC = () => {
           }
           if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
             return (
-              <Clock
+              <ClockWidget
                 key={`${widget.id}-${widget.index}`}
                 index={widget.index}
                 format={widget.data.format}

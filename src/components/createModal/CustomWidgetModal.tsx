@@ -3,9 +3,10 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import { Glassmorphism, ModalBackground, ModalContainerCSS } from './common/Modal';
-import Clock from '@/widget/Clock';
-import IconWidget from '@/widget/Icon';
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from '@/components/common/Modal';
+
+import { ClockWidget, IconWidget } from '@/components/widget';
+
 import CreateBookmarkModal from './CreateBookmarkModal';
 import CreateClockModal from './CreateClockModal';
 
@@ -93,7 +94,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
               {/* bookmark */}
               {/* clock */}
               <ClickableWidget onClick={() => setOpenClockModal(true)}>
-                <Clock
+                <ClockWidget
                   format="HH:mm"
                   WidgetProps={{
                     dragDisabled: true,

@@ -1,14 +1,22 @@
 import React, { useCallback, useState } from 'react';
 
-import { Input } from './ui/input';
-import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue, SelectGroup } from './ui/select';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+} from '@/components/ui/select';
 
-import Clock from '@/widget/Clock';
+import ClockWidget from '@/components/widget/ClockWidget';
 
 import useWidget from '@/hook/useWidget';
 
-import CreateWidgetModal from './CreateWidgetModal';
-import { InputContainer, InputLabelText } from './common/Modal';
+import CreateWidgetModal from './_CreateWidgetModal';
+import { InputContainer, InputLabelText } from '@/components/common/Modal';
 
 import useThemeStore from '@/hook/useTheme';
 
@@ -61,7 +69,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
       title={region === 'ko' ? '시계 위젯 추가' : 'Add Clock Widget'}
       disabledClickAway={openSelectClockFormat || openSelectWidgetSize}
       PreviewWidget={
-        <Clock
+        <ClockWidget
           format={format}
           WidgetProps={{
             title: title ?? (region === 'ko' ? '시계' : 'Clock'),

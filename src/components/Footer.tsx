@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import CustomWidgetModal from './CustomWidgetModal';
+import CustomWidgetModal from '@/components/createModal/CustomWidgetModal';
 
 import useThemeStore from '@/hook/useTheme';
 

@@ -13,7 +13,7 @@ const Clickable = styled.div`
   cursor: pointer;
 `;
 
-type FolderProps = {
+type FolderWidgetProps = {
   id: string;
   index: number;
   title: string;
@@ -25,7 +25,7 @@ type FolderProps = {
   children: React.ReactNode;
 };
 
-const Folder: React.FC<FolderProps> = ({ id: folderId, index, title, bookmarks, children }) => {
+const FolderWidget: React.FC<FolderWidgetProps> = ({ id: folderId, index, title, bookmarks, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
     actions: { moveBookmark },
@@ -80,4 +80,4 @@ const Folder: React.FC<FolderProps> = ({ id: folderId, index, title, bookmarks, 
   );
 };
 
-export default Folder;
+export default FolderWidget;

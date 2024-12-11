@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
-import { Input } from './ui/input';
+import { Input } from '@/components/ui/input';
 
-import IconWidget from '@/widget/Icon';
-import { InputContainer, InputLabelText } from './common/Modal';
-import CreateWidgetModal from './CreateWidgetModal';
+import IconWidget from '@/components/widget/IconWidget';
+import { InputContainer, InputLabelText } from '@/components/common/Modal';
+import CreateWidgetModal from './_CreateWidgetModal';
 
 import useWidget from '@/hook/useWidget';
 
