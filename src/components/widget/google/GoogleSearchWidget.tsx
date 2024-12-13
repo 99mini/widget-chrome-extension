@@ -7,16 +7,17 @@ import Widget, { WidgetProps } from '@/components/widget/Widget';
 
 import useThemeStore from '@/hook/useTheme';
 
-const GoogleContainer = styled.div`
+const GoogleContainer = styled.div<{ multipleLine?: boolean }>`
   display: flex;
   flex-direction: column;
-
-  justify-content: space-between;
 
   gap: 8px;
 
   width: 100%;
   height: 100%;
+
+  ${({ multipleLine }) =>
+    multipleLine ? 'justify-content: space-between; padding: 16px 0;' : 'justify-content: center;'}
 `;
 
 const AdditionalContainer = styled.div<{
@@ -70,7 +71,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
         border: true,
       }}
     >
-      <GoogleContainer>
+      <GoogleContainer multipleLine={WidgetProps?.span?.row === 2}>
         <GoogleSearchInput
           placeholder={region === 'ko' ? '검색 또는 URL 입력' : 'Search or URL'}
           disabled={disabled}
