@@ -34,7 +34,7 @@ export type WidgetType<T> = {
   id: string;
   index: number;
   title: string;
-  widgetType: 'bookmark' | 'clock';
+  widgetType: 'bookmark' | 'clock' | 'google';
   span?: SpanType;
   data: T;
 };
@@ -48,4 +48,8 @@ export type ClockWidgetType = {
   format?: ClockFormatType;
 };
 
-export type CustomWidgetType = WidgetBookmarkType | ClockWidgetType;
+export type GoogleWidgetType = {
+  googleType: 'search' | 'youtube';
+};
+
+export type CustomWidgetType = WidgetBookmarkType | ClockWidgetType | GoogleWidgetType;
