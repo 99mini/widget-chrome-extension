@@ -46,6 +46,17 @@ const GoogleSearchInput = styled(Input)`
   }
 `;
 
+const AdditionalIconLink = styled.a`
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AdditionalIcon = styled.img``;
+
 const ID = 'google-search' as const;
 
 type GoogleSearchWidgetProps = {
@@ -87,20 +98,9 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
         />
         {WidgetProps?.span?.row === 2 && (
           <AdditionalContainer column={WidgetProps.span.column}>
-            {/* TODO: 아이콘 바로가기 컴포넌트 분리 */}
-            <a
-              title={region === 'ko' ? '메일' : 'mail'}
-              href="https://mail.google.com/"
-              style={{
-                width: '48px',
-                height: '48px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" />
-            </a>
+            <AdditionalIconLink title={region === 'ko' ? '메일' : 'mail'} href="https://mail.google.com/">
+              <AdditionalIcon src="https://cdn-icons-png.flaticon.com/512/732/732200.png" />
+            </AdditionalIconLink>
           </AdditionalContainer>
         )}
       </GoogleContainer>
