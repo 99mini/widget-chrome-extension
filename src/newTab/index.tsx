@@ -81,7 +81,13 @@ const NewTab: React.FC = () => {
           }
           if (isWidgetOf<GoogleWidgetType>(widget, 'google')) {
             if (widget.data.googleType === 'search') {
-              return <GoogleSearchWidget key={widget.id} index={widget.index} WidgetProps={widget} />;
+              return (
+                <GoogleSearchWidget
+                  key={widget.id}
+                  index={widget.index}
+                  WidgetProps={{ title: widget.title, span: widget.span }}
+                />
+              );
             }
           }
         })}
