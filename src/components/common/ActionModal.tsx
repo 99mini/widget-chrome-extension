@@ -117,8 +117,6 @@ const ModalButton = styled.button<{ buttonType: 'default' | 'primary' | 'error' 
 
   cursor: pointer;
 
-  transition: background-color 237ms;
-
   &:hover {
     background-color: ${({ buttonType, theme }) =>
       buttonType === 'default' ? theme.colors.backgroundHover : theme.colors[`${buttonType}Hover`]};
