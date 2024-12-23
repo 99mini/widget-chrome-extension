@@ -3,7 +3,7 @@
 # Usage: sh .scripts/build.sh
 # Description: Build the project and generate manifest.json file for Chrome extension
 # Dependencies: vite, node
-# Arguments: mode (development, production, staging) default: development
+# Arguments: mode development, production, staging) default: development
 # .scripts/build.sh [development | production | staging]
 # Example: sh .scripts/build.sh production
 
@@ -16,7 +16,7 @@ if [ "$MODE" != "development" ] && [ "$MODE" != "production" ] && [ "$MODE" != "
   exit 1
 fi
 
-echo "Building the project in $MODE mode"
+echo "Building the project in <$MODE> mode"
 
 if [ "$MODE" = "production" ]; then
   node -e "
@@ -24,13 +24,14 @@ if [ "$MODE" = "production" ]; then
     
     const manifest = require('./public/manifest.json');
     const package = require('./package.json');
+    
     if (manifest.version !== package.version) {
       console.log('Updating manifest.json version:', manifest.version, '->', package.version);
 
       manifest.version = package.version;
       fs.writeFileSync('./public/manifest.json', JSON.stringify(manifest, null, 2));
     } else {
-      console.log('Version is up to date');
+      console.log('Version is up to date:', manifest.version);
     }
   "
 fi 
