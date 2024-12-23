@@ -6,6 +6,8 @@ const GlobalStyle = styled.div`
   background-color: ${({ theme }) => theme.colors.root};
 
   color: ${({ theme }) => theme.colors.text};
+
+  transition: background-color 237ms;
 `;
 
 export default GlobalStyle;

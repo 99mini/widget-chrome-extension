@@ -1,15 +1,16 @@
 import React, { useCallback, useState } from 'react';
 
-import { Input } from '@/components/ui/input';
-
-import IconWidget from '@/components/widget/IconWidget';
 import { InputContainer, InputLabelText } from '@/components/common/Modal';
-import CreateWidgetModal from './_CreateWidgetModal';
+import { Input } from '@/components/ui/input';
+import IconWidget from '@/components/widget/IconWidget';
 
+import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
 import { urlProtocol } from '@/utils/common';
-import useThemeStore from '@/hook/useTheme';
+import { i18n } from '@/utils/string';
+
+import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateBookmarkModalProps = {
   onClose: () => void;
@@ -47,7 +48,10 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) =>
   return (
     <CreateWidgetModal
       onClose={onClose}
-      title={region === 'ko' ? '바로가기 추가' : 'Add Bookmark'}
+      title={i18n(region, {
+        ko: '바로가기 추가',
+        en: 'Add Bookmark',
+      })}
       PreviewWidget={
         <IconWidget
           id="bookmark"
@@ -61,10 +65,18 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) =>
       requireConfirm={title.length > 0 && url.length > 0}
     >
       <InputContainer>
-        <InputLabelText required>{region === 'ko' ? '위젯 이름' : 'Widget Name'}</InputLabelText>
+        <InputLabelText required>
+          {i18n(region, {
+            ko: '위젯 이름',
+            en: 'Widget Name',
+          })}
+        </InputLabelText>
         <Input
           type="text"
-          placeholder={region === 'ko' ? '위젯 이름' : 'Widget Name'}
+          placeholder={i18n(region, {
+            ko: '위젯 이름',
+            en: 'Widget Name',
+          })}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -75,10 +87,18 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) =>
         <Input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} required />
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{region === 'ko' ? '아이콘 URL' : 'Icon Url'}</InputLabelText>
+        <InputLabelText>
+          {i18n(region, {
+            ko: '아이콘 URL',
+            en: 'Icon Url',
+          })}
+        </InputLabelText>
         <Input
           type="text"
-          placeholder={region === 'ko' ? '아이콘 URL' : 'Icon Url'}
+          placeholder={i18n(region, {
+            ko: '아이콘 URL',
+            en: 'Icon Url',
+          })}
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />

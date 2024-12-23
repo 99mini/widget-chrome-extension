@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
+import { InputContainer, InputLabelText } from '@/components/common/Modal';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -11,15 +12,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
-import CreateWidgetModal from './_CreateWidgetModal';
+import { i18n } from '@/utils/string';
 
-import useThemeStore from '@/hook/useTheme';
+import { GoogleWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/widget';
 
-import { GoogleWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/Widget';
 import { GoogleSearchWidget } from '../widget/google';
+import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateGoogleModalProps = {
   onClose: () => void;
@@ -33,7 +34,12 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose }) => {
   const { region } = useThemeStore();
 
   const [span, setSpan] = useState<SpanType>({ row: 2, column: 2 });
-  const [title, setTitle] = useState(region === 'ko' ? '구글 검색' : 'Google Search');
+  const [title, setTitle] = useState(
+    i18n(region, {
+      ko: '구글 검색',
+      en: 'Google Search',
+    })
+  );
 
   const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
 
@@ -56,14 +62,22 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose }) => {
   return (
     <CreateWidgetModal
       onClose={onClose}
-      title={region === 'ko' ? '구글 위젯 추가' : 'Add Google Widget'}
+      title={i18n(region, {
+        ko: '구글 위젯 추가',
+        en: 'Add Google Widget',
+      })}
       disabledClickAway={openSelectWidgetSize}
       PreviewWidget={
         <GoogleSearchWidget
           index={-1}
           disabled
           WidgetProps={{
-            title: title ?? (region === 'ko' ? '구글' : 'Google'),
+            title:
+              title ??
+              i18n(region, {
+                ko: '구글',
+                en: 'Google',
+              }),
             span,
           }}
         />
@@ -73,11 +87,21 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose }) => {
       }}
     >
       <InputContainer>
-        <InputLabelText>{region === 'ko' ? '위젯 이름' : 'Widget Name'}</InputLabelText>
+        <InputLabelText>
+          {i18n(region, {
+            ko: '위젯 이름',
+            en: 'Widget Name',
+          })}
+        </InputLabelText>
         <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{region === 'ko' ? '위젯 크기' : 'Widget Size'}</InputLabelText>
+        <InputLabelText>
+          {i18n(region, {
+            ko: '위젯 크기',
+            en: 'Widget Size',
+          })}
+        </InputLabelText>
         <Select
           onValueChange={(e) => {
             const [row, column] = e.split('x').map((v) => parseInt(v));
@@ -93,7 +117,12 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>{region === 'ko' ? '위젯 크기' : 'Widget Size'}</SelectLabel>
+              <SelectLabel>
+                {i18n(region, {
+                  ko: '위젯 크기',
+                  en: 'Widget Size',
+                })}
+              </SelectLabel>
               {SPAN_OPTIONS.map((span) => {
                 if ((span.row === 1 && span.column === 1) || span.row === 4) {
                   return null;

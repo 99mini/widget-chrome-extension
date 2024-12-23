@@ -6,6 +6,8 @@ import CustomWidgetModal from '@/components/createModal/CustomWidgetModal';
 
 import useThemeStore from '@/hook/useTheme';
 
+import { i18n } from '@/utils/string';
+
 const AdArea = styled.div`
   flex: 1;
 
@@ -59,7 +61,10 @@ const Footer: React.FC = () => {
       <AdArea></AdArea>
       <FloatContainer>
         <AddWidgetButton onClick={() => setOpenAddWidget(true)} en={region === 'en'}>
-          {region === 'ko' ? '+ 위젯 추가' : '+ Add Widget'}
+          {i18n(region, {
+            ko: '+ 위젯 추가',
+            en: '+ Add Widget',
+          })}
         </AddWidgetButton>
       </FloatContainer>
       {openAddWidget && <CustomWidgetModal onClose={() => setOpenAddWidget(false)} />}

@@ -1,41 +1,27 @@
 /* eslint-disable no-redeclare */
+import { RegionType } from '@/types/theme';
 
-function i18n(value: string, local: 'ko' | 'en' = 'ko'): string {
-  switch (value) {
-    case 'year':
-      return local === 'ko' ? '년' : value;
-    case 'month':
-      return local === 'ko' ? '월' : value;
-    case 'day':
-      return local === 'ko' ? '일' : value;
-    case 'hour':
-      return local === 'ko' ? '시' : value;
-    case 'minute':
-      return local === 'ko' ? '분' : value;
-    case 'second':
-      return local === 'ko' ? '초' : value;
-    case 'PM':
-      return local === 'ko' ? '오후' : value;
-    case 'AM':
-      return local === 'ko' ? '오전' : value;
-    default:
-      return value;
-  }
-}
+import { i18n } from './string';
 
 function formatDate(date: Date): string;
 function formatDate(date: Date, format: string): string;
+
 function formatDate(date: number): string;
 function formatDate(date: number, format: string): string;
+
 function formatDate(date: string): string;
 function formatDate(date: string, format: string): string;
 
-function formatDate(date: Date | number | string, format = 'yyyy-MM-dd HH:mm:ss'): string {
+function formatDate(date: Date | number | string, format?: string, region?: RegionType): string;
+
+function formatDate(date: Date | number | string, format = 'yyyy-MM-dd HH:mm:ss', region: RegionType = 'ko'): string {
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
     throw new Error('Invalid date');
   }
+
+  const hasA = format.includes('a');
 
   const year = d.getFullYear();
   const month = d.getMonth() + 1;
@@ -49,10 +35,10 @@ function formatDate(date: Date | number | string, format = 'yyyy-MM-dd HH:mm:ss'
     .replace('MM', month.toString().padStart(2, '0'))
     .replace('dd', day.toString().padStart(2, '0'))
     .replace('HH', hour.toString().padStart(2, '0'))
-    .replace('h', (hour % 12).toString().padStart(2, '0'))
+    .replace('h', (hasA ? hour % 12 : hour).toString().padStart(2, '0'))
     .replace('mm', minute.toString().padStart(2, '0'))
     .replace('ss', second.toString().padStart(2, '0'))
-    .replace('a', hour >= 12 ? i18n('PM') : i18n('AM'));
+    .replace('a', hour >= 12 ? i18n(region, { ko: '오후', en: 'PM' }) : i18n(region, { ko: '오전', en: 'AM' }));
 }
 
-export { i18n, formatDate };
+export { formatDate };

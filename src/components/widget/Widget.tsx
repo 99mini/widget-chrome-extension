@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import useWidget from '@/hook/useWidget';
 
-import { SpanType } from '@/types/Widget';
+import { SpanType } from '@/types/widget';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) => {

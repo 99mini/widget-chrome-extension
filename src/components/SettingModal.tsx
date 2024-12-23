@@ -1,17 +1,21 @@
+import { css } from '@emotion/react';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
+import { i18n } from '@/utils/string';
+
+import { RegionType } from '@/types/theme';
+
 import ActionModal from './common/ActionModal';
+import Line from './common/Line';
 import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
 import Switch from './common/Switch';
-import Line from './common/Line';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
 
 const ModalContainer = styled.div`
@@ -170,11 +174,16 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
   return createPortal(
     <ModalBackground>
       <ModalContainer>
-        <ModalTitle>{region === 'ko' ? '설정' : 'setting'}</ModalTitle>
+        <ModalTitle>{i18n(region, { ko: '설정', en: 'setting' })}</ModalTitle>
         <SettingContainer ref={ref}>
           <SettingItemList>
             <SettingItem>
-              <SettingItemLabel>{region === 'ko' ? '다크 모드' : 'dark mode'}</SettingItemLabel>
+              <SettingItemLabel>
+                {i18n(region, {
+                  ko: '다크 모드',
+                  en: 'dark mode',
+                })}
+              </SettingItemLabel>
               <Switch
                 InputProps={{
                   checked: mode === 'dark',
@@ -184,10 +193,15 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
               />
             </SettingItem>
             <SettingItem>
-              <SettingItemLabel>{region === 'ko' ? '언어' : 'language'}</SettingItemLabel>
+              <SettingItemLabel>
+                {i18n(region, {
+                  ko: '언어',
+                  en: 'language',
+                })}
+              </SettingItemLabel>
               <Select
                 onValueChange={(e) => {
-                  setRegion(e as 'ko' | 'en');
+                  setRegion(e as RegionType);
                   setOpenSelectRegion(false);
                 }}
                 onOpenChange={setOpenSelectRegion}
@@ -199,7 +213,12 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>{region === 'ko' ? '언어' : 'language'}</SelectLabel>
+                    <SelectLabel>
+                      {i18n(region, {
+                        ko: '언어',
+                        en: 'language',
+                      })}
+                    </SelectLabel>
                     {Object.entries({ ko: '한국어', en: 'English' }).map(([key, language]) => (
                       <SelectItem key={key} value={key}>
                         {language}
@@ -213,8 +232,18 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
           <Line />
           <SettingItemList>
             <SettingItem>
-              <SettingItemLabel>{region === 'ko' ? '데이터 초기화' : 'reset data'}</SettingItemLabel>
-              <DangerButton onClick={() => setOpenAgreement(true)}>{region === 'ko' ? '초기화' : 'reset'}</DangerButton>
+              <SettingItemLabel>
+                {i18n(region, {
+                  ko: '데이터 초기화',
+                  en: 'reset data',
+                })}
+              </SettingItemLabel>
+              <DangerButton onClick={() => setOpenAgreement(true)}>
+                {i18n(region, {
+                  ko: '초기화',
+                  en: 'reset',
+                })}
+              </DangerButton>
             </SettingItem>
           </SettingItemList>
           <FooterContainer>
@@ -256,20 +285,32 @@ const SettingModal: React.FC<SettingModalProps> = ({ onClose }) => {
       {openAgreement && (
         <ActionModal
           onClose={() => setOpenAgreement(false)}
-          title={region === 'ko' ? '데이터 초기화' : 'Reset Data'}
+          title={i18n(region, {
+            ko: '데이터 초기화',
+            en: 'Reset Data',
+          })}
           size="small"
           onConfirm={async () => {
             await clearWidgets();
             onClose();
           }}
-          confirmText={region === 'ko' ? '초기화' : 'Reset'}
+          confirmText={i18n(region, {
+            ko: '초기화',
+            en: 'Reset',
+          })}
           confirmType="error"
         >
-          <h4>{region === 'ko' ? '데이터를 초기화하시겠습니까?' : 'Are you sure you want to reset the data?'}</h4>
+          <h4>
+            {i18n(region, {
+              ko: '데이터를 초기화하시겠습니까?',
+              en: 'Are you sure you want to reset the data?',
+            })}
+          </h4>
           <p>
-            {region === 'ko'
-              ? '위젯의 모든 데이터가 초기화 됩니다. 이 작업은 되돌릴 수 없습니다'
-              : 'All data in the widget will be reset. This operation cannot be undone.'}
+            {i18n(region, {
+              ko: '위젯의 모든 데이터가 초기화 됩니다. 이 작업은 되돌릴 수 없습니다',
+              en: 'All data in the widget will be reset. This operation cannot be undone.',
+            })}
           </p>
         </ActionModal>
       )}

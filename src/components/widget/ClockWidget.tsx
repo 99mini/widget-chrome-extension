@@ -2,13 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Widget, { WidgetProps } from './Widget';
-
-import { formatDate } from '@/utils/day';
-
 import useThemeStore from '@/hook/useTheme';
 
-import { ClockWidgetType } from '@/types/Widget';
+import { formatDate } from '@/utils/day';
+import { i18n } from '@/utils/string';
+
+import { ClockWidgetType } from '@/types/widget';
+
+import Widget, { WidgetProps } from './Widget';
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
 
   const defalutWidgetProps: ClockClockWidgetProps['WidgetProps'] = useMemo(
     () => ({
-      title: (WidgetProps?.title ?? region === 'ko') ? '시계' : 'Clock',
+      title: WidgetProps?.title ?? i18n(region, { ko: '시계', en: 'Clock' }),
       span: WidgetProps?.span ?? {
         row: 2,
         column: 2,
@@ -91,7 +92,13 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
     <Widget
       id={`${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`}
       index={index ?? -1}
-      title={(defalutWidgetProps.title ?? region === 'ko') ? '시계' : 'Clock'}
+      title={
+        defalutWidgetProps.title ??
+        i18n(region, {
+          ko: '시계',
+          en: 'Clock',
+        })
+      }
       childrenProps={{
         border: true,
       }}
@@ -99,9 +106,9 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
     >
       <Container>
         <TimeContainer isColSpan={defalutWidgetProps.span?.column && defalutWidgetProps.span.column > 1}>
-          {formatDate(time, timeFormat)}
+          {formatDate(time, timeFormat, region)}
         </TimeContainer>
-        {hasDay && <DateContainer>{formatDate(time, dayFormat)}</DateContainer>}
+        {hasDay && <DateContainer>{formatDate(time, dayFormat, region)}</DateContainer>}
       </Container>
     </Widget>
   );

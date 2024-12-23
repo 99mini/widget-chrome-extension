@@ -1,12 +1,12 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 
+import styled from '@emotion/styled';
+
 import useClickAway from '@/hook/useClickAway';
 
 import EditableText from './common/EditableText';
 import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
-
-import styled from '@emotion/styled';
 
 const ModalContainer = styled.div`
   display: flex;

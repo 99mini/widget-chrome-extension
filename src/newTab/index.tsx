@@ -2,16 +2,15 @@ import React, { useEffect } from 'react';
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-
 import { ClockWidget, FolderWidget, IconWidget } from '@/components/widget';
-import { GoogleSearchWidget } from '@/components/widget/google';
-
 import WidgetLayout from '@/components/widget/WidgetLayout';
+import { GoogleSearchWidget } from '@/components/widget/google';
 
 import useWidget from '@/hook/useWidget';
 
-import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/Widget';
 import { isWidgetOf } from '@/utils/types';
+
+import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/widget';
 
 const NewTab: React.FC = () => {
   const {
@@ -81,7 +80,13 @@ const NewTab: React.FC = () => {
           }
           if (isWidgetOf<GoogleWidgetType>(widget, 'google')) {
             if (widget.data.googleType === 'search') {
-              return <GoogleSearchWidget key={widget.id} index={widget.index} WidgetProps={widget} />;
+              return (
+                <GoogleSearchWidget
+                  key={widget.id}
+                  index={widget.index}
+                  WidgetProps={{ title: widget.title, span: widget.span }}
+                />
+              );
             }
           }
         })}

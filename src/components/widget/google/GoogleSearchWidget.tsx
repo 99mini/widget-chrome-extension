@@ -7,6 +7,8 @@ import Widget, { WidgetProps } from '@/components/widget/Widget';
 
 import useThemeStore from '@/hook/useTheme';
 
+import { i18n } from '@/utils/string';
+
 const GoogleContainer = styled.div<{ multipleLine?: boolean }>`
   display: flex;
   flex-direction: column;
@@ -77,14 +79,23 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
       {...WidgetProps}
       index={index}
       id={`${ID}-${WidgetProps?.span?.row}-${WidgetProps?.span?.column}`}
-      title={WidgetProps?.title ?? (region === 'ko' ? '구글 검색' : 'Google Search')}
+      title={
+        WidgetProps?.title ??
+        i18n(region, {
+          ko: '구글 검색',
+          en: 'Google Search',
+        })
+      }
       childrenProps={{
         border: true,
       }}
     >
       <GoogleContainer multipleLine={WidgetProps?.span?.row === 2}>
         <GoogleSearchInput
-          placeholder={region === 'ko' ? '검색 또는 URL 입력' : 'Search or URL'}
+          placeholder={i18n(region, {
+            ko: '검색 또는 URL 입력',
+            en: 'Search or URL',
+          })}
           disabled={disabled}
           onKeyDown={(e) => {
             if (disabled) {
@@ -98,7 +109,13 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
         />
         {WidgetProps?.span?.row === 2 && (
           <AdditionalContainer column={WidgetProps.span.column}>
-            <AdditionalIconLink title={region === 'ko' ? '메일' : 'mail'} href="https://mail.google.com/">
+            <AdditionalIconLink
+              title={i18n(region, {
+                ko: '구글',
+                en: 'Google',
+              })}
+              href="https://mail.google.com/"
+            >
               <AdditionalIcon src="https://cdn-icons-png.flaticon.com/512/732/732200.png" />
             </AdditionalIconLink>
           </AdditionalContainer>

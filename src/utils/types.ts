@@ -1,4 +1,4 @@
-import { CustomWidgetType, WidgetType } from '@/types/Widget';
+import { CustomWidgetType, WidgetType } from '@/types/widget';
 
 export function isWidgetOf<T extends CustomWidgetType>(
   widget: Pick<WidgetType<CustomWidgetType>, 'widgetType'>,

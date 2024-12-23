@@ -1,7 +1,7 @@
 /**
- *
+ * @description Add protocol to url if not exists
  * @param url
- * @returns
+ * @returns url with protocol
  * @example
  * ```ts
  * urlProtocol('www.google.com'); // => https://www.google.com

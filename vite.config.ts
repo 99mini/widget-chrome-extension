@@ -31,6 +31,12 @@ export default defineConfig(({ mode }) => {
       globals: true,
       environment: 'jsdom',
       setupFiles: './.config/vitest.ts',
+      include: ['__test__/**/*.test.ts?(x)', 'src/**/*.test.ts?(x)'],
+      exclude: ['**/*.d.ts', '*.config.*', './src/lib/**', './src/mock/**', './src/types/**'],
+      coverage: {
+        include: ['src/**/*.ts?(x)'],
+        exclude: ['**/*.d.ts', '*.config.*', './src/lib/**', './src/mock/**', './src/types/**'],
+      },
     },
   };
 });
