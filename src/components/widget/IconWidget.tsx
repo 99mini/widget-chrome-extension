@@ -1,11 +1,13 @@
+import { PropsOf } from '@emotion/react';
 import React from 'react';
 
-import { PropsOf } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import Widget from './Widget';
-import { getIconPath } from '@/utils/icon';
 import useThemeStore from '@/hook/useTheme';
+
+import { getIconPath } from '@/utils/icon';
+
+import Widget from './Widget';
 
 const Link = styled.a`
   display: flex;

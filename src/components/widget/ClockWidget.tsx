@@ -2,14 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Widget, { WidgetProps } from './Widget';
-
 import useThemeStore from '@/hook/useTheme';
-
-import { ClockWidgetType } from '@/types/widget';
 
 import { formatDate } from '@/utils/day';
 import { i18n } from '@/utils/string';
+
+import { ClockWidgetType } from '@/types/widget';
+
+import Widget, { WidgetProps } from './Widget';
 
 const Container = styled.div`
   display: flex;

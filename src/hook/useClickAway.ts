@@ -1,4 +1,5 @@
-import { useRef, useEffect, BaseSyntheticEvent, RefObject, useCallback, useState } from 'react';
+import { BaseSyntheticEvent, RefObject, useCallback, useEffect, useRef, useState } from 'react';
+
 import { create } from 'zustand';
 
 type ClickAwayStoreType = {

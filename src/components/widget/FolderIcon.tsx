@@ -1,10 +1,12 @@
-import styled from '@emotion/styled';
 import React from 'react';
 
-import Widget from './Widget';
+import styled from '@emotion/styled';
+
+import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
-import useThemeStore from '@/hook/useTheme';
+
+import Widget from './Widget';
 
 const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;

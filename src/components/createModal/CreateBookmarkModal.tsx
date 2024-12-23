@@ -1,17 +1,16 @@
 import React, { useCallback, useState } from 'react';
 
-import { Input } from '@/components/ui/input';
-
-import IconWidget from '@/components/widget/IconWidget';
 import { InputContainer, InputLabelText } from '@/components/common/Modal';
-import CreateWidgetModal from './_CreateWidgetModal';
+import { Input } from '@/components/ui/input';
+import IconWidget from '@/components/widget/IconWidget';
 
-import useWidget from '@/hook/useWidget';
 import useThemeStore from '@/hook/useTheme';
+import useWidget from '@/hook/useWidget';
 
 import { urlProtocol } from '@/utils/common';
-
 import { i18n } from '@/utils/string';
+
+import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateBookmarkModalProps = {
   onClose: () => void;

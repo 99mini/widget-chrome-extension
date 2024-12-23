@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
+import { InputContainer, InputLabelText } from '@/components/common/Modal';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -11,17 +12,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
-import CreateWidgetModal from './_CreateWidgetModal';
-
-import useThemeStore from '@/hook/useTheme';
+import { i18n } from '@/utils/string';
 
 import { GoogleWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/widget';
-import { GoogleSearchWidget } from '../widget/google';
 
-import { i18n } from '@/utils/string';
+import { GoogleSearchWidget } from '../widget/google';
+import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateGoogleModalProps = {
   onClose: () => void;

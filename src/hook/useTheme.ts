@@ -1,7 +1,8 @@
-import { syncGet, syncSet } from '@/chrome/storage';
-import { create, StateCreator } from 'zustand';
+import { StateCreator, create } from 'zustand';
 
 import { RegionType, ThemeModeType } from '@/types/theme';
+
+import { syncGet, syncSet } from '@/chrome/storage';
 
 type ThemeStoreType = {
   mode: ThemeModeType;

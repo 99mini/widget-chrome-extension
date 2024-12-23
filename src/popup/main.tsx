@@ -1,10 +1,10 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import App from '.';
+import '@/index.css';
 import mock from '@/mock';
 
-import '@/index.css';
+import App from '.';
 import './index.css';
 
 mock();

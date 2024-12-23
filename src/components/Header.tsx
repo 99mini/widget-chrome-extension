@@ -1,11 +1,13 @@
-import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 
-import Switch from './common/Switch';
-import SettingModal from './SettingModal';
+import styled from '@emotion/styled';
 
 import useThemeStore from '@/hook/useTheme';
+
 import { i18n } from '@/utils/string';
+
+import SettingModal from './SettingModal';
+import Switch from './common/Switch';
 
 const Container = styled.header`
   display: flex;

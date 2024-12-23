@@ -1,12 +1,14 @@
 import { useCallback } from 'react';
+
 import { create } from 'zustand';
+
+import { isWidgetOf } from '@/utils/types';
+
+import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
 
 import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
 import useBookmarkStore from './useBookmark';
-
-import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
-import { isWidgetOf } from '@/utils/types';
 
 type WidgetStoreType<T> = {
   widgets: WidgetType<T>[];

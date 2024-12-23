@@ -1,21 +1,22 @@
+import { css } from '@emotion/react';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
+import { i18n } from '@/utils/string';
+
+import { RegionType } from '@/types/theme';
+
 import ActionModal from './common/ActionModal';
+import Line from './common/Line';
 import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
 import Switch from './common/Switch';
-import Line from './common/Line';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
-
-import { i18n } from '@/utils/string';
-import { RegionType } from '@/types/theme';
 
 const ModalContainer = styled.div`
   display: flex;

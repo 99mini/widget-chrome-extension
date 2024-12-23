@@ -1,10 +1,9 @@
 import React from 'react';
 
+import GlobalStyle from '@/GlobalStyle';
 import RootProvider from '@/context';
 
 import Popup from '.';
-
-import GlobalStyle from '@/GlobalStyle';
 
 function App() {
   return (

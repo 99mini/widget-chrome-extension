@@ -1,24 +1,22 @@
 import React, { useCallback, useState } from 'react';
 
+import { InputContainer, InputLabelText } from '@/components/common/Modal';
 import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectLabel,
   SelectTrigger,
   SelectValue,
-  SelectGroup,
 } from '@/components/ui/select';
-
 import ClockWidget from '@/components/widget/ClockWidget';
 
+import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import CreateWidgetModal from './_CreateWidgetModal';
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
-
-import useThemeStore from '@/hook/useTheme';
+import { i18n } from '@/utils/string';
 
 import {
   CLOCK_FORMAT_OPTIONS,
@@ -29,7 +27,7 @@ import {
   WidgetType,
 } from '@/types/widget';
 
-import { i18n } from '@/utils/string';
+import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateClockModalProps = {
   onClose: () => void;

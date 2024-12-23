@@ -3,12 +3,12 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import { ModalBackground, ModalTitle } from './Modal';
-
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 
 import { i18n } from '@/utils/string';
+
+import { ModalBackground, ModalTitle } from './Modal';
 
 const ModalContainer = styled.div<{ size: 'small' | 'medium' | 'large' }>`
   display: flex;

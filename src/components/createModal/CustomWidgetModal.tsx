@@ -4,19 +4,18 @@ import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 
 import { Glassmorphism, ModalBackground, ModalContainerCSS } from '@/components/common/Modal';
-
 import { ClockWidget, IconWidget } from '@/components/widget';
 import { GoogleSearchWidget } from '@/components/widget/google';
-
-import CreateBookmarkModal from './CreateBookmarkModal';
-import CreateClockModal from './CreateClockModal';
-import CreateGoogleModal from './CreateGoogleModal';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
 import { i18n } from '@/utils/string';
+
+import CreateBookmarkModal from './CreateBookmarkModal';
+import CreateClockModal from './CreateClockModal';
+import CreateGoogleModal from './CreateGoogleModal';
 
 const ModalContainer = styled.div`
   display: flex;

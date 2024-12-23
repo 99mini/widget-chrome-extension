@@ -3,11 +3,12 @@ import { useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
 
-import useBookmarkStore from '@/hook/useBookmark';
-
 import FolderModal from '@/components/FolderModal';
-import FolderIcon from './FolderIcon';
+
+import useBookmarkStore from '@/hook/useBookmark';
 import useWidget from '@/hook/useWidget';
+
+import FolderIcon from './FolderIcon';
 
 const Clickable = styled.div`
   cursor: pointer;
