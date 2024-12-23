@@ -11,6 +11,7 @@
     "react-dom",
     "zustand",
     "^@emotion",
+    "^@/chrome/(.*)$",
     "^@/components/(.*)$",
     "^@/context/(.*)$",
     "^@/mock/(.*)$",
