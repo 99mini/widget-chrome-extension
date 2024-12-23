@@ -31,22 +31,28 @@ import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateClockModalProps = {
   onClose: () => void;
+  initialData?: {
+    format: ClockFormatType;
+    span: SpanType;
+    title: string;
+  };
 };
 
-const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
+const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialData }) => {
   const {
     actions: { createWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
 
-  const [format, setFormat] = useState<ClockFormatType>('HH:mm');
-  const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
+  const [format, setFormat] = useState<ClockFormatType>(initialData?.format ?? 'HH:mm');
+  const [span, setSpan] = useState<SpanType>(initialData?.span ?? { row: 1, column: 1 });
   const [title, setTitle] = useState(
-    i18n(region, {
-      ko: '시계',
-      en: 'Clock',
-    })
+    initialData?.title ??
+      i18n(region, {
+        ko: '시계',
+        en: 'Clock',
+      })
   );
 
   const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);

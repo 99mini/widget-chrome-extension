@@ -14,12 +14,17 @@ import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateBookmarkModalProps = {
   onClose: () => void;
+  initialData?: {
+    url: string;
+    title: string;
+    imageUrl?: string;
+  };
 };
 
-const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose }) => {
-  const [url, setUrl] = useState('');
-  const [title, setTitle] = useState('');
-  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, initialData }) => {
+  const [url, setUrl] = useState(initialData?.url ?? '');
+  const [title, setTitle] = useState(initialData?.title ?? '');
+  const [imageUrl, setImageUrl] = useState<string | undefined>(initialData?.imageUrl);
 
   const {
     actions: { createWidget },

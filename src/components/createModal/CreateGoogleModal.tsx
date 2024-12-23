@@ -24,21 +24,26 @@ import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateGoogleModalProps = {
   onClose: () => void;
+  initialData?: {
+    span: SpanType;
+    title: string;
+  };
 };
 
-const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose }) => {
+const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialData }) => {
   const {
     actions: { createWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
 
-  const [span, setSpan] = useState<SpanType>({ row: 2, column: 2 });
+  const [span, setSpan] = useState<SpanType>(initialData?.span ?? { row: 2, column: 2 });
   const [title, setTitle] = useState(
-    i18n(region, {
-      ko: '구글 검색',
-      en: 'Google Search',
-    })
+    initialData?.title ??
+      i18n(region, {
+        ko: '구글 검색',
+        en: 'Google Search',
+      })
   );
 
   const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
