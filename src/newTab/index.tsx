@@ -10,7 +10,7 @@ import WidgetLayout from '@/components/widget/WidgetLayout';
 
 import useWidget from '@/hook/useWidget';
 
-import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/Widget';
+import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/widget';
 import { isWidgetOf } from '@/utils/types';
 
 const NewTab: React.FC = () => {

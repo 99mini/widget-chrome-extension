@@ -1,18 +1,18 @@
 import { syncGet, syncSet } from '@/chrome/storage';
 import { create, StateCreator } from 'zustand';
 
-type ThemeModeType = 'light' | 'dark' | 'custom';
+import { RegionType, ThemeModeType } from '@/types/theme';
 
 type ThemeStoreType = {
   mode: ThemeModeType;
-  region: 'ko' | 'en';
+  region: RegionType;
   primaryColor?: string;
   actions: {
     getMode: () => Promise<ThemeModeType>;
     setMode: (mode: Omit<ThemeModeType, 'custom'>) => Promise<void>;
     setPrimaryColor: (color: string) => Promise<void>;
-    getRegion: () => Promise<'ko' | 'en'>;
-    setRegion: (region: 'ko' | 'en') => void;
+    getRegion: () => Promise<RegionType>;
+    setRegion: (region: RegionType) => void;
   };
 };
 
@@ -39,7 +39,7 @@ const initialTheme: StateCreator<ThemeStoreType, [], [], ThemeStoreType> = (set)
       set({ mode: 'custom', primaryColor: color });
     },
     getRegion: async () => {
-      const region: 'ko' | 'en' =
+      const region: RegionType =
         (await syncGet('region')) ?? (window.navigator.language.startsWith('ko') ? 'ko' : 'en');
 
       set({ region });

@@ -4,7 +4,7 @@ import { create as createBookmark, getTree, move, remove, search, update } from 
 
 import { flatBookmark } from '@/utils/bookmark';
 
-import { WidgetBookmarkType } from '@/types/Widget';
+import { WidgetBookmarkType } from '@/types/widget';
 
 type BookmarkStoreType = {
   bookmarks: WidgetBookmarkType[];

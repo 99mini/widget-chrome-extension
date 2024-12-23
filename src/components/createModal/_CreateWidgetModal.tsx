@@ -8,6 +8,8 @@ import Line from '@/components/common/Line';
 
 import useThemeStore from '@/hook/useTheme';
 
+import { i18n } from '@/utils/string';
+
 const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,7 +68,10 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
           onClose();
         }
       }}
-      confirmText={region === 'ko' ? '생성' : 'Create'}
+      confirmText={i18n(region, {
+        ko: '생성',
+        en: 'Create',
+      })}
       disabledClickAway={disabledClickAway}
     >
       <PreviewContainer>

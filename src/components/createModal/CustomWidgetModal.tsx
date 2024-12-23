@@ -16,6 +16,7 @@ import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
+import { i18n } from '@/utils/string';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -81,14 +82,22 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
     <>
       <ModalBackground>
         <ModalContainer>
-          <Title>{region === 'ko' ? '위젯 추가' : 'Add Widget'}</Title>
+          <Title>
+            {i18n(region, {
+              ko: '위젯 추가',
+              en: 'Add Widget',
+            })}
+          </Title>
           <WidgetContainer ref={ref}>
             <WidgetList>
               {/* bookmark */}
               <ClickableWidget onClick={() => setOpenBookmarkModal(true)}>
                 <IconWidget
                   id={'-1'}
-                  title={region === 'ko' ? '바로가기 추가' : 'Add Bookmark'}
+                  title={i18n(region, {
+                    ko: '바로가기 추가',
+                    en: 'Add Bookmark',
+                  })}
                   image={getIconPath(mode === 'light' ? 'widgets_light_64' : 'widgets_64')}
                   WidgetProps={{
                     dragDisabled: true,
@@ -118,7 +127,10 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
                 <GoogleSearchWidget
                   index={-1}
                   WidgetProps={{
-                    title: region === 'ko' ? '구글' : 'Google',
+                    title: i18n(region, {
+                      ko: '구글',
+                      en: 'Google',
+                    }),
                     span: { row: 2, column: 2 },
                   }}
                   disabled

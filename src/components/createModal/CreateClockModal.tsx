@@ -27,7 +27,9 @@ import {
   SPAN_OPTIONS,
   SpanType,
   WidgetType,
-} from '@/types/Widget';
+} from '@/types/widget';
+
+import { i18n } from '@/utils/string';
 
 type CreateClockModalProps = {
   onClose: () => void;
@@ -42,7 +44,12 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
 
   const [format, setFormat] = useState<ClockFormatType>('HH:mm');
   const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
-  const [title, setTitle] = useState(region === 'ko' ? '시계' : 'Clock');
+  const [title, setTitle] = useState(
+    i18n(region, {
+      ko: '시계',
+      en: 'Clock',
+    })
+  );
 
   const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
   const [openSelectClockFormat, setOpenSelectClockFormat] = useState(false);
@@ -66,13 +73,21 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
   return (
     <CreateWidgetModal
       onClose={onClose}
-      title={region === 'ko' ? '시계 위젯 추가' : 'Add Clock Widget'}
+      title={i18n(region, {
+        ko: '시계 위젯 추가',
+        en: 'Add Clock Widget',
+      })}
       disabledClickAway={openSelectClockFormat || openSelectWidgetSize}
       PreviewWidget={
         <ClockWidget
           format={format}
           WidgetProps={{
-            title: title ?? (region === 'ko' ? '시계' : 'Clock'),
+            title:
+              title ??
+              i18n(region, {
+                ko: '시계',
+                en: 'Clock',
+              }),
             span,
           }}
         />
@@ -86,11 +101,21 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
       }
     >
       <InputContainer>
-        <InputLabelText>{region === 'ko' ? '위젯 이름' : 'Widget Name'}</InputLabelText>
+        <InputLabelText>
+          {i18n(region, {
+            ko: '위젯 이름',
+            en: 'Widget Name',
+          })}
+        </InputLabelText>
         <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{region === 'ko' ? '위젯 크기' : 'Widget Size'}</InputLabelText>
+        <InputLabelText>
+          {i18n(region, {
+            ko: '위젯 크기',
+            en: 'Widget Size',
+          })}
+        </InputLabelText>
         <Select
           onValueChange={(e) => {
             const [row, column] = e.split('x').map((v) => parseInt(v));
@@ -124,7 +149,12 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>{region === 'ko' ? '위젯 크기' : 'Widget Size'}</SelectLabel>
+              <SelectLabel>
+                {i18n(region, {
+                  ko: '위젯 크기',
+                  en: 'Widget Size',
+                })}
+              </SelectLabel>
               {SPAN_OPTIONS.map((span) => (
                 <SelectItem key={`${span.row}x${span.column}`} value={`${span.row}x${span.column}`}>
                   {`${span.row}x${span.column}`}
@@ -135,7 +165,12 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
         </Select>
       </InputContainer>
       <InputContainer>
-        <InputLabelText>{region === 'ko' ? '시간 형식' : 'Clock Format'}</InputLabelText>
+        <InputLabelText>
+          {i18n(region, {
+            ko: '시간 형식',
+            en: 'Clock Format',
+          })}
+        </InputLabelText>
         <Select
           onValueChange={(e) => {
             setFormat(e as ClockFormatType);
@@ -149,7 +184,12 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>{region === 'ko' ? '시간 형식' : 'Clock Format'}</SelectLabel>
+              <SelectLabel>
+                {i18n(region, {
+                  ko: '시간 형식',
+                  en: 'Clock Format',
+                })}
+              </SelectLabel>
               {CLOCK_FORMAT_OPTIONS.map((clockFormat) => {
                 if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
                   return null;

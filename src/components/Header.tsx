@@ -5,6 +5,7 @@ import Switch from './common/Switch';
 import SettingModal from './SettingModal';
 
 import useThemeStore from '@/hook/useTheme';
+import { i18n } from '@/utils/string';
 
 const Container = styled.header`
   display: flex;
@@ -68,7 +69,12 @@ const Header: React.FC = () => {
             onChange: () => setMode(mode === 'dark' ? 'light' : 'dark'),
           }}
         />
-        <SettingtButton onClick={() => setOpenSetting(true)}>{region === 'ko' ? '설정' : 'setting'}</SettingtButton>
+        <SettingtButton onClick={() => setOpenSetting(true)}>
+          {i18n(region, {
+            ko: '설정',
+            en: 'Setting',
+          })}
+        </SettingtButton>
       </RighetArea>
       {openSetting && <SettingModal onClose={() => setOpenSetting(false)} />}
     </Container>

@@ -8,6 +8,8 @@ import { ModalBackground, ModalTitle } from './Modal';
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 
+import { i18n } from '@/utils/string';
+
 const ModalContainer = styled.div<{ size: 'small' | 'medium' | 'large' }>`
   display: flex;
   flex-direction: column;
@@ -178,7 +180,11 @@ const ActionModal: React.FC<ActionModalProps> = ({
             }}
             buttonType={cancelType}
           >
-            {!cancelText ? (region === 'ko' ? '취소' : 'Cancel') : cancelText}
+            {cancelText ??
+              i18n(region, {
+                ko: '취소',
+                en: 'Cancel',
+              })}
           </ModalButton>
           <ModalButton
             onClick={() => {
@@ -188,7 +194,11 @@ const ActionModal: React.FC<ActionModalProps> = ({
             }}
             buttonType={confirmType}
           >
-            {!confirmText ? (region === 'ko' ? '확인' : 'Confirm') : confirmText}
+            {confirmText ??
+              i18n(region, {
+                ko: '확인',
+                en: 'Confirm',
+              })}
           </ModalButton>
         </ModalButtonContainer>
       </ModalContainer>
