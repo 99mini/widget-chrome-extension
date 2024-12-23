@@ -188,7 +188,10 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
                   en: 'Clock Format',
                 })}
               </SelectLabel>
-              {CLOCK_FORMAT_OPTIONS.map((clockFormat) => {
+              {(region !== 'ko'
+                ? CLOCK_FORMAT_OPTIONS.filter((clockFormat) => !clockFormat.includes('년'))
+                : CLOCK_FORMAT_OPTIONS
+              ).map((clockFormat) => {
                 if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
                   return null;
                 }
