@@ -2,11 +2,11 @@ import { useCallback } from 'react';
 
 import { create } from 'zustand';
 
+import { syncClear, syncGet, syncSet } from '@/chrome/storage';
+
 import { isWidgetOf } from '@/utils/types';
 
 import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
-
-import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
 import useBookmarkStore from './useBookmark';
 
