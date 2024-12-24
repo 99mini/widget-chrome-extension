@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 
 import useClickAway from '@/hook/useClickAway';
 
-import EditableText from './common/EditableText';
-import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
+import EditableText from '../common/EditableText';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from '../common/Modal';
 
 const ModalContainer = styled.div`
   display: flex;

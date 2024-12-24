@@ -10,7 +10,7 @@ import useWidget from '@/hook/useWidget';
 
 import { SpanType, WidgetOptionType } from '@/types/widget';
 
-const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
+const Container = styled(ContextMenuTrigger)<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) => {
     if (span?.column === 4) {
       return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
@@ -166,19 +166,12 @@ const Widget: React.FC<WidgetProps> = ({
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger>
-        <Container
-          span={span}
-          isDragging={isDragging && !dragDisabled}
-          ref={!dragDisabled ? drop : undefined}
-          {...rest}
-        >
-          <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
-            {children}
-          </ChlidrenContainer>
-          <Name {...TitleProps}>{title}</Name>
-        </Container>
-      </ContextMenuTrigger>
+      <Container span={span} isDragging={isDragging && !dragDisabled} ref={!dragDisabled ? drop : undefined} {...rest}>
+        <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
+          {children}
+        </ChlidrenContainer>
+        <Name {...TitleProps}>{title}</Name>
+      </Container>
       {index !== -1 && <EditWidgetMenu widgetType={widgetType} />}
     </ContextMenu>
   );

@@ -27,3 +27,21 @@ export function hexWithAlpha(hex: string, opacity = 1) {
   const rgb = hex.match(/\w\w/g)?.map((x) => parseInt(x, 16));
   return `rgba(${rgb?.join(', ')}, ${opacity})`;
 }
+
+/**
+ * @description Pick css value from css string
+ * @param value
+ * @param key
+ * @returns value of key
+ * @example
+ * ```ts
+ * pickCss('color: red; background-color: blue;', 'background-color'); // => blue
+ * pickCss('color: red ; background-color : blue ;', 'background-color'); // => blue
+ * ```
+ */
+export function pickCss(value: string, key: string): string | null {
+  const reg = new RegExp(`\\s*${key}\\s*:\\s*([^;]+);`);
+  const match = value.match(reg);
+
+  return match ? match[1].trim() : null;
+}

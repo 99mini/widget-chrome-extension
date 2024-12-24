@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+html,
+body {
   min-height: 100vh;
 }
 
 body,
 main {
-  min-height: 100vh;
   margin: 0;
 }
 

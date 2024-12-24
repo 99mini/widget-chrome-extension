@@ -71,6 +71,9 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
   const { region } = useThemeStore();
 
   const handleSumit = (value: string) => {
+    if (index === -1) {
+      return;
+    }
     window.location.href = `https://www.google.com/search?q=${value}`;
   };
 
@@ -115,7 +118,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
                 ko: '구글',
                 en: 'Google',
               })}
-              href="https://mail.google.com/"
+              href={index !== -1 ? 'https://mail.google.com/' : undefined}
             >
               <AdditionalIcon src="https://cdn-icons-png.flaticon.com/512/732/732200.png" />
             </AdditionalIconLink>
