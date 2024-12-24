@@ -2,16 +2,19 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import EditWidgetMenu from '@/components/common/EditWidgetMenu';
+import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
+
 import useThemeStore from '@/hook/useTheme';
 
 import { formatDate } from '@/utils/day';
 import { i18n } from '@/utils/string';
 
-import { ClockWidgetType } from '@/types/widget';
+import { ClockWidgetType, WidgetType } from '@/types/widget';
 
 import Widget, { WidgetProps } from './Widget';
 
-const Container = styled.div`
+const Container = styled(ContextMenuTrigger)`
   display: flex;
   flex-direction: column;
 
@@ -80,6 +83,20 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
     .replace(/:/g, '')
     .replace(/a/g, '');
 
+  const widgetData: WidgetType<ClockWidgetType> = useMemo(
+    () => ({
+      id: `${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`,
+      index: index ?? -1,
+      title: defalutWidgetProps.title ?? i18n(region, { ko: '시계', en: 'Clock' }),
+      widgetType: 'clock',
+      span: defalutWidgetProps.span,
+      data: {
+        format,
+      },
+    }),
+    [defalutWidgetProps.span, defalutWidgetProps.title, format, index, region]
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
@@ -90,27 +107,24 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
 
   return (
     <Widget
-      id={`${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`}
-      index={index ?? -1}
-      title={
-        defalutWidgetProps.title ??
-        i18n(region, {
-          ko: '시계',
-          en: 'Clock',
-        })
-      }
+      id={widgetData.id}
+      index={widgetData.index}
+      title={widgetData.title}
       widgetType="clock"
       childrenProps={{
         border: true,
       }}
       {...defalutWidgetProps}
     >
-      <Container>
-        <TimeContainer isColSpan={defalutWidgetProps.span?.column && defalutWidgetProps.span.column > 1}>
-          {formatDate(time, timeFormat, region)}
-        </TimeContainer>
-        {hasDay && <DateContainer>{formatDate(time, dayFormat, region)}</DateContainer>}
-      </Container>
+      <ContextMenu>
+        <Container>
+          <TimeContainer isColSpan={defalutWidgetProps.span?.column && defalutWidgetProps.span.column > 1}>
+            {formatDate(time, timeFormat, region)}
+          </TimeContainer>
+          {hasDay && <DateContainer>{formatDate(time, dayFormat, region)}</DateContainer>}
+        </Container>
+        <EditWidgetMenu widget={widgetData} />
+      </ContextMenu>
     </Widget>
   );
 };

@@ -32,15 +32,16 @@ import CreateWidgetModal from './_CreateWidgetModal';
 type CreateClockModalProps = {
   onClose: () => void;
   initialData?: {
-    format: ClockFormatType;
-    span: SpanType;
+    id: string;
+    format?: ClockFormatType;
+    span?: SpanType;
     title: string;
   };
 };
 
 const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialData }) => {
   const {
-    actions: { createWidget },
+    actions: { createWidget, updateWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
@@ -61,7 +62,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
   const createClockWidget = useCallback(
     async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }) => {
       const newClockWidget: Omit<WidgetType<ClockWidgetType>, 'index'> = {
-        id: `clock-${span.row}-${span.column}`,
+        id: initialData?.id ?? `clock-${span.row}-${span.column}`,
         title,
         widgetType: 'clock',
         span,
@@ -71,15 +72,31 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
       };
       createWidget(newClockWidget);
     },
-    [createWidget]
+    [createWidget, initialData?.id]
+  );
+
+  const updateClockWidget = useCallback(
+    async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }, id: string) => {
+      updateWidget(
+        id,
+        {
+          title,
+          span,
+        },
+        {
+          format,
+        }
+      );
+    },
+    [updateWidget]
   );
 
   return (
     <CreateWidgetModal
       onClose={onClose}
       title={i18n(region, {
-        ko: '시계 위젯 추가',
-        en: 'Add Clock Widget',
+        ko: `시계 위젯 ${initialData ? '편집' : '추가'}`,
+        en: `Clock Widget ${initialData ? 'Edit' : 'Add'}`,
       })}
       disabledClickAway={openSelectClockFormat || openSelectWidgetSize}
       PreviewWidget={
@@ -96,13 +113,25 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
           }}
         />
       }
-      onConfirm={async () =>
-        await createClockWidget({
-          format,
-          span,
-          title,
-        })
-      }
+      onConfirm={async () => {
+        if (initialData) {
+          await updateClockWidget(
+            {
+              format,
+              span,
+              title,
+            },
+            initialData.id
+          );
+        } else {
+          await createClockWidget({
+            format,
+            span,
+            title,
+          });
+        }
+      }}
+      isEdit={Boolean(initialData)}
     >
       <InputContainer>
         <InputLabelText>

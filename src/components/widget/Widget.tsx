@@ -3,14 +3,11 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
 
-import EditWidgetMenu from '@/components/common/EditWidgetMenu';
-import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
-
 import useWidget from '@/hook/useWidget';
 
 import { SpanType, WidgetOptionType } from '@/types/widget';
 
-const Container = styled(ContextMenuTrigger)<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
+const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) => {
     if (span?.column === 4) {
       return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
@@ -165,15 +162,20 @@ const Widget: React.FC<WidgetProps> = ({
   );
 
   return (
-    <ContextMenu>
-      <Container span={span} isDragging={isDragging && !dragDisabled} ref={!dragDisabled ? drop : undefined} {...rest}>
-        <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
-          {children}
-        </ChlidrenContainer>
-        <Name {...TitleProps}>{title}</Name>
-      </Container>
-      {index !== -1 && <EditWidgetMenu widgetType={widgetType} />}
-    </ContextMenu>
+    <Container
+      id={id}
+      span={span}
+      isDragging={isDragging && !dragDisabled}
+      ref={!dragDisabled ? drop : undefined}
+      aria-colspan={span.column}
+      aria-rowspan={span.row}
+      {...rest}
+    >
+      <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
+        {children}
+      </ChlidrenContainer>
+      <Name {...TitleProps}>{title}</Name>
+    </Container>
   );
 };
 

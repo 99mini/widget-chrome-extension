@@ -20,14 +20,15 @@ import {
 import useThemeStore from '@/hook/useTheme';
 
 import { i18n } from '@/utils/string';
+import { isWidgetOf } from '@/utils/types';
 
-import { WidgetOptionType } from '@/types/widget';
+import { ClockWidgetType, CustomWidgetType, GoogleWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
 
 type EditWidgetMenuProps = {
-  widgetType: WidgetOptionType;
+  widget: WidgetType<CustomWidgetType>;
 };
 
-const EditWidgetMenu: React.FC<EditWidgetMenuProps> = ({ widgetType }) => {
+const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
   const { region } = useThemeStore();
 
   const [openEditWidgetModal, setOpenEditWidgetModal] = useState(false);
@@ -79,13 +80,27 @@ const EditWidgetMenu: React.FC<EditWidgetMenuProps> = ({ widgetType }) => {
         </ContextMenuRadioGroup>
       </ContextMenuContent>
       {openEditWidgetModal &&
-        (widgetType === 'bookmark' ? (
-          <CreateBookmarkModal onClose={() => setOpenEditWidgetModal(false)} />
-        ) : widgetType === 'clock' ? (
-          <CreateClockModal onClose={() => setOpenEditWidgetModal(false)} />
-        ) : widgetType === 'google' ? (
-          <CreateGoogleModal onClose={() => setOpenEditWidgetModal(false)} />
-        ) : null)}
+        (() => {
+          if (isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
+            return <CreateBookmarkModal onClose={() => setOpenEditWidgetModal(false)} />;
+          }
+          if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
+            return (
+              <CreateClockModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  id: widget.id,
+                  format: widget.data.format,
+                  span: widget.span,
+                  title: widget.title,
+                }}
+              />
+            );
+          }
+          if (isWidgetOf<GoogleWidgetType>(widget, 'google')) {
+            return <CreateGoogleModal onClose={() => setOpenEditWidgetModal(false)} />;
+          }
+        })()}
     </>
   );
 };
