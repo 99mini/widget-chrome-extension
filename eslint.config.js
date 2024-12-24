@@ -1,10 +1,12 @@
+import prettier from 'eslint-plugin-prettier';
+import globals from 'globals';
+
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+
 import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
 import parser from '@typescript-eslint/parser';
-import prettier from 'eslint-plugin-prettier';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import globals from 'globals';
 
 export default [
   {
@@ -36,6 +38,7 @@ export default [
       '@typescript-eslint/no-unused-vars': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
     settings: {
       react: {

@@ -3,6 +3,9 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
 
+import EditWidgetMenu from '@/components/common/EditWidgetMenu';
+import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
+
 import useWidget from '@/hook/useWidget';
 
 import { SpanType } from '@/types/widget';
@@ -162,12 +165,22 @@ const Widget: React.FC<WidgetProps> = ({
   );
 
   return (
-    <Container span={span} isDragging={isDragging && !dragDisabled} ref={!dragDisabled ? drop : undefined} {...rest}>
-      <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
-        {children}
-      </ChlidrenContainer>
-      <Name {...TitleProps}>{title}</Name>
-    </Container>
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <Container
+          span={span}
+          isDragging={isDragging && !dragDisabled}
+          ref={!dragDisabled ? drop : undefined}
+          {...rest}
+        >
+          <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
+            {children}
+          </ChlidrenContainer>
+          <Name {...TitleProps}>{title}</Name>
+        </Container>
+      </ContextMenuTrigger>
+      <EditWidgetMenu />
+    </ContextMenu>
   );
 };
 

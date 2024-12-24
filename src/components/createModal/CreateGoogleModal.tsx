@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { GoogleSearchWidget } from '@/components/widget/google';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
@@ -19,7 +20,6 @@ import { i18n } from '@/utils/string';
 
 import { GoogleWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/widget';
 
-import { GoogleSearchWidget } from '../widget/google';
 import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateGoogleModalProps = {
