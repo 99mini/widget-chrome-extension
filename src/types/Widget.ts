@@ -30,11 +30,13 @@ export const SPAN_OPTIONS = [
 
 export type SpanType = (typeof SPAN_OPTIONS)[number];
 
+export type WidgetOptionType = 'folder' | 'bookmark' | 'clock' | 'google';
+
 export type WidgetType<T> = {
   id: string;
   index: number;
   title: string;
-  widgetType: 'bookmark' | 'clock' | 'google';
+  widgetType: WidgetOptionType;
   span?: SpanType;
   data: T;
 };

@@ -86,6 +86,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
           en: 'Google Search',
         })
       }
+      widgetType="google"
       childrenProps={{
         border: true,
       }}

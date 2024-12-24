@@ -65,7 +65,7 @@ type IconWidgetProps = {
 const IconWidget: React.FC<IconWidgetProps> = ({ id, index, title, url, image, onClick, WidgetProps }) => {
   const { mode } = useThemeStore();
   return (
-    <Widget id={id} title={title} index={index ?? -1} {...WidgetProps}>
+    <Widget id={id} title={title} index={index ?? -1} widgetType="bookmark" {...WidgetProps}>
       <Link href={url} onClick={onClick} title={title} as={url ? 'a' : 'div'}>
         <ImageWrapper>
           <Image

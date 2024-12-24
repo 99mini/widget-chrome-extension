@@ -99,6 +99,7 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
           en: 'Clock',
         })
       }
+      widgetType="clock"
       childrenProps={{
         border: true,
       }}

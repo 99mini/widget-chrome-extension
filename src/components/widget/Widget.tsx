@@ -8,7 +8,7 @@ import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 
 import useWidget from '@/hook/useWidget';
 
-import { SpanType } from '@/types/widget';
+import { SpanType, WidgetOptionType } from '@/types/widget';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) => {
@@ -93,26 +93,26 @@ const Name = styled.span`
 `;
 
 export type WidgetProps = {
-  folder?: boolean;
-  span?: SpanType;
   id: string;
   index: number;
-  childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   title: string;
+  widgetType: WidgetOptionType;
+  span?: SpanType;
+  childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
   dragDisabled?: boolean;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Widget: React.FC<WidgetProps> = ({
-  folder,
+  id,
+  index,
+  title,
+  widgetType,
   span = {
     row: 1,
     column: 1,
   },
-  id,
-  index,
   childrenProps,
-  title,
   TitleProps,
   dragDisabled,
   children,
@@ -131,12 +131,12 @@ const Widget: React.FC<WidgetProps> = ({
   >(
     () => ({
       type: 'BOOKMARK',
-      item: { id, folder: Boolean(folder), index },
+      item: { id, folder: widgetType === 'folder', index },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [id, folder]
+    [id, index, widgetType]
   );
 
   // TODO: folder drag and drop 과 위젯 drag and drop 이동 로직 분리
@@ -179,7 +179,7 @@ const Widget: React.FC<WidgetProps> = ({
           <Name {...TitleProps}>{title}</Name>
         </Container>
       </ContextMenuTrigger>
-      <EditWidgetMenu />
+      {index !== -1 && <EditWidgetMenu widgetType={widgetType} />}
     </ContextMenu>
   );
 };

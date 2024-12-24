@@ -60,7 +60,7 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, init
       PreviewWidget={
         <IconWidget
           id="bookmark"
-          index={0}
+          index={-1}
           title={title}
           url={urlProtocol(url)}
           image={imageUrl || `${urlProtocol(url)}/favicon.ico`}
