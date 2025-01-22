@@ -27,11 +27,22 @@ const AdArea: React.FC = () => {
   useEffect(() => {
     getRecentlyVisitedSites().then((historyList) => {
       setHistoryList(historyList);
+      console.log(historyList);
     });
   }, []);
   return (
     <Container>
-      <HistoryWidget index={0} historyList={historyList} />
+      <HistoryWidget
+        index={0}
+        historyList={historyList}
+        WidgetProps={{
+          title: '최근 방문한 사이트',
+          span: {
+            row: 2,
+            column: 4,
+          },
+        }}
+      />
     </Container>
   );
 };

@@ -32,6 +32,7 @@ function formatDate(date: Date | number | string, format = 'yyyy-MM-dd HH:mm:ss'
 
   return format
     .replace('yyyy', year.toString())
+    .replace('yy', year.toString().slice(-2))
     .replace('MM', month.toString().padStart(2, '0'))
     .replace('dd', day.toString().padStart(2, '0'))
     .replace('HH', hour.toString().padStart(2, '0'))
