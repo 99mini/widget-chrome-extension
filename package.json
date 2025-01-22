@@ -1,6 +1,6 @@
 {
   "name": "widget-chrome-extension",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "author": "99mini",
   "description": "new tab widget chrome extension",
   "main": "index.html",
