@@ -44,6 +44,11 @@ const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: 
 
   ${({ isDragging }) => isDragging && 'opacity: 0.5;'}
   transition: opacity 237ms;
+
+  & > span {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boolean }>`

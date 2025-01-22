@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
 import { getRecentlyVisitedSites } from '@/chrome/history';
-import { getRecentlyClosedTabList } from '@/chrome/sessions';
 
 import { pickCss } from '@/utils/style';
+
+import HistoryWidget from './widget/history/HistoryWidget';
 
 const Container = styled.div`
   flex: 1;
@@ -20,27 +21,17 @@ const Container = styled.div`
   margin-bottom: ${({ theme }) => pickCss(theme.sizes.footer, 'height')};
 `;
 
+// TODO: remove historyList
 const AdArea: React.FC = () => {
+  const [historyList, setHistoryList] = React.useState<chrome.history.HistoryItem[]>([]);
+  useEffect(() => {
+    getRecentlyVisitedSites().then((historyList) => {
+      setHistoryList(historyList);
+    });
+  }, []);
   return (
     <Container>
-      <button
-        onClick={() => {
-          getRecentlyClosedTabList().then((tabs) => {
-            console.log(tabs);
-          });
-        }}
-      >
-        recently tab
-      </button>
-      <button
-        onClick={() => {
-          getRecentlyVisitedSites().then((sites) => {
-            console.log(sites);
-          });
-        }}
-      >
-        history
-      </button>
+      <HistoryWidget index={0} historyList={historyList} />
     </Container>
   );
 };

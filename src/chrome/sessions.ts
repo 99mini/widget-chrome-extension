@@ -6,13 +6,29 @@ export const getRecentlyClosedTabList = async (limit = 10): Promise<chrome.tabs.
         return;
       }
       const recentlyClosedTabs: chrome.tabs.Tab[] = [];
-      sessions.slice(0, limit).forEach((session) => {
+
+      for (const session of sessions) {
+        if (recentlyClosedTabs.length >= limit) {
+          break;
+        }
         if (session.tab) {
           recentlyClosedTabs.push(session.tab);
         }
-      });
+      }
+
       resolve(recentlyClosedTabs);
 
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      }
+    });
+  });
+};
+
+export const restoryTab = async (sessionId: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    chrome.sessions.restore(sessionId, () => {
+      resolve();
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       }

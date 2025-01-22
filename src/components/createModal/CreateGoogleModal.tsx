@@ -25,8 +25,8 @@ import CreateWidgetModal from './_CreateWidgetModal';
 type CreateGoogleModalProps = {
   onClose: () => void;
   initialData?: {
-    span: SpanType;
-    title: string;
+    span?: SpanType;
+    title?: string;
   };
 };
 

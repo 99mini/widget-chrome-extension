@@ -15,8 +15,8 @@ import CreateWidgetModal from './_CreateWidgetModal';
 type CreateBookmarkModalProps = {
   onClose: () => void;
   initialData?: {
-    url: string;
-    title: string;
+    url?: string;
+    title?: string;
     imageUrl?: string;
   };
 };

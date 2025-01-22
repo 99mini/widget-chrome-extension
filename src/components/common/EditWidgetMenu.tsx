@@ -72,7 +72,16 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
       {openEditWidgetModal &&
         (() => {
           if (isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
-            return <CreateBookmarkModal onClose={() => setOpenEditWidgetModal(false)} />;
+            return (
+              <CreateBookmarkModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  url: widget.data.url,
+                  title: widget.title,
+                  imageUrl: widget.data.imageUrl,
+                }}
+              />
+            );
           }
           if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
             return (
@@ -88,7 +97,15 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
             );
           }
           if (isWidgetOf<GoogleWidgetType>(widget, 'google')) {
-            return <CreateGoogleModal onClose={() => setOpenEditWidgetModal(false)} />;
+            return (
+              <CreateGoogleModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  span: widget.span,
+                  title: widget.title,
+                }}
+              />
+            );
           }
         })()}
       {openDeleteWidgetModal && (

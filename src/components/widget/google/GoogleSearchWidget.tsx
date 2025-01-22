@@ -1,3 +1,5 @@
+import { omit } from 'es-toolkit';
+
 import React, { useMemo } from 'react';
 
 import styled from '@emotion/styled';
@@ -97,7 +99,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
   );
 
   return (
-    <Widget {...widgetData}>
+    <Widget {...omit(widgetData, ['data'])}>
       <GoogleContainer multipleLine={WidgetProps?.span?.row === 2}>
         <GoogleSearchInput
           placeholder={i18n(region, {
