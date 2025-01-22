@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import styled from '@emotion/styled';
 
+import EditWidgetMenu from '@/components/common/EditWidgetMenu';
 import { Input } from '@/components/ui/input';
 import Widget, { WidgetProps } from '@/components/widget/Widget';
 
@@ -127,6 +128,8 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
             </AdditionalIconLink>
           </AdditionalContainer>
         )}
+
+        <EditWidgetMenu widget={widgetData} />
       </GoogleContainer>
     </Widget>
   );

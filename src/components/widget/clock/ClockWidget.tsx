@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 
 import EditWidgetMenu from '@/components/common/EditWidgetMenu';
-import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 
 import useThemeStore from '@/hook/useTheme';
 
@@ -14,7 +13,7 @@ import { ClockWidgetType, WidgetType } from '@/types/widget';
 
 import Widget, { WidgetProps } from '../Widget';
 
-const Container = styled(ContextMenuTrigger)`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -116,15 +115,13 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
       }}
       {...defalutWidgetProps}
     >
-      <ContextMenu>
-        <Container>
-          <TimeContainer isColSpan={defalutWidgetProps.span?.column && defalutWidgetProps.span.column > 1}>
-            {formatDate(time, timeFormat, region)}
-          </TimeContainer>
-          {hasDay && <DateContainer>{formatDate(time, dayFormat, region)}</DateContainer>}
-        </Container>
-        <EditWidgetMenu widget={widgetData} />
-      </ContextMenu>
+      <Container>
+        <TimeContainer isColSpan={defalutWidgetProps.span?.column && defalutWidgetProps.span.column > 1}>
+          {formatDate(time, timeFormat, region)}
+        </TimeContainer>
+        {hasDay && <DateContainer>{formatDate(time, dayFormat, region)}</DateContainer>}
+      </Container>
+      <EditWidgetMenu widget={widgetData} />
     </Widget>
   );
 };

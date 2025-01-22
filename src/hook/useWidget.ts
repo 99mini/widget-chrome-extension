@@ -10,7 +10,7 @@ import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget
 
 import useBookmarkStore from './useBookmark';
 
-type WidgetStoreType<T> = {
+type WidgetStoreType<T extends CustomWidgetType> = {
   widgets: WidgetType<T>[];
   actions: {
     getWidgets: () => Promise<WidgetType<T>[]>;
@@ -100,7 +100,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
 const useWidget = () => {
   const { widgets, actions } = useWidgetStore();
   const {
-    actions: { getBookmarks, createBookmark },
+    actions: { getBookmarks, createBookmark, removeBookmark },
   } = useBookmarkStore();
 
   const getWidgets = useCallback(async () => {
@@ -193,11 +193,29 @@ const useWidget = () => {
     [actions, createBookmark]
   );
 
+  const removeWidget = useCallback(
+    async (id: string) => {
+      const widget = widgets.find((widget) => widget.id === id);
+
+      if (!widget) {
+        return;
+      }
+
+      if (isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
+        await removeBookmark(id);
+      }
+
+      await actions.removeWidget(id);
+    },
+    [actions, removeBookmark, widgets]
+  );
+
   return {
     widgets,
     actions: {
       ...actions,
       getWidgets,
+      removeWidget,
       refresh,
       clearWidgets,
       createWidget,

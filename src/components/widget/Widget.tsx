@@ -3,6 +3,8 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
 
+import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
+
 import useWidget from '@/hook/useWidget';
 
 import { SpanType, WidgetOptionType } from '@/types/widget';
@@ -171,9 +173,13 @@ const Widget: React.FC<WidgetProps> = ({
       aria-rowspan={span.row}
       {...rest}
     >
-      <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
-        {children}
-      </ChlidrenContainer>
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
+            {children}
+          </ChlidrenContainer>
+        </ContextMenuTrigger>
+      </ContextMenu>
       <Name {...TitleProps}>{title}</Name>
     </Container>
   );

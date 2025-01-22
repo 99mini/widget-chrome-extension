@@ -32,15 +32,6 @@ export type SpanType = (typeof SPAN_OPTIONS)[number];
 
 export type WidgetOptionType = 'folder' | 'bookmark' | 'clock' | 'google';
 
-export type WidgetType<T> = {
-  id: string;
-  index: number;
-  title: string;
-  widgetType: WidgetOptionType;
-  span?: SpanType;
-  data: T;
-};
-
 export type WidgetBookmarkType = Omit<chrome.bookmarks.BookmarkTreeNode, 'children'> & {
   imageUrl?: string;
   children?: WidgetBookmarkType[] | undefined;
@@ -55,3 +46,12 @@ export type GoogleWidgetType = {
 };
 
 export type CustomWidgetType = WidgetBookmarkType | ClockWidgetType | GoogleWidgetType;
+
+export type WidgetType<T extends CustomWidgetType> = {
+  id: string;
+  index: number;
+  title: string;
+  widgetType: WidgetOptionType;
+  span?: SpanType;
+  data: T;
+};
