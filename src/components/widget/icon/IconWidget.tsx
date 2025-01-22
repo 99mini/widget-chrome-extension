@@ -1,13 +1,17 @@
 import { PropsOf } from '@emotion/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import styled from '@emotion/styled';
+
+import EditWidgetMenu from '@/components/common/EditWidgetMenu';
 
 import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
 
-import Widget from './Widget';
+import { WidgetBookmarkType, WidgetType } from '@/types/widget';
+
+import Widget from '../Widget';
 
 const Link = styled.a`
   display: flex;
@@ -64,8 +68,25 @@ type IconWidgetProps = {
 
 const IconWidget: React.FC<IconWidgetProps> = ({ id, index, title, url, image, onClick, WidgetProps }) => {
   const { mode } = useThemeStore();
+  const widgetData: WidgetType<WidgetBookmarkType> = useMemo(
+    () => ({
+      id,
+      title,
+      index: index ?? -1,
+      widgetType: 'bookmark',
+      span: { row: 1, column: 1 },
+      data: {
+        id,
+        title,
+        url,
+        imageUrl: image,
+      },
+      ...WidgetProps,
+    }),
+    [WidgetProps, id, image, index, title, url]
+  );
   return (
-    <Widget id={id} title={title} index={index ?? -1} {...WidgetProps}>
+    <Widget {...widgetData}>
       <Link href={url} onClick={onClick} title={title} as={url ? 'a' : 'div'}>
         <ImageWrapper>
           <Image
@@ -75,6 +96,7 @@ const IconWidget: React.FC<IconWidgetProps> = ({ id, index, title, url, image, o
           />
         </ImageWrapper>
       </Link>
+      <EditWidgetMenu widget={widgetData} />
     </Widget>
   );
 };

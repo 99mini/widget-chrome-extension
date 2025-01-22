@@ -8,19 +8,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { i18n } from '@/utils/string';
 
-const AdArea = styled.div`
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-
-  padding: 0 36px;
-  margin-top: 16px;
-  margin-bottom: 80px;
-`;
-
-const FloatContainer = styled.div`
+const FloatContainer = styled.footer`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -58,7 +46,6 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      <AdArea></AdArea>
       <FloatContainer>
         <AddWidgetButton onClick={() => setOpenAddWidget(true)} en={region === 'en'}>
           {i18n(region, {

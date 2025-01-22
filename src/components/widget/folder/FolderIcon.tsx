@@ -6,7 +6,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
 
-import Widget from './Widget';
+import Widget from '../Widget';
 
 const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;
@@ -57,10 +57,10 @@ const FolderIcon: React.FC<FolderIconProps> = ({ id, index, title, bookmarks, is
 
   return (
     <Widget
-      folder
       id={id}
       index={index}
       title={title}
+      widgetType="folder"
       TitleProps={{
         style: isOver ? { opacity: 0, transition: 'opacity 237ms' } : undefined,
       }}

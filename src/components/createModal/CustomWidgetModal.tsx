@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import { Glassmorphism, ModalBackground, ModalContainerCSS } from '@/components/common/Modal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS } from '@/components/common/modal/Modal.style';
 import { ClockWidget, IconWidget } from '@/components/widget';
 import { GoogleSearchWidget } from '@/components/widget/google';
 

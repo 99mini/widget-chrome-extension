@@ -4,6 +4,20 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
+import Line from '@/components/common/Line';
+import Switch from '@/components/common/Switch';
+import ActionModal from '@/components/common/modal/ActionModal';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from '@/components/common/modal/Modal.style';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
@@ -11,12 +25,6 @@ import useWidget from '@/hook/useWidget';
 import { i18n } from '@/utils/string';
 
 import { RegionType } from '@/types/theme';
-
-import ActionModal from './common/ActionModal';
-import Line from './common/Line';
-import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
-import Switch from './common/Switch';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
 
 const ModalContainer = styled.div`
   display: flex;

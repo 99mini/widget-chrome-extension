@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { flatBookmark, _parseFavicon } from '@/utils/bookmark';
+import { describe, expect, it } from 'vitest';
+
+import { _parseFavicon, flatBookmark } from '@/utils/bookmark';
 
 describe('flatBookmark', () => {
   it('should flatten bookmark tree to a single level', () => {

@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { rgbWithAlpha, hexWithAlpha } from '@/utils/style';
+import { describe, expect, it } from 'vitest';
+
+import { hexWithAlpha, pickCss, rgbWithAlpha } from '@/utils/style';
 
 describe('rgbWithAlpha', () => {
   it('should return rgba(255, 255, 255, 0.5)', () => {
@@ -16,5 +17,14 @@ describe('hexWithAlpha', () => {
   });
   it('should return rgba(255, 255, 255, 1)', () => {
     expect(hexWithAlpha('#ffffff')).toBe('rgba(255, 255, 255, 1)');
+  });
+});
+
+describe('pickCss', () => {
+  it('should return blue', () => {
+    expect(pickCss('color: red; background-color: blue;', 'background-color')).toBe('blue');
+  });
+  it('should return blue: with white space', () => {
+    expect(pickCss('color: red ; background-color : blue ;', 'background-color')).toBe('blue');
   });
 });

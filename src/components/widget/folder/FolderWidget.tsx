@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
 
-import FolderModal from '@/components/FolderModal';
+import FolderModal from '@/components/widget/folder/FolderModal';
 
 import useBookmarkStore from '@/hook/useBookmark';
 import useWidget from '@/hook/useWidget';

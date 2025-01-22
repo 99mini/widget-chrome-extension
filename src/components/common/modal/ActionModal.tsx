@@ -8,7 +8,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { i18n } from '@/utils/string';
 
-import { ModalBackground, ModalTitle } from './Modal';
+import { ModalBackground, ModalTitle } from './Modal.style';
 
 const ModalContainer = styled.div<{ size: 'small' | 'medium' | 'large' }>`
   display: flex;

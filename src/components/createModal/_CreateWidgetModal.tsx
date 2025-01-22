@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import ActionModal from '@/components/common/ActionModal';
 import Line from '@/components/common/Line';
+import ActionModal from '@/components/common/modal/ActionModal';
 
 import useThemeStore from '@/hook/useTheme';
 
@@ -36,6 +36,7 @@ type CreateWidgetModalProps = {
   title: string;
   PreviewWidget: React.ReactNode;
   onConfirm: () => void;
+  isEdit?: boolean;
   disabledClickAway?: boolean;
   requireConfirm?: boolean;
   children?: React.ReactNode;
@@ -46,6 +47,7 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
   title,
   PreviewWidget,
   onConfirm,
+  isEdit,
   disabledClickAway,
   requireConfirm = true,
   children,
@@ -69,8 +71,8 @@ const CreateWidgetModal: React.FC<CreateWidgetModalProps> = ({
         }
       }}
       confirmText={i18n(region, {
-        ko: '생성',
-        en: 'Create',
+        ko: isEdit ? '수정' : '생성',
+        en: isEdit ? 'Edit' : 'Create',
       })}
       disabledClickAway={disabledClickAway}
     >

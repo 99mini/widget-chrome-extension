@@ -3,10 +3,10 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import useClickAway from '@/hook/useClickAway';
+import EditableText from '@/components/common/EditableText';
+import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from '@/components/common/modal/Modal.style';
 
-import EditableText from './common/EditableText';
-import { Glassmorphism, ModalBackground, ModalContainerCSS, ModalTitle } from './common/Modal';
+import useClickAway from '@/hook/useClickAway';
 
 const ModalContainer = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
+import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import ClockWidget from '@/components/widget/ClockWidget';
+import ClockWidget from '@/components/widget/clock/ClockWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
@@ -31,22 +31,29 @@ import CreateWidgetModal from './_CreateWidgetModal';
 
 type CreateClockModalProps = {
   onClose: () => void;
+  initialData?: {
+    id: string;
+    format?: ClockFormatType;
+    span?: SpanType;
+    title: string;
+  };
 };
 
-const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
+const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialData }) => {
   const {
-    actions: { createWidget },
+    actions: { createWidget, updateWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
 
-  const [format, setFormat] = useState<ClockFormatType>('HH:mm');
-  const [span, setSpan] = useState<SpanType>({ row: 1, column: 1 });
+  const [format, setFormat] = useState<ClockFormatType>(initialData?.format ?? 'HH:mm');
+  const [span, setSpan] = useState<SpanType>(initialData?.span ?? { row: 1, column: 1 });
   const [title, setTitle] = useState(
-    i18n(region, {
-      ko: '시계',
-      en: 'Clock',
-    })
+    initialData?.title ??
+      i18n(region, {
+        ko: '시계',
+        en: 'Clock',
+      })
   );
 
   const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
@@ -55,7 +62,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
   const createClockWidget = useCallback(
     async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }) => {
       const newClockWidget: Omit<WidgetType<ClockWidgetType>, 'index'> = {
-        id: `clock-${span.row}-${span.column}`,
+        id: initialData?.id ?? `clock-${span.row}-${span.column}`,
         title,
         widgetType: 'clock',
         span,
@@ -65,15 +72,31 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
       };
       createWidget(newClockWidget);
     },
-    [createWidget]
+    [createWidget, initialData?.id]
+  );
+
+  const updateClockWidget = useCallback(
+    async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }, id: string) => {
+      updateWidget(
+        id,
+        {
+          title,
+          span,
+        },
+        {
+          format,
+        }
+      );
+    },
+    [updateWidget]
   );
 
   return (
     <CreateWidgetModal
       onClose={onClose}
       title={i18n(region, {
-        ko: '시계 위젯 추가',
-        en: 'Add Clock Widget',
+        ko: `시계 위젯 ${initialData ? '편집' : '추가'}`,
+        en: `Clock Widget ${initialData ? 'Edit' : 'Add'}`,
       })}
       disabledClickAway={openSelectClockFormat || openSelectWidgetSize}
       PreviewWidget={
@@ -90,13 +113,25 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose }) => {
           }}
         />
       }
-      onConfirm={async () =>
-        await createClockWidget({
-          format,
-          span,
-          title,
-        })
-      }
+      onConfirm={async () => {
+        if (initialData) {
+          await updateClockWidget(
+            {
+              format,
+              span,
+              title,
+            },
+            initialData.id
+          );
+        } else {
+          await createClockWidget({
+            format,
+            span,
+            title,
+          });
+        }
+      }}
+      isEdit={Boolean(initialData)}
     >
       <InputContainer>
         <InputLabelText>
