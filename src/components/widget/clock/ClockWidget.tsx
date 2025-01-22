@@ -12,7 +12,7 @@ import { i18n } from '@/utils/string';
 
 import { ClockWidgetType, WidgetType } from '@/types/widget';
 
-import Widget, { WidgetProps } from './Widget';
+import Widget, { WidgetProps } from '../Widget';
 
 const Container = styled(ContextMenuTrigger)`
   display: flex;

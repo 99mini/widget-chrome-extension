@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
+import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
 import { Input } from '@/components/ui/input';
-import IconWidget from '@/components/widget/IconWidget';
+import IconWidget from '@/components/widget/icon/IconWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';

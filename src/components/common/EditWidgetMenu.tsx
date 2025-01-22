@@ -1,28 +1,46 @@
 import React, { useState } from 'react';
 
+import styled from '@emotion/styled';
+
 import CreateBookmarkModal from '@/components/createModal/CreateBookmarkModal';
 import CreateClockModal from '@/components/createModal/CreateClockModal';
 import CreateGoogleModal from '@/components/createModal/CreateGoogleModal';
 import {
-  ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
   ContextMenuSeparator,
   ContextMenuShortcut,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
 } from '@/components/ui/context-menu';
 
+import { Colors } from '@/context/theme';
+
 import useThemeStore from '@/hook/useTheme';
+import useWidget from '@/hook/useWidget';
 
 import { i18n } from '@/utils/string';
+import { rgbWithAlpha } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
 import { ClockWidgetType, CustomWidgetType, GoogleWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
+
+import ActionModal from './modal/ActionModal';
+
+const MenuItem = styled(ContextMenuItem)<{ color?: keyof Colors }>`
+  cursor: pointer;
+
+  ${({ theme, color }) =>
+    color &&
+    `
+  color: ${theme.colors[color]}; 
+  &:focus {
+    color: ${theme.colors[color]};
+  }
+
+  & > span { 
+    color: ${rgbWithAlpha(theme.colors[color] as string, 0.88)} 
+  }
+  `}
+`;
 
 type EditWidgetMenuProps = {
   widget: WidgetType<CustomWidgetType>;
@@ -31,53 +49,25 @@ type EditWidgetMenuProps = {
 const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
   const { region } = useThemeStore();
 
+  const {
+    actions: { removeWidget },
+  } = useWidget();
+
   const [openEditWidgetModal, setOpenEditWidgetModal] = useState(false);
+  const [openDeleteWidgetModal, setOpenDeleteWidgetModal] = useState(false);
 
   return (
     <>
       <ContextMenuContent className="w-64">
-        <ContextMenuItem inset onClick={() => setOpenEditWidgetModal(true)}>
+        <MenuItem inset onClick={() => setOpenEditWidgetModal(true)}>
           {i18n(region, { ko: '수정하기', en: 'Edit' })}
           <ContextMenuShortcut>{'⌘E'}</ContextMenuShortcut>
-        </ContextMenuItem>
+        </MenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem inset>
+        <MenuItem inset color="error" onClick={() => setOpenDeleteWidgetModal(true)}>
           {i18n(region, { ko: '삭제하기', en: 'Delete' })}
           <ContextMenuShortcut>{'⌘D'}</ContextMenuShortcut>
-        </ContextMenuItem>
-        <ContextMenuItem inset>
-          {i18n(region, { ko: '새로고침', en: 'Reload' })}
-          <ContextMenuShortcut>{'⌘R'}</ContextMenuShortcut>
-        </ContextMenuItem>
-        <ContextMenuSub>
-          <ContextMenuSubTrigger inset>{i18n(region, { ko: '도구 더보기', en: 'More Tools' })}</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="w-48">
-            <ContextMenuItem>
-              {i18n(region, { ko: '페이지 저장...', en: 'Save Page As...' })}
-              <ContextMenuShortcut>{'⇧⌘S'}</ContextMenuShortcut>
-            </ContextMenuItem>
-            <ContextMenuItem>{i18n(region, { ko: '바로가기 만들기...', en: 'Create Shortcut...' })}</ContextMenuItem>
-            <ContextMenuItem>{i18n(region, { ko: '창 이름 지정...', en: 'Name Window...' })}</ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem>{i18n(region, { ko: '개발자 도구', en: 'Developer Tools' })}</ContextMenuItem>
-          </ContextMenuSubContent>
-        </ContextMenuSub>
-        <ContextMenuCheckboxItem checked>
-          {i18n(region, { ko: '북마크 바 표시', en: 'Show Bookmarks Bar' })}
-          <ContextMenuShortcut>{'⌘⇧B'}</ContextMenuShortcut>
-        </ContextMenuCheckboxItem>
-        <ContextMenuCheckboxItem>{i18n(region, { ko: '전체 URL 표시', en: 'Show Full URLs' })}</ContextMenuCheckboxItem>
-        <ContextMenuSeparator />
-        <ContextMenuRadioGroup value="pedro">
-          <ContextMenuLabel inset>{i18n(region, { ko: '사람들', en: 'People' })}</ContextMenuLabel>
-          <ContextMenuSeparator />
-          <ContextMenuRadioItem value="pedro">
-            {i18n(region, { ko: '페드로 두아르테', en: 'Pedro Duarte' })}
-          </ContextMenuRadioItem>
-          <ContextMenuRadioItem value="colm">
-            {i18n(region, { ko: '콜름 투이트', en: 'Colm Tuite' })}
-          </ContextMenuRadioItem>
-        </ContextMenuRadioGroup>
+        </MenuItem>
       </ContextMenuContent>
       {openEditWidgetModal &&
         (() => {
@@ -101,6 +91,21 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
             return <CreateGoogleModal onClose={() => setOpenEditWidgetModal(false)} />;
           }
         })()}
+      {openDeleteWidgetModal && (
+        <ActionModal
+          title={i18n(region, { ko: '위젯 삭제', en: 'Delete Widget' })}
+          onConfirm={async () => {
+            await removeWidget(widget.id);
+            setOpenDeleteWidgetModal(false);
+          }}
+          confirmText="삭제"
+          confirmType="error"
+          onClose={() => setOpenDeleteWidgetModal(false)}
+          size="small"
+        >
+          {i18n(region, { ko: '정말로 삭제하시겠습니까?', en: 'Are you sure you want to delete?' })}
+        </ActionModal>
+      )}
     </>
   );
 };

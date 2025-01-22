@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 
 import styled from '@emotion/styled';
 
-import ActionModal from '@/components/common/ActionModal';
 import Line from '@/components/common/Line';
+import ActionModal from '@/components/common/modal/ActionModal';
 
 import useThemeStore from '@/hook/useTheme';
 

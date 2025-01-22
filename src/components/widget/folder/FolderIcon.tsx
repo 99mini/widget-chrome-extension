@@ -6,7 +6,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
 
-import Widget from './Widget';
+import Widget from '../Widget';
 
 const IconContainer = styled.div<{ isOver?: boolean }>`
   width: 44px;

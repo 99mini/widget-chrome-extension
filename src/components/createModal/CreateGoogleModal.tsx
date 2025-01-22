@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
+import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
 import { Input } from '@/components/ui/input';
 import {
   Select,

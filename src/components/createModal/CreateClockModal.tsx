@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/Modal';
+import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import ClockWidget from '@/components/widget/ClockWidget';
+import ClockWidget from '@/components/widget/clock/ClockWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
