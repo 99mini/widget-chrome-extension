@@ -10,7 +10,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { i18n } from '@/utils/string';
 
-import { GoogleWidgetType, WidgetType } from '@/types/widget';
+import { GoogleWidgetType, WidgetType } from '@/types/Widget';
 
 const GoogleContainer = styled.div<{ multipleLine?: boolean }>`
   display: flex;

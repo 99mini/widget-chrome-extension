@@ -21,7 +21,7 @@ import { i18n } from '@/utils/string';
 import { rgbWithAlpha } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
-import { ClockWidgetType, CustomWidgetType, GoogleWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
+import { ClockWidgetType, CustomWidgetType, GoogleWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
 
 import ActionModal from './modal/ActionModal';
 

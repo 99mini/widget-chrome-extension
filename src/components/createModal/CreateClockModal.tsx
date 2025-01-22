@@ -25,7 +25,7 @@ import {
   SPAN_OPTIONS,
   SpanType,
   WidgetType,
-} from '@/types/widget';
+} from '@/types/Widget';
 
 import CreateWidgetModal from './_CreateWidgetModal';
 

@@ -9,7 +9,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
 
-import { WidgetBookmarkType, WidgetType } from '@/types/widget';
+import { WidgetBookmarkType, WidgetType } from '@/types/Widget';
 
 import Widget from '../Widget';
 

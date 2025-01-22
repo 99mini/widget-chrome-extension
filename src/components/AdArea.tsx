@@ -2,6 +2,9 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { getRecentlyVisitedSites } from '@/chrome/history';
+import { getRecentlyClosedTabList } from '@/chrome/sessions';
+
 import { pickCss } from '@/utils/style';
 
 const Container = styled.div`
@@ -18,7 +21,28 @@ const Container = styled.div`
 `;
 
 const AdArea: React.FC = () => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <button
+        onClick={() => {
+          getRecentlyClosedTabList().then((tabs) => {
+            console.log(tabs);
+          });
+        }}
+      >
+        recently tab
+      </button>
+      <button
+        onClick={() => {
+          getRecentlyVisitedSites().then((sites) => {
+            console.log(sites);
+          });
+        }}
+      >
+        history
+      </button>
+    </Container>
+  );
 };
 
 export default AdArea;

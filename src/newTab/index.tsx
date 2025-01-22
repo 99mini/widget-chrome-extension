@@ -14,7 +14,7 @@ import useWidget from '@/hook/useWidget';
 import { pickCss } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
-import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/widget';
+import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/Widget';
 
 const Container = styled.div`
   height: 100%;

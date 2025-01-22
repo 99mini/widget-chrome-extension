@@ -6,7 +6,7 @@ import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
 import { isWidgetOf } from '@/utils/types';
 
-import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
+import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
 
 import useBookmarkStore from './useBookmark';
 

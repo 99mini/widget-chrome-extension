@@ -9,7 +9,7 @@ import useThemeStore from '@/hook/useTheme';
 import { formatDate } from '@/utils/day';
 import { i18n } from '@/utils/string';
 
-import { ClockWidgetType, WidgetType } from '@/types/widget';
+import { ClockWidgetType, WidgetType } from '@/types/Widget';
 
 import Widget, { WidgetProps } from '../Widget';
 

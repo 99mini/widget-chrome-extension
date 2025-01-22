@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import path from 'path';
+import { defineConfig } from 'vite';
+
+import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
   console.debug('mode:', mode);
@@ -12,7 +13,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: 'dist',
+      outDir: mode === 'production' ? 'dist' : 'dist-dev',
       rollupOptions: {
         input: {
           newtab: 'index.html',

@@ -18,7 +18,7 @@ import useWidget from '@/hook/useWidget';
 
 import { i18n } from '@/utils/string';
 
-import { GoogleWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/widget';
+import { GoogleWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/Widget';
 
 import CreateWidgetModal from './_CreateWidgetModal';
 
