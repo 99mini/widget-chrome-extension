@@ -7,13 +7,13 @@ import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 
 import useWidget from '@/hook/useWidget';
 
-import { calcWigetHeight, calcWigetWidth } from '@/utils/style';
+import { calcWidgetHeight, calcWidgetWidth } from '@/utils/style';
 
 import { SpanType, WidgetOptionType } from '@/types/Widget';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
-  width: ${({ span, theme }) => calcWigetWidth(span?.column, theme)};
-  height: ${({ span, theme }) => calcWigetHeight(span?.row, theme)};
+  width: ${({ span, theme }) => calcWidgetWidth(span?.column, theme)};
+  height: ${({ span, theme }) => calcWidgetHeight(span?.row, theme)};
 
   ${({ span }) => (span?.row && span.row > 1 ? `grid-row: span ${span.row};` : '')}
   ${({ span }) => (span?.column && span.column > 1 ? `grid-column: span ${span.column};` : '')}

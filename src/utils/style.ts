@@ -57,10 +57,10 @@ export function pickCss(value: string, key: string): string | null {
  * @returns widget width
  * @example
  * ```ts
- * calcWigetWidth(4, theme); // => 264px
+ * calcWidgetWidth(4, theme); // => 264px
  * ```
  */
-export function calcWigetWidth(column: SpanType['column'] | undefined, theme: Theme) {
+export function calcWidgetWidth(column: SpanType['column'] | undefined, theme: Theme) {
   if (column === 4) {
     return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
   }
@@ -77,10 +77,10 @@ export function calcWigetWidth(column: SpanType['column'] | undefined, theme: Th
  * @returns widget height
  * @example
  * ```ts
- * calcWigetHeight(4, theme); // => 264px
+ * calcWidgetHeight(4, theme); // => 264px
  * ```
  */
-export function calcWigetHeight(row: SpanType['row'] | undefined, theme: Theme) {
+export function calcWidgetHeight(row: SpanType['row'] | undefined, theme: Theme) {
   if (row === 4) {
     return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3 + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
   }
