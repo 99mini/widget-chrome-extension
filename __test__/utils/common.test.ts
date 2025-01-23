@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import { urlProtocol, validateEmail } from '@/utils/common';
+import { urlProtocol, validateEmail, validateUrl } from '@/utils/common';
 
-describe('Common utils', () => {
+describe('urlProtocol', () => {
   it('should return https url', () => {
     const url = urlProtocol('www.google.com');
 
@@ -27,5 +27,22 @@ describe('validateEmail', () => {
     const invalidEmail = 'example';
 
     expect(validateEmail(invalidEmail)).toBe(false);
+  });
+});
+
+describe('validateUrl', () => {
+  it('should return true if url is valid', () => {
+    const withSubDomain = 'https://www.google.com';
+    const withoutSubDomain = 'www.google.com';
+    const withoutProtocol = 'google.com';
+
+    expect(validateUrl(withoutSubDomain)).toBe(true);
+    expect(validateUrl(withSubDomain)).toBe(true);
+    expect(validateUrl(withoutProtocol)).toBe(true);
+  });
+
+  it('should return false if url is invalid', () => {
+    const invalidUrl = 'googlecom';
+    expect(validateUrl(invalidUrl)).toBe(false);
   });
 });

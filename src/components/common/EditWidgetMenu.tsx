@@ -21,8 +21,16 @@ import { i18n } from '@/utils/string';
 import { rgbWithAlpha } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
-import { ClockWidgetType, CustomWidgetType, GoogleWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import {
+  ClockWidgetType,
+  CustomWidgetType,
+  GoogleWidgetType,
+  HistoryWidgetType,
+  WidgetBookmarkType,
+  WidgetType,
+} from '@/types/Widget';
 
+import CreateHistoryModal from '../createModal/CreateHistoryModal';
 import ActionModal from './modal/ActionModal';
 
 const MenuItem = styled(ContextMenuItem)<{ color?: keyof Colors }>`
@@ -76,6 +84,7 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
               <CreateBookmarkModal
                 onClose={() => setOpenEditWidgetModal(false)}
                 initialData={{
+                  id: widget.id,
                   url: widget.data.url,
                   title: widget.title,
                   imageUrl: widget.data.imageUrl,
@@ -101,8 +110,22 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
               <CreateGoogleModal
                 onClose={() => setOpenEditWidgetModal(false)}
                 initialData={{
+                  id: widget.id,
                   span: widget.span,
                   title: widget.title,
+                }}
+              />
+            );
+          }
+          if (isWidgetOf<HistoryWidgetType>(widget, 'history')) {
+            return (
+              <CreateHistoryModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  id: widget.id,
+                  span: widget.span,
+                  title: widget.title,
+                  maxResults: widget.data.maxResults,
                 }}
               />
             );

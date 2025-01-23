@@ -10,12 +10,14 @@ import { i18n } from '@/utils/string';
 
 import { GoogleWidgetType, SpanType, WidgetType } from '@/types/Widget';
 
+import { ID } from '../widget/google/GoogleSearchWidget';
 import CreateWidgetModal from './_CreateWidgetModal';
 import WidgetSizeSelect from './common/WidgetSizeSelect';
 
 type CreateGoogleModalProps = {
   onClose: () => void;
   initialData?: {
+    id: string;
     span?: SpanType;
     title?: string;
   };
@@ -23,7 +25,7 @@ type CreateGoogleModalProps = {
 
 const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialData }) => {
   const {
-    actions: { createWidget },
+    actions: { createWidget, updateWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
@@ -42,7 +44,7 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
   const createGoogleWidget = useCallback(
     async ({ span, title }: { span: SpanType; title: string }) => {
       const newGoogleWidget: Omit<WidgetType<GoogleWidgetType>, 'index'> = {
-        id: `google-search-${span.row}-${span.column}`,
+        id: ID,
         title,
         widgetType: 'google',
         span,
@@ -55,12 +57,29 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
     [createWidget]
   );
 
+  const updateGoogleWidget = useCallback(
+    async ({ id, span, title }: { id: string; span: SpanType; title: string }) => {
+      const newGoogleWidget: Omit<WidgetType<GoogleWidgetType>, 'index'> = {
+        id,
+        title,
+        widgetType: 'google',
+        span,
+        data: {
+          googleType: 'search',
+        },
+      };
+
+      await updateWidget(id, newGoogleWidget);
+    },
+    [updateWidget]
+  );
+
   return (
     <CreateWidgetModal
       onClose={onClose}
       title={i18n(region, {
-        ko: '구글 위젯 추가',
-        en: 'Add Google Widget',
+        ko: `구글 위젯 ${initialData ? '수정' : '추가'}`,
+        en: `${initialData ? 'Edit' : `Add`} Google Widget`,
       })}
       disabledClickAway={openSelectWidgetSize}
       PreviewWidget={
@@ -79,8 +98,13 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
         />
       }
       requireConfirm={title.length > 0}
+      isEdit={Boolean(initialData)}
       onConfirm={async () => {
-        await createGoogleWidget({ span, title });
+        if (initialData) {
+          await updateGoogleWidget({ id: initialData.id, span, title });
+        } else {
+          await createGoogleWidget({ span, title });
+        }
       }}
     >
       <TextInput

@@ -69,7 +69,7 @@ export const ID = 'google-search' as const;
 type GoogleSearchWidgetProps = {
   index: number;
   disabled?: boolean;
-  WidgetProps?: Partial<Omit<WidgetProps, 'id'>>;
+  WidgetProps?: Partial<WidgetProps>;
 };
 
 // TODO: 우클릭 메뉴에서 구글 검색 추가
@@ -87,7 +87,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
     () => ({
       ...WidgetProps,
       index,
-      id: `${ID}-${WidgetProps?.span?.row}-${WidgetProps?.span?.column}`,
+      id: WidgetProps?.id ?? ID,
       title: WidgetProps?.title ?? i18n(region, { ko: '구글 검색', en: 'Google Search' }),
       widgetType: 'google',
       childrenProps: { border: true },

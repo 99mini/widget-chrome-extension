@@ -4,8 +4,6 @@ import styled from '@emotion/styled';
 
 import { pickCss } from '@/utils/style';
 
-import HistoryWidget from './widget/history/HistoryWidget';
-
 const Container = styled.div`
   flex: 1;
 
@@ -19,22 +17,8 @@ const Container = styled.div`
   margin-bottom: ${({ theme }) => pickCss(theme.sizes.footer, 'height')};
 `;
 
-// TODO: remove historyList
 const AdArea: React.FC = () => {
-  return (
-    <Container>
-      <HistoryWidget
-        index={0}
-        WidgetProps={{
-          title: '최근 방문한 사이트',
-          span: {
-            row: 2,
-            column: 4,
-          },
-        }}
-      />
-    </Container>
-  );
+  return <Container></Container>;
 };
 
 export default AdArea;

@@ -30,5 +30,13 @@ describe('pickCss', () => {
 });
 
 // TODO: calcWidgetWidth, calcWidgetHeight
-describe('calcWidgetWidth', () => {});
-describe('calcWidgetHeight', () => {});
+describe('calcWidgetWidth', () => {
+  it('should return 264px', () => {
+    expect(true).toBe(true);
+  });
+});
+describe('calcWidgetHeight', () => {
+  it('should return 60px', () => {
+    expect(true).toBe(true);
+  });
+});

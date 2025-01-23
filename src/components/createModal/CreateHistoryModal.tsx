@@ -16,6 +16,7 @@ import WidgetSizeSelect from './common/WidgetSizeSelect';
 type CreateHistoryModalProps = {
   onClose: () => void;
   initialData?: {
+    id: string;
     span?: SpanType;
     title?: string;
     maxResults?: number;
@@ -24,7 +25,7 @@ type CreateHistoryModalProps = {
 
 const CreateHistoryModal = ({ onClose, initialData }: CreateHistoryModalProps) => {
   const {
-    actions: { createWidget },
+    actions: { createWidget, updateWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
@@ -44,7 +45,7 @@ const CreateHistoryModal = ({ onClose, initialData }: CreateHistoryModalProps) =
   const createHistoryWidget = useCallback(
     async ({ span, title, maxResults }: { span: SpanType; title: string; maxResults?: number }) => {
       const newHistoryWidget: Omit<WidgetType<HistoryWidgetType>, 'index'> = {
-        id: `${ID}-${span.row}-${span.column}`,
+        id: ID,
         title,
         widgetType: 'history',
         span,
@@ -58,12 +59,29 @@ const CreateHistoryModal = ({ onClose, initialData }: CreateHistoryModalProps) =
     [createWidget]
   );
 
+  const updateHistoryWidget = useCallback(
+    async ({ id, span, title, maxResults }: { id: string; span: SpanType; title: string; maxResults: number }) => {
+      const newHistoryWidget: Omit<WidgetType<HistoryWidgetType>, 'index'> = {
+        id,
+        title,
+        widgetType: 'history',
+        span,
+        data: {
+          historyList: [],
+          maxResults,
+        },
+      };
+      updateWidget(id, newHistoryWidget);
+    },
+    [updateWidget]
+  );
+
   return (
     <CreateWidgetModal
       onClose={onClose}
       title={i18n(region, {
-        ko: '최근 방문 사이트 위젯 추가',
-        en: 'Add Recently Visited Sites Widget',
+        ko: `최근 방문 사이트 위젯 ${initialData ? '수정' : '추가'}`,
+        en: `${initialData ? 'Edit' : 'Add'} Recently Visited Sites Widget`,
       })}
       disabledClickAway={openSelectWidgetSize}
       PreviewWidget={
@@ -83,8 +101,13 @@ const CreateHistoryModal = ({ onClose, initialData }: CreateHistoryModalProps) =
         />
       }
       requireConfirm={title.length > 0}
+      isEdit={Boolean(initialData)}
       onConfirm={async () => {
-        await createHistoryWidget({ span, title, maxResults });
+        if (initialData) {
+          await updateHistoryWidget({ id: initialData.id, span, title, maxResults });
+        } else {
+          await createHistoryWidget({ span, title, maxResults });
+        }
       }}
     >
       <TextInput

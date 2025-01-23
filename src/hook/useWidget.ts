@@ -4,6 +4,8 @@ import { create } from 'zustand';
 
 import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
+import { deepMerge } from '@/utils/object';
+import { increaseSuffixNumber } from '@/utils/string';
 import { isWidgetOf } from '@/utils/types';
 
 import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
@@ -17,7 +19,7 @@ type WidgetStoreType<T extends CustomWidgetType> = {
     setWidgets: (widgets: WidgetType<T>[]) => void;
     createWidget: (widget: Omit<WidgetType<T>, 'index'>) => Promise<void>;
     moveWidget: (id: string, prevIndex: number, nextIndex: number) => Promise<void>;
-    updateWidget: (id: string, changes: Partial<WidgetType<T>>, dataChanges: Partial<T>) => Promise<void>;
+    updateWidget: (id: string, changes: Partial<WidgetType<T>>) => Promise<void>;
     removeWidget: (id: string) => Promise<void>;
     clearWidgets: () => Promise<void>;
   };
@@ -41,7 +43,10 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
     },
     createWidget: async (widget) => {
       set((prev) => {
-        const widgets = [...prev.widgets, { ...widget, index: prev.widgets.length }];
+        const widgets = [
+          ...prev.widgets,
+          { ...widget, index: prev.widgets.length, id: increaseSuffixNumber(`${widget.id}-${prev.widgets.length}`) },
+        ];
 
         syncSet('widgets', widgets);
 
@@ -69,16 +74,17 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
         return { widgets: newWidgets };
       });
     },
-    updateWidget: async (id, changes, dataChanges) => {
+    updateWidget: async (id, changes) => {
       set((prev) => {
         const widgets = prev.widgets.map((widget) => {
           if (widget.id === id) {
-            return { ...widget, ...changes, data: { ...widget.data, ...dataChanges } };
+            return deepMerge(widget, changes);
           }
           return widget;
         });
 
         syncSet('widgets', widgets);
+        console.log('updateWidget', widgets);
         return { widgets };
       });
     },
@@ -100,7 +106,7 @@ const useWidgetStore = create<WidgetStoreType<CustomWidgetType>>((set) => ({
 const useWidget = () => {
   const { widgets, actions } = useWidgetStore();
   const {
-    actions: { getBookmarks, createBookmark, removeBookmark },
+    actions: { getBookmarks, createBookmark, removeBookmark, updateBookmark },
   } = useBookmarkStore();
 
   const getWidgets = useCallback(async () => {
@@ -174,6 +180,7 @@ const useWidget = () => {
             parentId: widget.data.parentId ?? '1',
           });
           console.debug(`createWidget: ${res}`);
+
           await actions.createWidget({
             id: res.id,
             title: res.title,
@@ -210,6 +217,25 @@ const useWidget = () => {
     [actions, removeBookmark, widgets]
   );
 
+  const updateWidget = useCallback(
+    async <T extends CustomWidgetType>(id: string, changes: Partial<WidgetType<T>>) => {
+      if (!changes) {
+        return;
+      }
+
+      if (changes?.widgetType === 'bookmark') {
+        const changesBookmark = changes.data as WidgetBookmarkType | undefined;
+        await updateBookmark(id, {
+          title: changesBookmark?.title,
+          url: changesBookmark?.url,
+        });
+      }
+
+      await actions.updateWidget(id, changes);
+    },
+    [actions, updateBookmark]
+  );
+
   return {
     widgets,
     actions: {
@@ -219,6 +245,7 @@ const useWidget = () => {
       refresh,
       clearWidgets,
       createWidget,
+      updateWidget,
     },
   };
 };

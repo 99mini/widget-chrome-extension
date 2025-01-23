@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { DropDownSelect, TextInput } from '@/components/common/input';
-import ClockWidget from '@/components/widget/clock/ClockWidget';
+import ClockWidget, { ID } from '@/components/widget/clock/ClockWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
@@ -52,7 +52,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
   const createClockWidget = useCallback(
     async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }) => {
       const newClockWidget: Omit<WidgetType<ClockWidgetType>, 'index'> = {
-        id: initialData?.id ?? `clock-${span.row}-${span.column}`,
+        id: ID,
         title,
         widgetType: 'clock',
         span,
@@ -62,21 +62,18 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
       };
       createWidget(newClockWidget);
     },
-    [createWidget, initialData?.id]
+    [createWidget]
   );
 
   const updateClockWidget = useCallback(
     async ({ format, span, title }: { format: ClockFormatType; span: SpanType; title: string }, id: string) => {
-      updateWidget(
-        id,
-        {
-          title,
-          span,
-        },
-        {
+      updateWidget(id, {
+        title,
+        span,
+        data: {
           format,
-        }
-      );
+        },
+      });
     },
     [updateWidget]
   );

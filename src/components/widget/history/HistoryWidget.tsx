@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 
 import { getRecentlyVisitedSites } from '@/chrome/history';
 
+import EditWidgetMenu from '@/components/common/EditWidgetMenu';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 import useThemeStore from '@/hook/useTheme';
@@ -87,7 +88,7 @@ type HistoryWidgetProps = {
   index: number;
   disabled?: boolean;
   maxResults?: number;
-  WidgetProps?: Partial<Omit<WidgetProps, 'id'>>;
+  WidgetProps?: Partial<WidgetProps>;
 };
 
 const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidgetProps) => {
@@ -98,7 +99,7 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
   const widgetData: WidgetType<HistoryWidgetType> = useMemo(
     () => ({
       ...WidgetProps,
-      id: `${ID}-${WidgetProps?.span?.row}-${WidgetProps?.span?.column}`,
+      id: WidgetProps?.id ?? ID,
       index,
       title: WidgetProps?.title || i18n(region, { ko: '최근 방문한 사이트', en: 'Recently visited sites' }),
       widgetType: 'history',
@@ -123,8 +124,8 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
 
   return (
     <Widget {...omit(widgetData, ['data'])}>
-      <TooltipProvider>
-        <Container>
+      <Container>
+        <TooltipProvider>
           <HistoryItemList>
             {historyList.map((history) => (
               <HistoryItem key={history.id} span={WidgetProps?.span}>
@@ -154,8 +155,9 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
               </HistoryItem>
             ))}
           </HistoryItemList>
-        </Container>
-      </TooltipProvider>
+        </TooltipProvider>
+      </Container>
+      <EditWidgetMenu widget={widgetData} />
     </Widget>
   );
 };

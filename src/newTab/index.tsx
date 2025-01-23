@@ -88,6 +88,8 @@ const NewTab: React.FC = () => {
                   index={widget.index}
                   format={widget.data.format}
                   WidgetProps={{
+                    id: widget.id,
+
                     title: widget.title,
                     span: widget.span,
                   }}
@@ -100,7 +102,11 @@ const NewTab: React.FC = () => {
                   <GoogleSearchWidget
                     key={widget.id}
                     index={widget.index}
-                    WidgetProps={{ title: widget.title, span: widget.span }}
+                    WidgetProps={{
+                      id: widget.id,
+                      title: widget.title,
+                      span: widget.span,
+                    }}
                   />
                 );
               }
@@ -111,7 +117,11 @@ const NewTab: React.FC = () => {
                   key={widget.id}
                   index={widget.index}
                   maxResults={widget.data.maxResults}
-                  WidgetProps={{ title: widget.title, span: widget.span }}
+                  WidgetProps={{
+                    id: widget.id,
+                    title: widget.title,
+                    span: widget.span,
+                  }}
                 />
               );
             }

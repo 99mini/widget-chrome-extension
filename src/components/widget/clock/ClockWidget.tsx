@@ -42,7 +42,7 @@ export const ID = 'clock' as const;
 
 type ClockClockWidgetProps = {
   index?: number;
-  WidgetProps?: Partial<Omit<WidgetProps, 'id'>>;
+  WidgetProps?: Partial<WidgetProps>;
 } & ClockWidgetType;
 
 const ClockWidget: React.FC<ClockClockWidgetProps> = ({
@@ -84,7 +84,8 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
 
   const widgetData: WidgetType<ClockWidgetType> = useMemo(
     () => ({
-      id: `${ID}-${defalutWidgetProps.span?.row}-${defalutWidgetProps.span?.column}`,
+      ...WidgetProps,
+      id: WidgetProps?.id ?? ID,
       index: index ?? -1,
       title: defalutWidgetProps.title ?? i18n(region, { ko: '시계', en: 'Clock' }),
       widgetType: 'clock',
@@ -93,7 +94,7 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
         format,
       },
     }),
-    [defalutWidgetProps.span, defalutWidgetProps.title, format, index, region]
+    [WidgetProps, defalutWidgetProps.span, defalutWidgetProps.title, format, index, region]
   );
 
   useEffect(() => {
