@@ -1,3 +1,5 @@
+import { omit } from 'es-toolkit';
+
 import React, { useMemo } from 'react';
 
 import styled from '@emotion/styled';
@@ -10,7 +12,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { i18n } from '@/utils/string';
 
-import { GoogleWidgetType, WidgetType } from '@/types/widget';
+import { GoogleWidgetType, WidgetType } from '@/types/Widget';
 
 const GoogleContainer = styled.div<{ multipleLine?: boolean }>`
   display: flex;
@@ -62,12 +64,12 @@ const AdditionalIconLink = styled.a`
 
 const AdditionalIcon = styled.img``;
 
-const ID = 'google-search' as const;
+export const ID = 'google-search' as const;
 
 type GoogleSearchWidgetProps = {
   index: number;
   disabled?: boolean;
-  WidgetProps?: Partial<Omit<WidgetProps, 'id'>>;
+  WidgetProps?: Partial<WidgetProps>;
 };
 
 // TODO: 우클릭 메뉴에서 구글 검색 추가
@@ -85,7 +87,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
     () => ({
       ...WidgetProps,
       index,
-      id: `${ID}-${WidgetProps?.span?.row}-${WidgetProps?.span?.column}`,
+      id: WidgetProps?.id ?? ID,
       title: WidgetProps?.title ?? i18n(region, { ko: '구글 검색', en: 'Google Search' }),
       widgetType: 'google',
       childrenProps: { border: true },
@@ -97,7 +99,7 @@ const GoogleSearchWidget: React.FC<GoogleSearchWidgetProps> = ({ index, disabled
   );
 
   return (
-    <Widget {...widgetData}>
+    <Widget {...omit(widgetData, ['data'])}>
       <GoogleContainer multipleLine={WidgetProps?.span?.row === 2}>
         <GoogleSearchInput
           placeholder={i18n(region, {

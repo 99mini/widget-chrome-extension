@@ -1,22 +1,24 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
-import { Input } from '@/components/ui/input';
+import { TextInput } from '@/components/common/input';
 import IconWidget from '@/components/widget/icon/IconWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { urlProtocol } from '@/utils/common';
+import { urlProtocol, validateUrl } from '@/utils/common';
 import { i18n } from '@/utils/string';
 
 import CreateWidgetModal from './_CreateWidgetModal';
 
+const ID = 'bookmark' as const;
+
 type CreateBookmarkModalProps = {
   onClose: () => void;
   initialData?: {
-    url: string;
-    title: string;
+    id: string;
+    url?: string;
+    title?: string;
     imageUrl?: string;
   };
 };
@@ -27,7 +29,7 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, init
   const [imageUrl, setImageUrl] = useState<string | undefined>(initialData?.imageUrl);
 
   const {
-    actions: { createWidget },
+    actions: { createWidget, updateWidget },
   } = useWidget();
 
   const { region } = useThemeStore();
@@ -35,11 +37,11 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, init
   const handleConfirm = useCallback(
     async (url: string, title: string, imageUrl: string | undefined) => {
       await createWidget({
-        id: 'bookmark',
+        id: ID,
         title: title,
         widgetType: 'bookmark',
         data: {
-          id: 'bookmark',
+          id: ID,
           url: url,
           title: title,
           parentId: '1',
@@ -48,6 +50,13 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, init
       });
     },
     [createWidget]
+  );
+
+  const updateBookmark = useCallback(
+    async ({ id, url, title, imageUrl }: { id: string; url: string; title: string; imageUrl: string }) => {
+      await updateWidget(id, { widgetType: 'bookmark', title, data: { id, url, title, imageUrl } });
+    },
+    [updateWidget]
   );
 
   return (
@@ -59,55 +68,62 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, init
       })}
       PreviewWidget={
         <IconWidget
-          id="bookmark"
+          id={ID}
           index={-1}
           title={title}
           url={urlProtocol(url)}
-          image={imageUrl || `${urlProtocol(url)}/favicon.ico`}
+          image={imageUrl ?? `${urlProtocol(url)}/favicon.ico`}
         />
       }
-      onConfirm={() => handleConfirm(urlProtocol(url), title, imageUrl)}
-      requireConfirm={title.length > 0 && url.length > 0}
+      onConfirm={async () => {
+        if (initialData) {
+          await updateBookmark({
+            id: initialData.id,
+            url: url,
+            title: title,
+            imageUrl: imageUrl ? imageUrl : `${urlProtocol(url)}/favicon.ico`,
+          });
+        } else {
+          await handleConfirm(urlProtocol(url), title, imageUrl);
+        }
+      }}
+      isEdit={Boolean(initialData)}
+      requireConfirm={title.length > 0 && validateUrl(url)}
     >
-      <InputContainer>
-        <InputLabelText required>
-          {i18n(region, {
-            ko: '위젯 이름',
-            en: 'Widget Name',
-          })}
-        </InputLabelText>
-        <Input
-          type="text"
-          placeholder={i18n(region, {
-            ko: '위젯 이름',
-            en: 'Widget Name',
-          })}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </InputContainer>
-      <InputContainer>
-        <InputLabelText required>{'URL'}</InputLabelText>
-        <Input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} required />
-      </InputContainer>
-      <InputContainer>
-        <InputLabelText>
-          {i18n(region, {
-            ko: '아이콘 URL',
-            en: 'Icon Url',
-          })}
-        </InputLabelText>
-        <Input
-          type="text"
-          placeholder={i18n(region, {
-            ko: '아이콘 URL',
-            en: 'Icon Url',
-          })}
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-      </InputContainer>
+      <TextInput
+        label={i18n(region, {
+          ko: '위젯 이름',
+          en: 'Widget Name',
+        })}
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <TextInput
+        label={'URL'}
+        placeholder="URL"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        required
+        valid={validateUrl(url)}
+        errorText={i18n(region, {
+          ko: '올바른 URL을 입력해주세요.',
+          en: 'Please enter a valid URL.',
+        })}
+      />
+      <TextInput
+        label={i18n(region, {
+          ko: '아이콘 URL',
+          en: 'Icon Url',
+        })}
+        placeholder={i18n(region, {
+          ko: '아이콘 URL',
+          en: 'Icon Url',
+        })}
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+      />
     </CreateWidgetModal>
   );
 };

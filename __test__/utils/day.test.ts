@@ -22,6 +22,11 @@ describe('formatDate', () => {
     expect(formatDate(new Date('2021-01-01T13:00:00'), 'yyyy-MM-dd a h:mm:ss', 'en')).toBe('2021-01-01 PM 01:00:00');
   });
 
+  it('should format date correctly with 12-hour format', () => {
+    expect(formatDate(new Date('2021-01-01T12:10:00'), 'yyyy-MM-dd HH:mm:ss')).toBe('2021-01-01 12:10:00');
+    expect(formatDate(new Date('2021-01-01T12:10:00'), 'yyyy-MM-dd h:mm:ss a')).toBe('2021-01-01 12:10:00 오후');
+  });
+
   it('should throw error when date is invalid', () => {
     expect(() => formatDate('invalid date')).toThrowError('Invalid date');
   });

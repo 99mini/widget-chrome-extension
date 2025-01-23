@@ -7,27 +7,13 @@ import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 
 import useWidget from '@/hook/useWidget';
 
-import { SpanType, WidgetOptionType } from '@/types/widget';
+import { calcWidgetHeight, calcWidgetWidth } from '@/utils/style';
+
+import { SpanType, WidgetOptionType } from '@/types/Widget';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
-  width: ${({ span, theme }) => {
-    if (span?.column === 4) {
-      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
-    }
-    if (span?.column === 2) {
-      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`;
-    }
-    return `${theme.sizes.widget.icon}px`;
-  }};
-  height: ${({ span, theme }) => {
-    if (span?.row === 4) {
-      return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3 + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
-    }
-    if (span?.row === 2) {
-      return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
-    }
-    return `${theme.sizes.widget.icon + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
-  }};
+  width: ${({ span, theme }) => calcWidgetWidth(span?.column, theme)};
+  height: ${({ span, theme }) => calcWidgetHeight(span?.row, theme)};
 
   ${({ span }) => (span?.row && span.row > 1 ? `grid-row: span ${span.row};` : '')}
   ${({ span }) => (span?.column && span.column > 1 ? `grid-column: span ${span.column};` : '')}
@@ -44,9 +30,14 @@ const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: 
 
   ${({ isDragging }) => isDragging && 'opacity: 0.5;'}
   transition: opacity 237ms;
+
+  & > span {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
-const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boolean }>`
+const ChlidrenContainer = styled.div<{ span: WidgetProps['span']; border?: boolean; scroll?: boolean }>`
   display: flex;
 
   align-items: center;
@@ -97,7 +88,10 @@ export type WidgetProps = {
   title: string;
   widgetType: WidgetOptionType;
   span?: SpanType;
-  childrenProps?: { border?: boolean } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+  childrenProps?: { border?: boolean; scroll?: boolean } & React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >;
   TitleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
   dragDisabled?: boolean;
 } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;

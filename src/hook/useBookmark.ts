@@ -3,8 +3,9 @@ import { create } from 'zustand';
 import { create as createBookmark, getTree, move, remove, search, update } from '@/chrome/bookmarks';
 
 import { flatBookmark } from '@/utils/bookmark';
+import { deepMerge } from '@/utils/object';
 
-import { WidgetBookmarkType } from '@/types/widget';
+import { WidgetBookmarkType } from '@/types/Widget';
 
 type BookmarkStoreType = {
   bookmarks: WidgetBookmarkType[];
@@ -43,12 +44,15 @@ const useBookmarkStore = create<BookmarkStoreType>((set) => ({
       return res;
     },
     updateBookmark: async (id, changes) => {
-      const res = await update(id, changes);
+      const res = await update(id, {
+        title: changes.title,
+        url: changes.url,
+      });
 
       set((prev) => {
         const bookmarks = prev.bookmarks.map((bookmark) => {
           if (bookmark.id === id) {
-            return { ...bookmark, ...changes };
+            return deepMerge(bookmark, changes);
           }
           return bookmark;
         });

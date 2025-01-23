@@ -21,8 +21,16 @@ import { i18n } from '@/utils/string';
 import { rgbWithAlpha } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
-import { ClockWidgetType, CustomWidgetType, GoogleWidgetType, WidgetBookmarkType, WidgetType } from '@/types/widget';
+import {
+  ClockWidgetType,
+  CustomWidgetType,
+  GoogleWidgetType,
+  HistoryWidgetType,
+  WidgetBookmarkType,
+  WidgetType,
+} from '@/types/Widget';
 
+import CreateHistoryModal from '../createModal/CreateHistoryModal';
 import ActionModal from './modal/ActionModal';
 
 const MenuItem = styled(ContextMenuItem)<{ color?: keyof Colors }>`
@@ -72,7 +80,17 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
       {openEditWidgetModal &&
         (() => {
           if (isWidgetOf<WidgetBookmarkType>(widget, 'bookmark')) {
-            return <CreateBookmarkModal onClose={() => setOpenEditWidgetModal(false)} />;
+            return (
+              <CreateBookmarkModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  id: widget.id,
+                  url: widget.data.url,
+                  title: widget.title,
+                  imageUrl: widget.data.imageUrl,
+                }}
+              />
+            );
           }
           if (isWidgetOf<ClockWidgetType>(widget, 'clock')) {
             return (
@@ -88,7 +106,29 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
             );
           }
           if (isWidgetOf<GoogleWidgetType>(widget, 'google')) {
-            return <CreateGoogleModal onClose={() => setOpenEditWidgetModal(false)} />;
+            return (
+              <CreateGoogleModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  id: widget.id,
+                  span: widget.span,
+                  title: widget.title,
+                }}
+              />
+            );
+          }
+          if (isWidgetOf<HistoryWidgetType>(widget, 'history')) {
+            return (
+              <CreateHistoryModal
+                onClose={() => setOpenEditWidgetModal(false)}
+                initialData={{
+                  id: widget.id,
+                  span: widget.span,
+                  title: widget.title,
+                  maxResults: widget.data.maxResults,
+                }}
+              />
+            );
           }
         })()}
       {openDeleteWidgetModal && (

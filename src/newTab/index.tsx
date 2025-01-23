@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import AdArea from '@/components/AdArea';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { ClockWidget, FolderWidget, IconWidget } from '@/components/widget';
+import { ClockWidget, FolderWidget, HistoryWidget, IconWidget } from '@/components/widget';
 import WidgetLayout from '@/components/widget/WidgetLayout';
 import { GoogleSearchWidget } from '@/components/widget/google';
 
@@ -14,7 +14,7 @@ import useWidget from '@/hook/useWidget';
 import { pickCss } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
-import { ClockWidgetType, GoogleWidgetType, WidgetBookmarkType } from '@/types/widget';
+import { ClockWidgetType, GoogleWidgetType, HistoryWidgetType, WidgetBookmarkType } from '@/types/Widget';
 
 const Container = styled.div`
   height: 100%;
@@ -88,6 +88,7 @@ const NewTab: React.FC = () => {
                   index={widget.index}
                   format={widget.data.format}
                   WidgetProps={{
+                    id: widget.id,
                     title: widget.title,
                     span: widget.span,
                   }}
@@ -100,10 +101,28 @@ const NewTab: React.FC = () => {
                   <GoogleSearchWidget
                     key={widget.id}
                     index={widget.index}
-                    WidgetProps={{ title: widget.title, span: widget.span }}
+                    WidgetProps={{
+                      id: widget.id,
+                      title: widget.title,
+                      span: widget.span,
+                    }}
                   />
                 );
               }
+            }
+            if (isWidgetOf<HistoryWidgetType>(widget, 'history')) {
+              return (
+                <HistoryWidget
+                  key={widget.id}
+                  index={widget.index}
+                  maxResults={widget.data.maxResults}
+                  WidgetProps={{
+                    id: widget.id,
+                    title: widget.title,
+                    span: widget.span,
+                  }}
+                />
+              );
             }
           })}
         </WidgetLayout>
