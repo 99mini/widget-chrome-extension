@@ -18,3 +18,12 @@ export function urlProtocol(url: string, protocol: 'https' | 'http' = 'https') {
 
   return `${protocol}://${url}`;
 }
+
+/**
+ * @description Validate email
+ * @param email
+ * @returns true if email is valid
+ */
+export function validateEmail(email: string): boolean {
+  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+}

@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
-import { Input } from '@/components/ui/input';
+import { TextInput } from '@/components/common/input';
 import IconWidget from '@/components/widget/icon/IconWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { urlProtocol } from '@/utils/common';
+import { urlProtocol, validateEmail } from '@/utils/common';
 import { i18n } from '@/utils/string';
 
 import CreateWidgetModal from './_CreateWidgetModal';
@@ -67,47 +66,42 @@ const CreateBookmarkModal: React.FC<CreateBookmarkModalProps> = ({ onClose, init
         />
       }
       onConfirm={() => handleConfirm(urlProtocol(url), title, imageUrl)}
-      requireConfirm={title.length > 0 && url.length > 0}
+      requireConfirm={title.length > 0 && validateEmail(url)}
     >
-      <InputContainer>
-        <InputLabelText required>
-          {i18n(region, {
-            ko: '위젯 이름',
-            en: 'Widget Name',
-          })}
-        </InputLabelText>
-        <Input
-          type="text"
-          placeholder={i18n(region, {
-            ko: '위젯 이름',
-            en: 'Widget Name',
-          })}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </InputContainer>
-      <InputContainer>
-        <InputLabelText required>{'URL'}</InputLabelText>
-        <Input type="text" placeholder={'URL'} value={url} onChange={(e) => setUrl(e.target.value)} required />
-      </InputContainer>
-      <InputContainer>
-        <InputLabelText>
-          {i18n(region, {
-            ko: '아이콘 URL',
-            en: 'Icon Url',
-          })}
-        </InputLabelText>
-        <Input
-          type="text"
-          placeholder={i18n(region, {
-            ko: '아이콘 URL',
-            en: 'Icon Url',
-          })}
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-      </InputContainer>
+      <TextInput
+        label={i18n(region, {
+          ko: '위젯 이름',
+          en: 'Widget Name',
+        })}
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <TextInput
+        label={'URL'}
+        placeholder="URL"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        required
+        valid={validateEmail(url)}
+        errorText={i18n(region, {
+          ko: '올바른 URL을 입력해주세요.',
+          en: 'Please enter a valid URL.',
+        })}
+      />
+      <TextInput
+        label={i18n(region, {
+          ko: '아이콘 URL',
+          en: 'Icon Url',
+        })}
+        placeholder={i18n(region, {
+          ko: '아이콘 URL',
+          en: 'Icon Url',
+        })}
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+      />
     </CreateWidgetModal>
   );
 };

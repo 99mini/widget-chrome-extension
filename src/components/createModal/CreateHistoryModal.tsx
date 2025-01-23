@@ -1,16 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { InputContainer, InputLabelText } from '@/components/common/modal/Modal.style';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { TextInput } from '@/components/common/input';
 import HistoryWidget, { ID } from '@/components/widget/history/HistoryWidget';
 
 import useThemeStore from '@/hook/useTheme';
@@ -18,9 +8,10 @@ import useWidget from '@/hook/useWidget';
 
 import { i18n } from '@/utils/string';
 
-import { HistoryWidgetType, SPAN_OPTIONS, SpanType, WidgetType } from '@/types/Widget';
+import { HistoryWidgetType, SpanType, WidgetType } from '@/types/Widget';
 
 import CreateWidgetModal from './_CreateWidgetModal';
+import WidgetSizeSelect from './common/WidgetSizeSelect';
 
 type CreateHistoryModalProps = {
   onClose: () => void;
@@ -91,77 +82,44 @@ const CreateHistoryModal = ({ onClose, initialData }: CreateHistoryModalProps) =
           }}
         />
       }
+      requireConfirm={title.length > 0}
       onConfirm={async () => {
         await createHistoryWidget({ span, title, maxResults });
       }}
     >
-      <InputContainer>
-        <InputLabelText>
-          {i18n(region, {
-            ko: '위젯 이름',
-            en: 'Widget Name',
-          })}
-        </InputLabelText>
-        <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)} />
-      </InputContainer>
-      <InputContainer>
-        <InputLabelText>
-          {i18n(region, {
-            ko: '위젯 크기',
-            en: 'Widget Size',
-          })}
-        </InputLabelText>
-        <Select
-          onValueChange={(e) => {
-            const [row, column] = e.split('x').map((v) => parseInt(v));
-            const selectedSpan = { row, column } as SpanType;
-            setSpan(selectedSpan);
-          }}
-          onOpenChange={setOpenSelectWidgetSize}
-          open={openSelectWidgetSize}
-          value={`${span.row}x${span.column}`}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder={'2x2'} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>
-                {i18n(region, {
-                  ko: '위젯 크기',
-                  en: 'Widget Size',
-                })}
-              </SelectLabel>
-              {SPAN_OPTIONS.map((span) => {
-                if (span.row === 1 && span.column === 1) {
-                  return null;
-                }
-                return (
-                  <SelectItem key={`${span.row}x${span.column}`} value={`${span.row}x${span.column}`}>
-                    {`${span.row}x${span.column}`}
-                  </SelectItem>
-                );
-              })}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </InputContainer>
-      <InputContainer>
-        <InputLabelText>
-          {i18n(region, {
-            ko: '표시할 최대 사이트 수',
-            en: 'Maximum number of sites to display',
-          })}
-        </InputLabelText>
-        <Input
-          type="number"
-          placeholder={'maxResults'}
-          value={maxResults}
-          onChange={(e) => {
-            setMaxResults(parseInt(e.target.value));
-          }}
-        />
-      </InputContainer>
+      <TextInput
+        label={i18n(region, {
+          ko: '위젯 이름',
+          en: 'Widget Name',
+        })}
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <WidgetSizeSelect
+        placeholder={i18n(region, {
+          ko: '위젯 크기',
+          en: 'Widget Size',
+        })}
+        span={span}
+        setSpan={setSpan}
+        onOpenChange={setOpenSelectWidgetSize}
+        open={openSelectWidgetSize}
+        filter={(span) => {
+          return !(span.row === 1 && span.column === 1);
+        }}
+      />
+      <TextInput
+        label={i18n(region, {
+          ko: '표시할 최대 사이트 수',
+          en: 'Maximum number of sites to display',
+        })}
+        placeholder="10"
+        type="number"
+        value={maxResults}
+        onChange={(e) => setMaxResults(parseInt(e.target.value))}
+      />
     </CreateWidgetModal>
   );
 };
