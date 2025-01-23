@@ -34,6 +34,6 @@ if [ "$MODE" = "production" ]; then
       console.log('Version is up to date:', manifest.version);
     }
   "
-fi 
+fi
 
 vite build --mode $MODE

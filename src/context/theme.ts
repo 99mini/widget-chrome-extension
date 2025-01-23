@@ -90,6 +90,9 @@ const DefaultTheme = {
     warningHover: rgbWithAlpha(defaultColors.warning, 0.8),
     warningActive: rgbWithAlpha(defaultColors.warning, 0.5),
     warningDisabled: rgbWithAlpha(defaultColors.warning, 0.3),
+
+    black: 'rgb(20, 20, 20)',
+    white: 'rgb(233, 235, 240)',
   },
 } as const;
 

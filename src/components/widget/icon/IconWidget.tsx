@@ -1,3 +1,5 @@
+import { omit } from 'es-toolkit';
+
 import { PropsOf } from '@emotion/react';
 import React, { useMemo } from 'react';
 
@@ -9,7 +11,7 @@ import useThemeStore from '@/hook/useTheme';
 
 import { getIconPath } from '@/utils/icon';
 
-import { WidgetBookmarkType, WidgetType } from '@/types/widget';
+import { WidgetBookmarkType, WidgetType } from '@/types/Widget';
 
 import Widget from '../Widget';
 
@@ -86,7 +88,7 @@ const IconWidget: React.FC<IconWidgetProps> = ({ id, index, title, url, image, o
     [WidgetProps, id, image, index, title, url]
   );
   return (
-    <Widget {...widgetData}>
+    <Widget {...omit(widgetData, ['data'])}>
       <Link href={url} onClick={onClick} title={title} as={url ? 'a' : 'div'}>
         <ImageWrapper>
           <Image

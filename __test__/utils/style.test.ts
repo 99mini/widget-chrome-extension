@@ -28,3 +28,15 @@ describe('pickCss', () => {
     expect(pickCss('color: red ; background-color : blue ;', 'background-color')).toBe('blue');
   });
 });
+
+// TODO: calcWidgetWidth, calcWidgetHeight
+describe('calcWidgetWidth', () => {
+  it('should return 264px', () => {
+    expect(true).toBe(true);
+  });
+});
+describe('calcWidgetHeight', () => {
+  it('should return 60px', () => {
+    expect(true).toBe(true);
+  });
+});

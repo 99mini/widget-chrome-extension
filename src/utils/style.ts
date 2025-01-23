@@ -1,3 +1,7 @@
+import { Theme } from '@emotion/react';
+
+import { SpanType } from '@/types/Widget';
+
 /**
  * @description Convert rgb color to hex color
  * @param rgb
@@ -44,4 +48,44 @@ export function pickCss(value: string, key: string): string | null {
   const match = value.match(reg);
 
   return match ? match[1].trim() : null;
+}
+
+/**
+ * @description Calculate widget width
+ * @param column
+ * @param theme
+ * @returns widget width
+ * @example
+ * ```ts
+ * calcWidgetWidth(4, theme); // => 264px
+ * ```
+ */
+export function calcWidgetWidth(column: SpanType['column'] | undefined, theme: Theme) {
+  if (column === 4) {
+    return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3}px`;
+  }
+  if (column === 2) {
+    return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap}px`;
+  }
+  return `${theme.sizes.widget.icon}px`;
+}
+
+/**
+ * @description Calculate widget height
+ * @param row
+ * @param theme
+ * @returns widget height
+ * @example
+ * ```ts
+ * calcWidgetHeight(4, theme); // => 264px
+ * ```
+ */
+export function calcWidgetHeight(row: SpanType['row'] | undefined, theme: Theme) {
+  if (row === 4) {
+    return `${theme.sizes.widget.icon * 4 + theme.sizes.widget.rowGap * 3 + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+  }
+  if (row === 2) {
+    return `${theme.sizes.widget.icon * 2 + theme.sizes.widget.rowGap + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
+  }
+  return `${theme.sizes.widget.icon + theme.sizes.widget.textHeight + theme.sizes.widget.textGap}px`;
 }

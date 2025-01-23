@@ -1,29 +1,29 @@
 import React, { useCallback, useState } from 'react';
 
 import { TextInput } from '@/components/common/input';
-import { GoogleSearchWidget } from '@/components/widget/google';
+import HistoryWidget, { ID } from '@/components/widget/history/HistoryWidget';
 
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
 import { i18n } from '@/utils/string';
 
-import { GoogleWidgetType, SpanType, WidgetType } from '@/types/Widget';
+import { HistoryWidgetType, SpanType, WidgetType } from '@/types/Widget';
 
-import { ID } from '../widget/google/GoogleSearchWidget';
 import CreateWidgetModal from './_CreateWidgetModal';
 import WidgetSizeSelect from './common/WidgetSizeSelect';
 
-type CreateGoogleModalProps = {
+type CreateHistoryModalProps = {
   onClose: () => void;
   initialData?: {
     id: string;
     span?: SpanType;
     title?: string;
+    maxResults?: number;
   };
 };
 
-const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialData }) => {
+const CreateHistoryModal = ({ onClose, initialData }: CreateHistoryModalProps) => {
   const {
     actions: { createWidget, updateWidget },
   } = useWidget();
@@ -34,42 +34,44 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
   const [title, setTitle] = useState(
     initialData?.title ??
       i18n(region, {
-        ko: '구글 검색',
-        en: 'Google Search',
+        ko: '최근 방문한 사이트',
+        en: 'Recently Visited Sites',
       })
   );
+  const [maxResults, setMaxResults] = useState(initialData?.maxResults ?? 10);
 
   const [openSelectWidgetSize, setOpenSelectWidgetSize] = useState(false);
 
-  const createGoogleWidget = useCallback(
-    async ({ span, title }: { span: SpanType; title: string }) => {
-      const newGoogleWidget: Omit<WidgetType<GoogleWidgetType>, 'index'> = {
+  const createHistoryWidget = useCallback(
+    async ({ span, title, maxResults }: { span: SpanType; title: string; maxResults?: number }) => {
+      const newHistoryWidget: Omit<WidgetType<HistoryWidgetType>, 'index'> = {
         id: ID,
         title,
-        widgetType: 'google',
+        widgetType: 'history',
         span,
         data: {
-          googleType: 'search',
+          historyList: [],
+          maxResults,
         },
       };
-      createWidget(newGoogleWidget);
+      createWidget(newHistoryWidget);
     },
     [createWidget]
   );
 
-  const updateGoogleWidget = useCallback(
-    async ({ id, span, title }: { id: string; span: SpanType; title: string }) => {
-      const newGoogleWidget: Omit<WidgetType<GoogleWidgetType>, 'index'> = {
+  const updateHistoryWidget = useCallback(
+    async ({ id, span, title, maxResults }: { id: string; span: SpanType; title: string; maxResults: number }) => {
+      const newHistoryWidget: Omit<WidgetType<HistoryWidgetType>, 'index'> = {
         id,
         title,
-        widgetType: 'google',
+        widgetType: 'history',
         span,
         data: {
-          googleType: 'search',
+          historyList: [],
+          maxResults,
         },
       };
-
-      await updateWidget(id, newGoogleWidget);
+      updateWidget(id, newHistoryWidget);
     },
     [updateWidget]
   );
@@ -78,20 +80,21 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
     <CreateWidgetModal
       onClose={onClose}
       title={i18n(region, {
-        ko: `구글 위젯 ${initialData ? '수정' : '추가'}`,
-        en: `${initialData ? 'Edit' : `Add`} Google Widget`,
+        ko: `최근 방문 사이트 위젯 ${initialData ? '수정' : '추가'}`,
+        en: `${initialData ? 'Edit' : 'Add'} Recently Visited Sites Widget`,
       })}
       disabledClickAway={openSelectWidgetSize}
       PreviewWidget={
-        <GoogleSearchWidget
+        <HistoryWidget
           index={-1}
           disabled
+          maxResults={maxResults}
           WidgetProps={{
             title:
               title ??
               i18n(region, {
-                ko: '구글',
-                en: 'Google',
+                ko: '최근 방문한 사이트',
+                en: 'Recently Visited Sites',
               }),
             span,
           }}
@@ -101,9 +104,9 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
       isEdit={Boolean(initialData)}
       onConfirm={async () => {
         if (initialData) {
-          await updateGoogleWidget({ id: initialData.id, span, title });
+          await updateHistoryWidget({ id: initialData.id, span, title, maxResults });
         } else {
-          await createGoogleWidget({ span, title });
+          await createHistoryWidget({ span, title, maxResults });
         }
       }}
     >
@@ -127,11 +130,21 @@ const CreateGoogleModal: React.FC<CreateGoogleModalProps> = ({ onClose, initialD
         onOpenChange={setOpenSelectWidgetSize}
         open={openSelectWidgetSize}
         filter={(span) => {
-          return !((span.row === 1 && span.column === 1) || span.row === 4);
+          return !(span.row === 1 && span.column === 1);
         }}
+      />
+      <TextInput
+        label={i18n(region, {
+          ko: '표시할 최대 사이트 수',
+          en: 'Maximum number of sites to display',
+        })}
+        placeholder="10"
+        type="number"
+        value={maxResults}
+        onChange={(e) => setMaxResults(parseInt(e.target.value))}
       />
     </CreateWidgetModal>
   );
 };
 
-export default CreateGoogleModal;
+export default CreateHistoryModal;

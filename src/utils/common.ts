@@ -18,3 +18,29 @@ export function urlProtocol(url: string, protocol: 'https' | 'http' = 'https') {
 
   return `${protocol}://${url}`;
 }
+
+/**
+ * @description Validate email
+ * @param email
+ * @returns true if email is valid
+ */
+export function validateEmail(email: string): boolean {
+  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
+/**
+ * @description Validate url
+ * @param url
+ * @returns true if url is valid
+ * @example
+ * ```ts
+ * validateUrl('https://www.google.com'); // => true
+ * validateUrl('www.google.com'); // => true
+ * validateUrl('google.com'); // => true
+ * validateUrl('googlecom'); // => false
+ * ```
+ */
+export function validateUrl(url: string): boolean {
+  const withProtocol = urlProtocol(url);
+  return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(withProtocol);
+}
