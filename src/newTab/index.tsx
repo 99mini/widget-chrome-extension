@@ -89,7 +89,6 @@ const NewTab: React.FC = () => {
                   format={widget.data.format}
                   WidgetProps={{
                     id: widget.id,
-
                     title: widget.title,
                     span: widget.span,
                   }}
