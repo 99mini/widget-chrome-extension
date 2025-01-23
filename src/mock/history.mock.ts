@@ -79,6 +79,46 @@ const historyMockData = [
     url: 'https://accounts.google.com/v3/signin/challenge/pwd?TL=AO-GBTdiDEM-j05WaPbbsrhoSsXxSxz9UB2OH55b8H5WSycfZTMix_coylf4WxyY&checkConnection=youtube%3A304&checkedDomains=youtube&cid=2&continue=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdevconsole%2F40b45fa3-ac7a-41ac-a896-90edd543ba4a%3Fhl%3Dko&ddm=1&dsh=S-1004267964%3A1737559003830277&flowEntry=ServiceLogin&flowName=GlifWebSignIn&hl=ko&ifkv=AVdkyDkIYbxAfl2K3f4tj7weMoibN_o1E2OwLEQD0eTfQtoRx9F2feEoVmkggCfaG1EclnyrlpffCQ&pstMsg=1&service=chromewebstore&authuser=0',
     visitCount: 1,
   },
+  {
+    id: '104102',
+    lastVisitTime: 1737561994214.468,
+    title: 'Pagination - shadcn/ui',
+    typedCount: 0,
+    url: 'https://ui.shadcn.com/docs/components/pagination',
+    visitCount: 1,
+  },
+  {
+    id: '95674',
+    lastVisitTime: 1737561989644.029,
+    title: 'Carousel - shadcn/ui',
+    typedCount: 0,
+    url: 'https://ui.shadcn.com/docs/components/carousel',
+    visitCount: 2,
+  },
+  {
+    id: '102530',
+    lastVisitTime: 1737561986730.153,
+    title: 'Card - shadcn/ui',
+    typedCount: 0,
+    url: 'https://ui.shadcn.com/docs/components/card',
+    visitCount: 2,
+  },
+  {
+    id: '79860',
+    lastVisitTime: 1737561666666.312,
+    title: '새 탭',
+    typedCount: 23,
+    url: 'http://localhost:5173/',
+    visitCount: 380,
+  },
+  {
+    id: '252',
+    lastVisitTime: 1737560778515.786,
+    title: 'YouTube',
+    typedCount: 6,
+    url: 'https://www.youtube.com/',
+    visitCount: 1048,
+  },
 ];
 
 export default historyMockData;

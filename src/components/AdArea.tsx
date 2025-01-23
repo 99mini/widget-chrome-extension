@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import styled from '@emotion/styled';
-
-import { getRecentlyVisitedSites } from '@/chrome/history';
 
 import { pickCss } from '@/utils/style';
 
@@ -23,18 +21,10 @@ const Container = styled.div`
 
 // TODO: remove historyList
 const AdArea: React.FC = () => {
-  const [historyList, setHistoryList] = React.useState<chrome.history.HistoryItem[]>([]);
-  useEffect(() => {
-    getRecentlyVisitedSites().then((historyList) => {
-      setHistoryList(historyList);
-      console.log(historyList);
-    });
-  }, []);
   return (
     <Container>
       <HistoryWidget
         index={0}
-        historyList={historyList}
         WidgetProps={{
           title: '최근 방문한 사이트',
           span: {

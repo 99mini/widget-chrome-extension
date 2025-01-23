@@ -64,7 +64,7 @@ const AdditionalIconLink = styled.a`
 
 const AdditionalIcon = styled.img``;
 
-const ID = 'google-search' as const;
+export const ID = 'google-search' as const;
 
 type GoogleSearchWidgetProps = {
   index: number;

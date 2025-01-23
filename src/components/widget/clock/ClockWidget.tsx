@@ -38,7 +38,7 @@ const DateContainer = styled.div`
   font-size: 14px;
 `;
 
-const ID = 'clock' as const;
+export const ID = 'clock' as const;
 
 type ClockClockWidgetProps = {
   index?: number;

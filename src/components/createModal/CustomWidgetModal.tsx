@@ -4,8 +4,7 @@ import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 
 import { Glassmorphism, ModalBackground, ModalContainerCSS } from '@/components/common/modal/Modal.style';
-import { ClockWidget, IconWidget } from '@/components/widget';
-import { GoogleSearchWidget } from '@/components/widget/google';
+import { ClockWidget, GoogleSearchWidget, HistoryWidget, IconWidget } from '@/components/widget';
 
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
@@ -16,6 +15,7 @@ import { i18n } from '@/utils/string';
 import CreateBookmarkModal from './CreateBookmarkModal';
 import CreateClockModal from './CreateClockModal';
 import CreateGoogleModal from './CreateGoogleModal';
+import CreateHistoryModal from './CreateHistoryModal';
 
 const ModalContainer = styled.div`
   display: flex;
@@ -76,6 +76,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
   const [openBookmarkModal, setOpenBookmarkModal] = useState(false);
   const [openClockModal, setOpenClockModal] = useState(false);
   const [openGoogleModal, setOpenGoogleModal] = useState(false);
+  const [openHistoryModal, setOpenHistoryModal] = useState(false);
 
   return createPortal(
     <>
@@ -136,6 +137,27 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
                 />
               </ClickableWidget>
               {/* google */}
+              {/* history */}
+              <ClickableWidget
+                isColSpan
+                isRowSpan
+                onClick={() => {
+                  setOpenHistoryModal(true);
+                }}
+              >
+                <HistoryWidget
+                  index={-1}
+                  WidgetProps={{
+                    title: i18n(region, {
+                      ko: '최근 방문한 사이트',
+                      en: 'Recently visited sites',
+                    }),
+                    span: { row: 2, column: 2 },
+                  }}
+                  disabled
+                />
+              </ClickableWidget>
+              {/* history */}
             </WidgetList>
           </WidgetContainer>
         </ModalContainer>
@@ -143,6 +165,7 @@ const CustomWidgetModal: React.FC<CustomWidgetModalProps> = ({ onClose }) => {
       {openBookmarkModal && <CreateBookmarkModal onClose={() => setOpenBookmarkModal(false)} />}
       {openClockModal && <CreateClockModal onClose={() => setOpenClockModal(false)} />}
       {openGoogleModal && <CreateGoogleModal onClose={() => setOpenGoogleModal(false)} />}
+      {openHistoryModal && <CreateHistoryModal onClose={() => setOpenHistoryModal(false)} />}
     </>,
     document.body
   );

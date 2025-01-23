@@ -1,8 +1,10 @@
 import { omit } from 'es-toolkit';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import styled from '@emotion/styled';
+
+import { getRecentlyVisitedSites } from '@/chrome/history';
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -79,16 +81,20 @@ const VistiedTooltipContent = styled(TooltipContent)`
   gap: 4px;
 `;
 
-const ID = 'history' as const;
+export const ID = 'history' as const;
 
 type HistoryWidgetProps = {
   index: number;
-  historyList: HistoryWidgetType['historyList'];
+  disabled?: boolean;
+  maxResults?: number;
   WidgetProps?: Partial<Omit<WidgetProps, 'id'>>;
 };
 
-const HistoryWidget = ({ index, historyList, WidgetProps }: HistoryWidgetProps) => {
+const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidgetProps) => {
   const { region } = useThemeStore();
+
+  const [historyList, setHistoryList] = useState<HistoryWidgetType['historyList']>([]);
+
   const widgetData: WidgetType<HistoryWidgetType> = useMemo(
     () => ({
       ...WidgetProps,
@@ -106,6 +112,15 @@ const HistoryWidget = ({ index, historyList, WidgetProps }: HistoryWidgetProps) 
     }),
     [WidgetProps, historyList, index, region]
   );
+
+  useEffect(() => {
+    const fetchHistoryList = async () => {
+      const historyList = await getRecentlyVisitedSites(maxResults);
+      setHistoryList(historyList);
+    };
+    fetchHistoryList();
+  }, [maxResults]);
+
   return (
     <Widget {...omit(widgetData, ['data'])}>
       <TooltipProvider>
@@ -115,7 +130,17 @@ const HistoryWidget = ({ index, historyList, WidgetProps }: HistoryWidgetProps) 
               <HistoryItem key={history.id} span={WidgetProps?.span}>
                 <Tooltip>
                   <TooltipTrigger>
-                    <HistoryLink href={history.url} target="_blank" rel="noreferrer">
+                    <HistoryLink
+                      href={history.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-disabled={disabled}
+                      onClick={(e) => {
+                        if (disabled) {
+                          e.preventDefault();
+                        }
+                      }}
+                    >
                       <HistoryTitle>{history.title}</HistoryTitle>
                     </HistoryLink>
                   </TooltipTrigger>

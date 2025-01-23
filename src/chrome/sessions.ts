@@ -1,4 +1,4 @@
-export const getRecentlyClosedTabList = async (limit = 10): Promise<chrome.tabs.Tab[]> => {
+export const getRecentlyClosedTabList = async (maxResults = 10): Promise<chrome.tabs.Tab[]> => {
   return new Promise((resolve, reject) => {
     chrome.sessions.getRecentlyClosed((sessions) => {
       if (!sessions) {
@@ -8,7 +8,7 @@ export const getRecentlyClosedTabList = async (limit = 10): Promise<chrome.tabs.
       const recentlyClosedTabs: chrome.tabs.Tab[] = [];
 
       for (const session of sessions) {
-        if (recentlyClosedTabs.length >= limit) {
+        if (recentlyClosedTabs.length >= maxResults) {
           break;
         }
         if (session.tab) {

@@ -47,6 +47,7 @@ export type GoogleWidgetType = {
 
 export type HistoryWidgetType = {
   historyList: chrome.history.HistoryItem[];
+  maxResults?: number;
 };
 
 export type CustomWidgetType = WidgetBookmarkType | ClockWidgetType | GoogleWidgetType | HistoryWidgetType;
