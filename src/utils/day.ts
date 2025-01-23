@@ -36,7 +36,7 @@ function formatDate(date: Date | number | string, format = 'yyyy-MM-dd HH:mm:ss'
     .replace('MM', month.toString().padStart(2, '0'))
     .replace('dd', day.toString().padStart(2, '0'))
     .replace('HH', hour.toString().padStart(2, '0'))
-    .replace('h', (hasA ? hour % 12 : hour).toString().padStart(2, '0'))
+    .replace('h', (hasA ? hour % 12 || 12 : hour).toString().padStart(2, '0'))
     .replace('mm', minute.toString().padStart(2, '0'))
     .replace('ss', second.toString().padStart(2, '0'))
     .replace('a', hour >= 12 ? i18n(region, { ko: '오후', en: 'PM' }) : i18n(region, { ko: '오전', en: 'AM' }));
