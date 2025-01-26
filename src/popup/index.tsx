@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Popup: React.FC = () => {
+const Popup = () => {
   return (
     <div>
       <h1>Popup</h1>

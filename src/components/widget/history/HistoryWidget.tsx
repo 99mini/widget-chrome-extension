@@ -13,7 +13,6 @@ import useThemeStore from '@/hook/useTheme';
 
 import { formatDate } from '@/utils/day';
 import { i18n } from '@/utils/string';
-import { calcWidgetWidth } from '@/utils/style';
 
 import { HistoryWidgetType, SpanType, WidgetType } from '@/types/Widget';
 
@@ -33,9 +32,10 @@ const HistoryItemList = styled.ul`
 `;
 
 const HistoryItem = styled.li<{ span?: SpanType }>`
-  width: ${({ span, theme }) => calcWidgetWidth(span?.column, theme)};
+  width: 100%;
 
-  padding: 0 16px;
+  padding: 0 8px;
+  box-sizing: border-box;
 
   & > button {
     width: 100%;
