@@ -1,7 +1,7 @@
 const historyMockData = [
   {
     id: '104101',
-    lastVisitTime: 1737561994214.468,
+    lastVisitTime: Date.now(),
     title: 'Pagination - shadcn/ui',
     typedCount: 0,
     url: 'https://ui.shadcn.com/docs/components/pagination',
@@ -9,7 +9,7 @@ const historyMockData = [
   },
   {
     id: '95673',
-    lastVisitTime: 1737561989644.029,
+    lastVisitTime: Date.now(),
     title: 'Carousel - shadcn/ui',
     typedCount: 0,
     url: 'https://ui.shadcn.com/docs/components/carousel',
@@ -17,7 +17,7 @@ const historyMockData = [
   },
   {
     id: '102529',
-    lastVisitTime: 1737561986730.153,
+    lastVisitTime: Date.now(),
     title: 'Card - shadcn/ui',
     typedCount: 0,
     url: 'https://ui.shadcn.com/docs/components/card',
@@ -25,7 +25,7 @@ const historyMockData = [
   },
   {
     id: '79858',
-    lastVisitTime: 1737561666666.312,
+    lastVisitTime: Date.now(),
     title: '새 탭',
     typedCount: 23,
     url: 'http://localhost:5173/',
@@ -33,7 +33,7 @@ const historyMockData = [
   },
   {
     id: '251',
-    lastVisitTime: 1737560778515.786,
+    lastVisitTime: Date.now(),
     title: 'YouTube',
     typedCount: 6,
     url: 'https://www.youtube.com/',
@@ -41,7 +41,7 @@ const historyMockData = [
   },
   {
     id: '104100',
-    lastVisitTime: 1737560654952.536,
+    lastVisitTime: Date.now(),
     title: '한 교실에 두 개의 태양이 떴다 (with 슈카월드 선생님) - YouTube',
     typedCount: 0,
     url: 'https://www.youtube.com/watch?v=pmkdzBntfdo',
@@ -49,7 +49,7 @@ const historyMockData = [
   },
   {
     id: '98714',
-    lastVisitTime: 1737559854910.501,
+    lastVisitTime: Date.now(),
     title: 'Context Menu – Radix Primitives',
     typedCount: 0,
     url: 'https://www.radix-ui.com/primitives/docs/components/context-menu#api-reference',
@@ -57,7 +57,7 @@ const historyMockData = [
   },
   {
     id: '104096',
-    lastVisitTime: 1737559608186.167,
+    lastVisitTime: Date.now(),
     title: 'Changing the input and output directory in Vite - Stack Overflow',
     typedCount: 0,
     url: 'https://stackoverflow.com/questions/66863200/changing-the-input-and-output-directory-in-vite',
@@ -65,7 +65,7 @@ const historyMockData = [
   },
   {
     id: '103382',
-    lastVisitTime: 1737559599366.479,
+    lastVisitTime: Date.now(),
     title: '[번역] Commander.js와 Typescript를 이용하여 CLI 만들기',
     typedCount: 0,
     url: 'https://itchallenger.tistory.com/851#google_vignette',
@@ -73,7 +73,7 @@ const historyMockData = [
   },
   {
     id: '104099',
-    lastVisitTime: 1737559007329.428,
+    lastVisitTime: Date.now(),
     title: 'Chrome Web Store',
     typedCount: 0,
     url: 'https://accounts.google.com/v3/signin/challenge/pwd?TL=AO-GBTdiDEM-j05WaPbbsrhoSsXxSxz9UB2OH55b8H5WSycfZTMix_coylf4WxyY&checkConnection=youtube%3A304&checkedDomains=youtube&cid=2&continue=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdevconsole%2F40b45fa3-ac7a-41ac-a896-90edd543ba4a%3Fhl%3Dko&ddm=1&dsh=S-1004267964%3A1737559003830277&flowEntry=ServiceLogin&flowName=GlifWebSignIn&hl=ko&ifkv=AVdkyDkIYbxAfl2K3f4tj7weMoibN_o1E2OwLEQD0eTfQtoRx9F2feEoVmkggCfaG1EclnyrlpffCQ&pstMsg=1&service=chromewebstore&authuser=0',
@@ -81,7 +81,7 @@ const historyMockData = [
   },
   {
     id: '104102',
-    lastVisitTime: 1737561994214.468,
+    lastVisitTime: Date.now(),
     title: 'Pagination - shadcn/ui',
     typedCount: 0,
     url: 'https://ui.shadcn.com/docs/components/pagination',
@@ -89,7 +89,7 @@ const historyMockData = [
   },
   {
     id: '95674',
-    lastVisitTime: 1737561989644.029,
+    lastVisitTime: Date.now(),
     title: 'Carousel - shadcn/ui',
     typedCount: 0,
     url: 'https://ui.shadcn.com/docs/components/carousel',
@@ -97,7 +97,7 @@ const historyMockData = [
   },
   {
     id: '102530',
-    lastVisitTime: 1737561986730.153,
+    lastVisitTime: Date.now(),
     title: 'Card - shadcn/ui',
     typedCount: 0,
     url: 'https://ui.shadcn.com/docs/components/card',
@@ -105,7 +105,7 @@ const historyMockData = [
   },
   {
     id: '79860',
-    lastVisitTime: 1737561666666.312,
+    lastVisitTime: Date.now(),
     title: '새 탭',
     typedCount: 23,
     url: 'http://localhost:5173/',
@@ -113,7 +113,7 @@ const historyMockData = [
   },
   {
     id: '252',
-    lastVisitTime: 1737560778515.786,
+    lastVisitTime: Date.now(),
     title: 'YouTube',
     typedCount: 6,
     url: 'https://www.youtube.com/',

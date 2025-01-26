@@ -36,4 +36,23 @@ if [ "$MODE" = "production" ]; then
   "
 fi
 
+if [ "$MODE" = "staging" ]; then
+  node -e "
+    const fs = require('fs'); 
+    
+    const manifest = require('./public/manifest.json');
+    const package = require('./package.json');
+    
+    if (manifest.version !== package.version) {
+      console.log('Updating manifest.json version:', manifest.version, '->', package.version);
+
+      manifest.version = package.version;
+      manifest.name = package.name + ' (Staging)';
+      fs.writeFileSync('./public/manifest.json', JSON.stringify(manifest, null, 2));
+    } else {
+      console.log('Version is up to date:', manifest.version);
+    }
+  "
+fi
+
 vite build --mode $MODE

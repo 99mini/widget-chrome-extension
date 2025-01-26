@@ -116,7 +116,7 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
 
   useEffect(() => {
     const fetchHistoryList = async () => {
-      const historyList = await getRecentlyVisitedSites(maxResults);
+      const historyList = await getRecentlyVisitedSites({ maxResults });
       setHistoryList(historyList);
     };
     fetchHistoryList();
