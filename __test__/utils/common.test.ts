@@ -35,14 +35,18 @@ describe('validateUrl', () => {
     const withSubDomain = 'https://www.google.com';
     const withoutSubDomain = 'www.google.com';
     const withoutProtocol = 'google.com';
+    const withHashTag = 'google.com#hash-tag';
 
     expect(validateUrl(withoutSubDomain)).toBe(true);
     expect(validateUrl(withSubDomain)).toBe(true);
     expect(validateUrl(withoutProtocol)).toBe(true);
+    expect(validateUrl(withHashTag)).toBe(true);
   });
 
   it('should return false if url is invalid', () => {
     const invalidUrl = 'googlecom';
+    const invalidUrlWithHashTag = 'google#.com';
     expect(validateUrl(invalidUrl)).toBe(false);
+    expect(validateUrl(invalidUrlWithHashTag)).toBe(false);
   });
 });
