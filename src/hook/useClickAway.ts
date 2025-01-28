@@ -3,9 +3,9 @@ import { BaseSyntheticEvent, RefObject, useCallback, useEffect, useRef, useState
 import { create } from 'zustand';
 
 type ClickAwayStoreType = {
-  refs: Set<RefObject<HTMLElement>>;
+  refs: Set<RefObject<HTMLElement | null>>;
   actions: {
-    push: (ref: RefObject<HTMLElement>) => void;
+    push: (ref: RefObject<HTMLElement | null>) => void;
     pop: () => void;
   };
 };
@@ -30,7 +30,7 @@ const ID_PREFIX = 'click-away-' as const;
 let _id = 0;
 
 const useClickAway = <T extends HTMLElement>(callback: () => void, delay: number = 0) => {
-  const ref = useRef<T>(null);
+  const ref = useRef<T | null>(null);
   const [id] = useState(() => `${ID_PREFIX}${_id++}`);
   const { refs, actions } = useClickAwayStore();
 
