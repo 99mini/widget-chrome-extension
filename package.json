@@ -19,7 +19,9 @@
     "test:coverage": "vitest --coverage",
     "build": "sh ./.scripts/build.sh",
     "build:prod": "yarn check && yarn test && sh ./.scripts/build.sh production",
-    "build:stage": "yarn check && yarn test && sh ./.scripts/build.sh staging"
+    "build:stage": "yarn check && yarn test && sh ./.scripts/build.sh staging",
+    "zip": "sh ./.scripts/zip.sh",
+    "deploy:prod": "yarn build:prod && yarn zip"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

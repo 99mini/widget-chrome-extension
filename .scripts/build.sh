@@ -24,11 +24,20 @@ if [ "$MODE" = "production" ]; then
     
     const manifest = require('./public/manifest.json');
     const package = require('./package.json');
-    
-    if (manifest.version !== package.version) {
-      console.log('Updating manifest.json version:', manifest.version, '->', package.version);
 
-      manifest.version = package.version;
+
+    
+    if (manifest.version !== package.version || manifest.name.includes('(Staging)')) {
+      if (manifest.name.includes('(Staging)')) {
+        manifest.name = package.name;
+      }
+
+      if (manifest.version !== package.version) {
+        console.log('Updating manifest.json version:', manifest.version, '->', package.version);
+
+        manifest.version = package.version;
+      }
+
       fs.writeFileSync('./public/manifest.json', JSON.stringify(manifest, null, 2));
     } else {
       console.log('Version is up to date:', manifest.version);
