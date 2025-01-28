@@ -32,7 +32,7 @@ export const ModalContainerCSS = css`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  height: 50%;
+  min-height: 50%;
 
   @media (min-width: 1224px) {
     width: 1164px;

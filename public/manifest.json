@@ -1,12 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "widget chrome extension",
+  "name": "widget-chrome-extension (Staging)",
   "description": "A Chrome extension for a custom new tab. 새 탭 커스텀 크롬 익스텐션입니다.",
-  "version": "0.1.0",
+  "version": "0.1.0.1",
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "bookmarks", "history", "sessions"],
+  "permissions": [
+    "storage",
+    "bookmarks",
+    "history",
+    "sessions"
+  ],
   "chrome_url_overrides": {
     "newtab": "index.html"
   }

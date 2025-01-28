@@ -3,6 +3,10 @@ import { RegionType } from '@/types/theme';
 
 import { i18n } from './string';
 
+export const MILLISECONDS_PER_DAY = 86_400_000 as const; // 24 * 60 * 60 * 1000
+export const MILLISECONDS_PER_WEEK = 604_800_000 as const; // 7 * 24 * 60 * 60 * 1000
+export const MILLISECONDS_PER_MONTH = 2_592_000_000 as const; // 30 * 24 * 60 * 60 * 1000
+
 function formatDate(date: Date): string;
 function formatDate(date: Date, format: string): string;
 

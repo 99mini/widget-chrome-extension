@@ -42,7 +42,7 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-const TodoWidget: React.FC = () => {
+const TodoWidget = () => {
   const [task, setTask] = useState<string>('');
   const [tasks, setTasks] = useState<string[]>([]);
 

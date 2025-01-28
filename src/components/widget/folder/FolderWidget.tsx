@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
@@ -36,7 +36,7 @@ const FolderWidget: React.FC<FolderWidgetProps> = ({ id: folderId, index, title,
     actions: { refresh },
   } = useWidget();
 
-  const [{ isOver, hovered }, drop] = useDrop({
+  const [{ isOver, hovered }, dropConnector] = useDrop({
     accept: 'BOOKMARK',
     drop: async (item: { id: string; folder: boolean }) => {
       if (!/^[0-9]*$/g.test(item.id) || item.folder || item.id === folderId) {
@@ -54,6 +54,12 @@ const FolderWidget: React.FC<FolderWidgetProps> = ({ id: folderId, index, title,
 
   const handleClose = () => setIsOpen(false);
 
+  const dropRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    dropConnector(dropRef);
+  }, [dropConnector]);
+
   return (
     <>
       <Clickable
@@ -62,7 +68,7 @@ const FolderWidget: React.FC<FolderWidgetProps> = ({ id: folderId, index, title,
           setIsOpen(true);
         }}
       >
-        <div ref={drop}>
+        <div ref={dropRef}>
           <FolderIcon
             id={folderId}
             index={index}

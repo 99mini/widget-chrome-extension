@@ -41,7 +41,7 @@ const SettingtButton = styled.button`
   box-sizing: initial;
 `;
 
-const Header: React.FC = () => {
+const Header = () => {
   const {
     mode,
     region,

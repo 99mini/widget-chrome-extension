@@ -11,7 +11,6 @@ import { GoogleSearchWidget } from '@/components/widget/google';
 
 import useWidget from '@/hook/useWidget';
 
-import { pickCss } from '@/utils/style';
 import { isWidgetOf } from '@/utils/types';
 
 import { ClockWidgetType, GoogleWidgetType, HistoryWidgetType, WidgetBookmarkType } from '@/types/Widget';
@@ -23,11 +22,9 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Content = styled.main`
-  height: ${({ theme }) => `calc(100vh - ${pickCss(theme.sizes.header, 'height')})`};
-`;
+const Content = styled.main``;
 
-const NewTab: React.FC = () => {
+const NewTab = () => {
   const {
     widgets,
     actions: { getWidgets },

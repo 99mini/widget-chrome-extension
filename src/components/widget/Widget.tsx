@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import styled from '@emotion/styled';
@@ -115,7 +115,7 @@ const Widget: React.FC<WidgetProps> = ({
     actions: { moveWidget },
   } = useWidget();
 
-  const [{ isDragging }, drag] = useDrag<
+  const [{ isDragging }, dragConnector] = useDrag<
     { id: string; folder: boolean; index: number },
     { id: string; folder: boolean; index: number },
     {
@@ -135,7 +135,7 @@ const Widget: React.FC<WidgetProps> = ({
   // TODO: folder drag and drop 과 위젯 drag and drop 이동 로직 분리
   // TODO: folder 자식 위젯 간 이동 로직 추가
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [{ isOver, hovered }, drop] = useDrop(
+  const [{ isOver, hovered }, dropConnector] = useDrop(
     {
       accept: 'BOOKMARK',
       drop: async (item: { id: string; index: number }) => {
@@ -157,19 +157,30 @@ const Widget: React.FC<WidgetProps> = ({
     [id]
   );
 
+  const dragRef = useRef<HTMLDivElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    dragConnector(dragRef);
+  }, [dragConnector]);
+
+  useEffect(() => {
+    dropConnector(dropRef);
+  }, [dropConnector]);
+
   return (
     <Container
       id={id}
       span={span}
       isDragging={isDragging && !dragDisabled}
-      ref={!dragDisabled ? drop : undefined}
+      ref={!dragDisabled ? dropRef : undefined}
       aria-colspan={span.column}
       aria-rowspan={span.row}
       {...rest}
     >
       <ContextMenu>
         <ContextMenuTrigger>
-          <ChlidrenContainer ref={!dragDisabled ? drag : undefined} span={span} {...childrenProps}>
+          <ChlidrenContainer ref={!dragDisabled ? dragRef : undefined} span={span} {...childrenProps}>
             {children}
           </ChlidrenContainer>
         </ContextMenuTrigger>

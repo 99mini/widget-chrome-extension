@@ -17,7 +17,7 @@ const Container = styled.div`
   margin-bottom: ${({ theme }) => pickCss(theme.sizes.footer, 'height')};
 `;
 
-const AdArea: React.FC = () => {
+const AdArea = () => {
   return <Container></Container>;
 };
 

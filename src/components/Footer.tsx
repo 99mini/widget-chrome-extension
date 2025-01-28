@@ -39,7 +39,7 @@ const AddWidgetButton = styled.button<{ en?: boolean }>`
   box-sizing: initial;
 `;
 
-const Footer: React.FC = () => {
+const Footer = () => {
   const [openAddWidget, setOpenAddWidget] = useState(false);
 
   const { region } = useThemeStore();
