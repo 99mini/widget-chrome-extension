@@ -131,7 +131,7 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
             {historyList.map((history) => (
               <HistoryItem key={history.id} span={WidgetProps?.span}>
                 <Tooltip>
-                  <TooltipTrigger>
+                  <TooltipTrigger asChild>
                     <HistoryLink
                       href={history.url}
                       target="_blank"
