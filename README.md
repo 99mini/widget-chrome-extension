@@ -33,7 +33,7 @@ welcome custom new tab!
 
 ## Main
 
-<img src="https://github.com/user-attachments/assets/9c44dee6-66c1-4402-a0e2-55935e8624d8" alt="widget-chrome-extension-main" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/9c44dee6-66c1-4402-a0e2-55935e8624d8" alt="widget-chrome-extension-main" width="1024" border="1" />
 
 - create custom widget
   - history
@@ -44,27 +44,27 @@ welcome custom new tab!
 
 ### Add Widget
 
-<img src="https://github.com/user-attachments/assets/00cd8198-5390-456f-8159-705e6165e975" alt="widget-chrome-extension-demo-add" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/00cd8198-5390-456f-8159-705e6165e975" alt="widget-chrome-extension-demo-add" width="1024" border="1" />
 
 ### Add Clock Widget
 
-<img src="https://github.com/user-attachments/assets/0f5e2081-8fb2-4c8d-aaa2-0bee42cba4f5" alt="widget-chrome-extension-demo-add-clock-widget" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/0f5e2081-8fb2-4c8d-aaa2-0bee42cba4f5" alt="widget-chrome-extension-demo-add-clock-widget" width="1024" border="1" />
 
 ### Edit
 
-<img src="https://github.com/user-attachments/assets/6f9f73dc-b83a-4d35-a98e-7a6bf707c3c5" alt="widget-chrome-extension-demo-edit" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/6f9f73dc-b83a-4d35-a98e-7a6bf707c3c5" alt="widget-chrome-extension-demo-edit" width="1024" border="1" />
 
 ## Setting
 
-<img src="https://github.com/user-attachments/assets/be233926-b3b1-4dd0-a79f-b2438c0fbe13" alt="widget-chrome-extension-demo-setting" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/be233926-b3b1-4dd0-a79f-b2438c0fbe13" alt="widget-chrome-extension-demo-setting" width="1024" border="1" />
 
 ### Dark Mode
 
-<img src="https://github.com/user-attachments/assets/e0bf31ae-cb75-4e82-ae5a-4a332ddf28ca" alt="widget-chrome-extension-demo-dark-mode" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/e0bf31ae-cb75-4e82-ae5a-4a332ddf28ca" alt="widget-chrome-extension-demo-dark-mode" width="1024" border="1" />
 
 ### I18n
 
-<img src="https://github.com/user-attachments/assets/d8e61b4b-022d-4e80-a55c-3c2dd7feb970" alt="widget-chrome-extension-demo-i18n" width="720" border="1" />
+<img src="https://github.com/user-attachments/assets/d8e61b4b-022d-4e80-a55c-3c2dd7feb970" alt="widget-chrome-extension-demo-i18n" width="1024" border="1" />
 
 # Development
 
