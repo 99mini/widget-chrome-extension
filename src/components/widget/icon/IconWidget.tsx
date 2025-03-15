@@ -13,7 +13,7 @@ import { getIconPath } from '@/utils/icon';
 
 import { WidgetBookmarkType, WidgetType } from '@/types/Widget';
 
-import Widget from '../Widget';
+import Widget from '../root/Widget';
 
 const Link = styled.a`
   display: flex;

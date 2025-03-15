@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 
 import EditWidgetMenu from '@/components/common/EditWidgetMenu';
 import { Input } from '@/components/ui/input';
-import Widget, { WidgetProps } from '@/components/widget/Widget';
+import Widget, { WidgetProps } from '@/components/widget/root/Widget';
 
 import useThemeStore from '@/hook/useTheme';
 

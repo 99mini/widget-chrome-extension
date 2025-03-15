@@ -11,7 +11,7 @@ import { i18n } from '@/utils/string';
 
 import { ClockWidgetType, WidgetType } from '@/types/Widget';
 
-import Widget, { WidgetProps } from '../Widget';
+import Widget, { WidgetProps } from '../root/Widget';
 
 const Container = styled.div`
   display: flex;
