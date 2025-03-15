@@ -48,7 +48,7 @@ if [ "$MODE" = "production" ]; then
   "
 fi
 
-
+if [ "$MODE" = "staging" ]; then
   node -e "
     const fs = require('fs'); 
     
