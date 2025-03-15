@@ -4,7 +4,7 @@ welcome custom new tab!
 
 **Table of Contents**
 
-- [Demo](#demo)
+- [Preview](#preview)
   - [Main](#main)
   - [Widget](#widget)
     - [Add Widget](#add)
@@ -29,11 +29,7 @@ welcome custom new tab!
         - [Build with Mode](#build-with-mode)
   - [Publish](#publish)
 
-# Demo
-
-## Main
-
-<img src="https://github.com/user-attachments/assets/9c44dee6-66c1-4402-a0e2-55935e8624d8" alt="widget-chrome-extension-main" width="1024" border="1" />
+# Preview
 
 - create custom widget
   - history
@@ -41,6 +37,10 @@ welcome custom new tab!
   - google search and mail
 - manage user bookmarks
 - setting dark mode, i18n(ko, en)
+
+## Main
+
+<img src="https://github.com/user-attachments/assets/9c44dee6-66c1-4402-a0e2-55935e8624d8" alt="widget-chrome-extension-main" width="1024" border="1" />
 
 ### Add Widget
 
