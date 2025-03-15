@@ -143,12 +143,12 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
                         }
                       }}
                     >
-                      <HistoryTitle>{history.title ?? history.url}</HistoryTitle>
+                      <HistoryTitle>{history.title || history.url}</HistoryTitle>
                     </HistoryLink>
                   </TooltipTrigger>
                   {history.lastVisitTime && (
                     <VistiedTooltipContent>
-                      <HistoryTitle full>{history.title ?? history.url}</HistoryTitle>
+                      <HistoryTitle full>{history.title || history.url}</HistoryTitle>
                       <VisitedTime>{formatDate(history.lastVisitTime, 'yy.MM.dd HH:mm:ss')}</VisitedTime>
                     </VistiedTooltipContent>
                   )}
