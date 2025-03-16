@@ -2,6 +2,8 @@
 
 welcome custom new tab!
 
+product: [chorestore](https://chromewebstore.google.com/detail/widget-chrome-extension/eopjfnfchlnfeaglcplmblfagdoghbpc)
+
 **Table of Contents**
 
 - [Preview](#preview)
