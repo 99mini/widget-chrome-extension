@@ -1,5 +1,5 @@
 type TimeFormat = 'HH:mm:ss' | 'HH:mm' | 'a h:mm:ss' | 'a h:mm';
-type DateFormat = 'yyyy-MM-dd' | 'yyyy년 MM월 dd일';
+type DateFormat = 'yyyy-MM-dd';
 
 type DateTimeFormat = `${DateFormat} ${TimeFormat}` | `${DateFormat} ${Exclude<TimeFormat, 'a h:mm:ss' | 'a h:mm'>}`;
 
@@ -14,10 +14,6 @@ export const CLOCK_FORMAT_OPTIONS: ClockFormatType[] = [
   'yyyy-MM-dd HH:mm',
   'yyyy-MM-dd a h:mm:ss',
   'yyyy-MM-dd a h:mm',
-  'yyyy년 MM월 dd일 HH:mm:ss',
-  'yyyy년 MM월 dd일 HH:mm',
-  'yyyy년 MM월 dd일 a h:mm:ss',
-  'yyyy년 MM월 dd일 a h:mm',
 ] as const;
 
 export const SPAN_OPTIONS = [

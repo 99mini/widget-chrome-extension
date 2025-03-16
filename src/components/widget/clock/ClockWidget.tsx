@@ -45,11 +45,7 @@ type ClockClockWidgetProps = {
   WidgetProps?: Partial<WidgetProps>;
 } & ClockWidgetType;
 
-const ClockWidget: React.FC<ClockClockWidgetProps> = ({
-  index,
-  WidgetProps,
-  format = 'yyyy년 MM월 dd일 a h:mm:ss',
-}) => {
+const ClockWidget: React.FC<ClockClockWidgetProps> = ({ index, WidgetProps, format = 'yyyy-MM-dd a h:mm:ss' }) => {
   const { region } = useThemeStore();
 
   const defalutWidgetProps: ClockClockWidgetProps['WidgetProps'] = useMemo(
@@ -68,12 +64,7 @@ const ClockWidget: React.FC<ClockClockWidgetProps> = ({
 
   const hasDay = format[0] === 'y';
 
-  const timeFormat = format
-    .replace(/y/g, '')
-    .replace(/M/g, '')
-    .replace(/d/g, '')
-    .replace(/년|월|일/g, '')
-    .replace(/-/g, '');
+  const timeFormat = format.replace(/y/g, '').replace(/M/g, '').replace(/d/g, '').replace(/-/g, '');
 
   const dayFormat = format
     .replace(/[h|H]/g, '')

@@ -146,16 +146,13 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
               setFormat(
                 (prevFormat) =>
                   prevFormat
-                    .replace(/y|[년|-]|M|[월|-]|d|[일|-]/g, '')
+                    .replace(/y|-|M|-|d|-/g, '')
                     .replace(/s/g, '')
                     .replace(/:$/g, '')
                     .replace(/^\s*/g, '') as ClockFormatType
               );
             } else {
-              setFormat(
-                (prevFormat) =>
-                  prevFormat.replace(/y|[년|-]|M|[월|-]|d|[일|-]/g, '').replace(/^\s*/g, '') as ClockFormatType
-              );
+              setFormat((prevFormat) => prevFormat.replace(/y|-|M|-|d|-/g, '').replace(/^\s*/g, '') as ClockFormatType);
             }
           }
         }}
@@ -177,10 +174,7 @@ const CreateClockModal: React.FC<CreateClockModalProps> = ({ onClose, initialDat
         open={openSelectClockFormat}
         value={format}
         placeholder={'HH:mm'}
-        options={(region !== 'ko'
-          ? CLOCK_FORMAT_OPTIONS.filter((clockFormat) => !clockFormat.includes('년'))
-          : CLOCK_FORMAT_OPTIONS
-        ).filter((clockFormat) => {
+        options={CLOCK_FORMAT_OPTIONS.filter((clockFormat) => {
           if (span.row === 1 && span.column === 1 && (clockFormat.startsWith('y') || clockFormat.endsWith('s'))) {
             return false;
           }

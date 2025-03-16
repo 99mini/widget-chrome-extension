@@ -138,7 +138,7 @@ const EditWidgetMenu = ({ widget }: EditWidgetMenuProps) => {
             await removeWidget(widget.id);
             setOpenDeleteWidgetModal(false);
           }}
-          confirmText="삭제"
+          confirmText={i18n(region, { ko: '삭제', en: 'Delete' })}
           confirmType="error"
           onClose={() => setOpenDeleteWidgetModal(false)}
           size="small"
