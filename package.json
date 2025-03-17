@@ -1,6 +1,7 @@
 {
   "name": "widget-chrome-extension",
-  "version": "0.1.0.1",
+  "version": "0.1.0.3",
+  "packageManager": "yarn@4.2.2",
   "author": "99mini",
   "description": "new tab widget chrome extension",
   "main": "index.html",
@@ -19,7 +20,9 @@
     "test:coverage": "vitest --coverage",
     "build": "sh ./.scripts/build.sh",
     "build:prod": "yarn check && yarn test && sh ./.scripts/build.sh production",
-    "build:stage": "yarn check && yarn test && sh ./.scripts/build.sh staging"
+    "build:stage": "yarn check && yarn test && sh ./.scripts/build.sh staging",
+    "zip": "sh ./.scripts/zip.sh",
+    "deploy:prod": "yarn build:prod && yarn zip"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -68,6 +71,5 @@
     "typescript-eslint": "^8.22.0",
     "vite": "^6.0.11",
     "vitest": "^3.0.4"
-  },
-  "packageManager": "yarn@4.2.2"
+  }
 }

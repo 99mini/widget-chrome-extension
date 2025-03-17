@@ -16,7 +16,7 @@ import { i18n } from '@/utils/string';
 
 import { HistoryWidgetType, SpanType, WidgetType } from '@/types/Widget';
 
-import Widget, { WidgetProps } from '../Widget';
+import Widget, { WidgetProps } from '../root/Widget';
 
 const Container = styled.div`
   height: 100%;
@@ -143,12 +143,12 @@ const HistoryWidget = ({ index, disabled, maxResults, WidgetProps }: HistoryWidg
                         }
                       }}
                     >
-                      <HistoryTitle>{history.title}</HistoryTitle>
+                      <HistoryTitle>{history.title || history.url}</HistoryTitle>
                     </HistoryLink>
                   </TooltipTrigger>
                   {history.lastVisitTime && (
                     <VistiedTooltipContent>
-                      <HistoryTitle full>{history.title}</HistoryTitle>
+                      <HistoryTitle full>{history.title || history.url}</HistoryTitle>
                       <VisitedTime>{formatDate(history.lastVisitTime, 'yy.MM.dd HH:mm:ss')}</VisitedTime>
                     </VistiedTooltipContent>
                   )}

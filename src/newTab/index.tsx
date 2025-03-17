@@ -6,8 +6,8 @@ import AdArea from '@/components/AdArea';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { ClockWidget, FolderWidget, HistoryWidget, IconWidget } from '@/components/widget';
-import WidgetLayout from '@/components/widget/WidgetLayout';
 import { GoogleSearchWidget } from '@/components/widget/google';
+import WidgetLayout from '@/components/widget/root/WidgetLayout';
 
 import useWidget from '@/hook/useWidget';
 
