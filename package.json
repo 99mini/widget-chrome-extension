@@ -1,6 +1,6 @@
 {
   "name": "widget-chrome-extension",
-  "version": "0.1.0.3",
+  "version": "0.1.1",
   "packageManager": "yarn@4.2.2",
   "author": "99mini",
   "description": "new tab widget chrome extension",
