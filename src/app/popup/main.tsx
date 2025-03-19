@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import mock from '@/lib/mock';
+import mock from '@/lib/mocks';
 
 import '@/index.css';
 
