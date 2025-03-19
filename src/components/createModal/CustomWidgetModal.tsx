@@ -9,8 +9,8 @@ import { ClockWidget, GoogleSearchWidget, HistoryWidget, IconWidget } from '@/co
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 
-import { getIconPath } from '@/utils/icon';
-import { i18n } from '@/utils/string';
+import { getIconPath } from '@/lib/utils/icon';
+import { i18n } from '@/lib/utils/string';
 
 import CreateBookmarkModal from './CreateBookmarkModal';
 import CreateClockModal from './CreateClockModal';

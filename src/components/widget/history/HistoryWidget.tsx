@@ -11,10 +11,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 
 import useThemeStore from '@/hook/useTheme';
 
-import { formatDate } from '@/utils/day';
-import { i18n } from '@/utils/string';
-
-import { HistoryWidgetType, SpanType, WidgetType } from '@/types/Widget';
+import { HistoryWidgetType, SpanType, WidgetType } from '@/lib/types/Widget';
+import { formatDate } from '@/lib/utils/day';
+import { i18n } from '@/lib/utils/string';
 
 import Widget, { WidgetProps } from '../root/Widget';
 

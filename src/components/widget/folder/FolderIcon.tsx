@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { getIconPath } from '@/utils/icon';
+import { getIconPath } from '@/lib/utils/icon';
 
 import Widget from '../root/Widget';
 

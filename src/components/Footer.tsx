@@ -6,7 +6,7 @@ import CustomWidgetModal from '@/components/createModal/CustomWidgetModal';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { i18n } from '@/utils/string';
+import { i18n } from '@/lib/utils/string';
 
 const FloatContainer = styled.footer`
   position: fixed;

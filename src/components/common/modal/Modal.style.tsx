@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import styled from '@emotion/styled';
 
-import { rgbWithAlpha } from '@/utils/style';
+import { rgbWithAlpha } from '@/lib/utils/style';
 
 export const ModalBackground = styled.div`
   position: fixed;

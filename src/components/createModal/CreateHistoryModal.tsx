@@ -6,9 +6,8 @@ import HistoryWidget, { ID } from '@/components/widget/history/HistoryWidget';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { i18n } from '@/utils/string';
-
-import { HistoryWidgetType, SpanType, WidgetType } from '@/types/Widget';
+import { HistoryWidgetType, SpanType, WidgetType } from '@/lib/types/Widget';
+import { i18n } from '@/lib/utils/string';
 
 import CreateWidgetModal from './_CreateWidgetModal';
 import WidgetSizeSelect from './common/WidgetSizeSelect';

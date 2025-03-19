@@ -5,9 +5,8 @@ import { DropDownSelect } from '@/components/common/input';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { i18n } from '@/utils/string';
-
-import { SPAN_OPTIONS, SpanType } from '@/types/Widget';
+import { SPAN_OPTIONS, SpanType } from '@/lib/types/Widget';
+import { i18n } from '@/lib/utils/string';
 
 type WidgetSizeSelectProps = {
   placeholder?: string;

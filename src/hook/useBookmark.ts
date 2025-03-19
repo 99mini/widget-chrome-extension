@@ -2,10 +2,9 @@ import { create } from 'zustand';
 
 import { create as createBookmark, getTree, move, remove, search, update } from '@/chrome/bookmarks';
 
-import { flatBookmark } from '@/utils/bookmark';
-import { deepMerge } from '@/utils/object';
-
-import { WidgetBookmarkType } from '@/types/Widget';
+import { WidgetBookmarkType } from '@/lib/types/Widget';
+import { flatBookmark } from '@/lib/utils/bookmark';
+import { deepMerge } from '@/lib/utils/object';
 
 type BookmarkStoreType = {
   bookmarks: WidgetBookmarkType[];

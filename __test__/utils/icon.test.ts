@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { getIconPath } from '@/utils/icon';
+import { getIconPath } from '@/lib/utils/icon';
 
 describe('Icon utils', () => {
   it('should return correct path for 24px icon', () => {

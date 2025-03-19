@@ -8,7 +8,7 @@ import ActionModal from '@/components/common/modal/ActionModal';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { i18n } from '@/utils/string';
+import { i18n } from '@/lib/utils/string';
 
 const PreviewContainer = styled.div`
   display: flex;

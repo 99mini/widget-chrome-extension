@@ -1,6 +1,6 @@
 import { Theme } from '@emotion/react';
 
-import { SpanType } from '@/types/Widget';
+import { SpanType } from '@/lib/types/Widget';
 
 /**
  * @description Convert rgb color to hex color

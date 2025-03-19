@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { i18n } from '@/utils/string';
+import { i18n } from '@/lib/utils/string';
 
 import SettingModal from './SettingModal';
 import Switch from './common/Switch';

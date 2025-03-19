@@ -1,5 +1,5 @@
 /* eslint-disable no-redeclare */
-import { RegionType } from '@/types/theme';
+import { RegionType } from '@/lib/types/theme';
 
 import { i18n } from './string';
 

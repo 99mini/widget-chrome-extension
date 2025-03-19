@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { isWidgetOf } from '@/utils/types';
-
-import { WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import { WidgetBookmarkType, WidgetType } from '@/lib/types/Widget';
+import { isWidgetOf } from '@/lib/utils/types';
 
 describe('isWidgetOf', () => {
   it('should return true when widgetType is bookmark', () => {

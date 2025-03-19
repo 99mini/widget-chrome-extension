@@ -17,10 +17,6 @@ import { Colors } from '@/context/theme';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { i18n } from '@/utils/string';
-import { rgbWithAlpha } from '@/utils/style';
-import { isWidgetOf } from '@/utils/types';
-
 import {
   ClockWidgetType,
   CustomWidgetType,
@@ -28,7 +24,10 @@ import {
   HistoryWidgetType,
   WidgetBookmarkType,
   WidgetType,
-} from '@/types/Widget';
+} from '@/lib/types/Widget';
+import { i18n } from '@/lib/utils/string';
+import { rgbWithAlpha } from '@/lib/utils/style';
+import { isWidgetOf } from '@/lib/utils/types';
 
 import CreateHistoryModal from '../createModal/CreateHistoryModal';
 import ActionModal from './modal/ActionModal';

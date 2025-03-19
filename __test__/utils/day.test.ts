@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { formatDate } from '@/utils/day';
+import { formatDate } from '@/lib/utils/day';
 
 describe('formatDate', () => {
   it('should format date correctly', () => {

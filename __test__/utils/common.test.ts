@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { urlProtocol, validateEmail, validateUrl } from '@/utils/common';
+import { urlProtocol, validateEmail, validateUrl } from '@/lib/utils/common';
 
 describe('urlProtocol', () => {
   it('should return https url', () => {

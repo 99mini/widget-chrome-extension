@@ -1,8 +1,8 @@
 import React from 'react';
 
 import GlobalStyle from './GlobalStyle';
+import NewTab from './app/new-tab';
 import RootProvider from './context';
-import NewTab from './newTab';
 
 function App() {
   return (

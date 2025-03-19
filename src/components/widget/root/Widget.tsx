@@ -7,9 +7,8 @@ import { ContextMenu, ContextMenuTrigger } from '@/components/ui/context-menu';
 
 import useWidget from '@/hook/useWidget';
 
-import { calcWidgetHeight, calcWidgetWidth } from '@/utils/style';
-
-import { SpanType, WidgetOptionType } from '@/types/Widget';
+import { SpanType, WidgetOptionType } from '@/lib/types/Widget';
+import { calcWidgetHeight, calcWidgetWidth } from '@/lib/utils/style';
 
 const Container = styled.div<{ span: Required<WidgetProps['span']>; isDragging: boolean }>`
   width: ${({ span, theme }) => calcWidgetWidth(span?.column, theme)};

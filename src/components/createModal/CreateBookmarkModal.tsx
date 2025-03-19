@@ -6,8 +6,8 @@ import IconWidget from '@/components/widget/icon/IconWidget';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { urlProtocol, validateUrl } from '@/utils/common';
-import { i18n } from '@/utils/string';
+import { urlProtocol, validateUrl } from '@/lib/utils/common';
+import { i18n } from '@/lib/utils/string';
 
 import CreateWidgetModal from './_CreateWidgetModal';
 

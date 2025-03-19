@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { hexWithAlpha, pickCss, rgbWithAlpha } from '@/utils/style';
+import { hexWithAlpha, pickCss, rgbWithAlpha } from '@/lib/utils/style';
 
 describe('rgbWithAlpha', () => {
   it('should return rgba(255, 255, 255, 0.5)', () => {

@@ -1,6 +1,6 @@
 import { Theme } from '@emotion/react';
 
-import { rgbWithAlpha } from '@/utils/style';
+import { rgbWithAlpha } from '@/lib/utils/style';
 
 const lightPrimaryColor = 'rgb(150, 148, 255)' as const;
 

@@ -1,5 +1,5 @@
 export function deepMerge<T>(origin: T, newObject: Partial<T>): T {
-  const result: T = { ...origin };
+  const result: T = structuredClone(origin);
 
   for (const key in newObject) {
     const originValue = origin[key];

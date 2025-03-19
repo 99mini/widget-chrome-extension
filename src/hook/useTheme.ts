@@ -2,7 +2,7 @@ import { StateCreator, create } from 'zustand';
 
 import { syncGet, syncSet } from '@/chrome/storage';
 
-import { RegionType, ThemeModeType } from '@/types/theme';
+import { RegionType, ThemeModeType } from '@/lib/types/theme';
 
 type ThemeStoreType = {
   mode: ThemeModeType;

@@ -6,9 +6,8 @@ import { GoogleSearchWidget } from '@/components/widget/google';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { i18n } from '@/utils/string';
-
-import { GoogleWidgetType, SpanType, WidgetType } from '@/types/Widget';
+import { GoogleWidgetType, SpanType, WidgetType } from '@/lib/types/Widget';
+import { i18n } from '@/lib/utils/string';
 
 import { ID } from '../widget/google/GoogleSearchWidget';
 import CreateWidgetModal from './_CreateWidgetModal';

@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 
-import { i18n } from '@/utils/string';
+import { i18n } from '@/lib/utils/string';
 
 import { ModalBackground, ModalTitle } from './Modal.style';
 

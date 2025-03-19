@@ -4,11 +4,10 @@ import { create } from 'zustand';
 
 import { syncClear, syncGet, syncSet } from '@/chrome/storage';
 
-import { deepMerge } from '@/utils/object';
-import { increaseSuffixNumber } from '@/utils/string';
-import { isWidgetOf } from '@/utils/types';
-
-import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import { CustomWidgetType, WidgetBookmarkType, WidgetType } from '@/lib/types/Widget';
+import { deepMerge } from '@/lib/utils/object';
+import { increaseSuffixNumber } from '@/lib/utils/string';
+import { isWidgetOf } from '@/lib/utils/types';
 
 import useBookmarkStore from './useBookmark';
 

@@ -9,9 +9,8 @@ import EditWidgetMenu from '@/components/common/EditWidgetMenu';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { getIconPath } from '@/utils/icon';
-
-import { WidgetBookmarkType, WidgetType } from '@/types/Widget';
+import { WidgetBookmarkType, WidgetType } from '@/lib/types/Widget';
+import { getIconPath } from '@/lib/utils/icon';
 
 import Widget from '../root/Widget';
 

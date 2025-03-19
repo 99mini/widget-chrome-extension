@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { deepMerge } from '@/utils/object';
+import { deepMerge } from '@/lib/utils/object';
 
 describe('deepMerge', () => {
   it('should merge two objects', () => {

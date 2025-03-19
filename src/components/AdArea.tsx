@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { pickCss } from '@/utils/style';
+import { pickCss } from '@/lib/utils/style';
 
 const Container = styled.div`
   flex: 1;

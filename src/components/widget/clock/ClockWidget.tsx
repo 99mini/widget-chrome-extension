@@ -6,10 +6,9 @@ import EditWidgetMenu from '@/components/common/EditWidgetMenu';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { formatDate } from '@/utils/day';
-import { i18n } from '@/utils/string';
-
-import { ClockWidgetType, WidgetType } from '@/types/Widget';
+import { ClockWidgetType, WidgetType } from '@/lib/types/Widget';
+import { formatDate } from '@/lib/utils/day';
+import { i18n } from '@/lib/utils/string';
 
 import Widget, { WidgetProps } from '../root/Widget';
 

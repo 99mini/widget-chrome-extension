@@ -11,9 +11,8 @@ import WidgetLayout from '@/components/widget/root/WidgetLayout';
 
 import useWidget from '@/hook/useWidget';
 
-import { isWidgetOf } from '@/utils/types';
-
-import { ClockWidgetType, GoogleWidgetType, HistoryWidgetType, WidgetBookmarkType } from '@/types/Widget';
+import { ClockWidgetType, GoogleWidgetType, HistoryWidgetType, WidgetBookmarkType } from '@/lib/types/Widget';
+import { isWidgetOf } from '@/lib/utils/types';
 
 const Container = styled.div`
   height: 100%;

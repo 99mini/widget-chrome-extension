@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { i18n, increaseSuffixNumber } from '@/utils/string';
+import { i18n, increaseSuffixNumber } from '@/lib/utils/string';
 
 describe('i18n', () => {
   it('should return each language', () => {

@@ -22,9 +22,8 @@ import useClickAway from '@/hook/useClickAway';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { i18n } from '@/utils/string';
-
-import { RegionType } from '@/types/theme';
+import { RegionType } from '@/lib/types/theme';
+import { i18n } from '@/lib/utils/string';
 
 const ModalContainer = styled.div`
   display: flex;

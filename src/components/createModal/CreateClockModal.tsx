@@ -6,8 +6,6 @@ import ClockWidget, { ID } from '@/components/widget/clock/ClockWidget';
 import useThemeStore from '@/hook/useTheme';
 import useWidget from '@/hook/useWidget';
 
-import { i18n } from '@/utils/string';
-
 import {
   CLOCK_FORMAT_OPTIONS,
   ClockFormatType,
@@ -15,7 +13,8 @@ import {
   SPAN_OPTIONS,
   SpanType,
   WidgetType,
-} from '@/types/Widget';
+} from '@/lib/types/Widget';
+import { i18n } from '@/lib/utils/string';
 
 import CreateWidgetModal from './_CreateWidgetModal';
 

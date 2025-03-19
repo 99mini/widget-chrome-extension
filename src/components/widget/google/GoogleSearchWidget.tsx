@@ -10,9 +10,8 @@ import Widget, { WidgetProps } from '@/components/widget/root/Widget';
 
 import useThemeStore from '@/hook/useTheme';
 
-import { i18n } from '@/utils/string';
-
-import { GoogleWidgetType, WidgetType } from '@/types/Widget';
+import { GoogleWidgetType, WidgetType } from '@/lib/types/Widget';
+import { i18n } from '@/lib/utils/string';
 
 const GoogleContainer = styled.div<{ multipleLine?: boolean }>`
   display: flex;
